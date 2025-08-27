@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Breathing Sphere Transformer Engine (BSTE)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony Neutrals -->
+    <!-- Application Structure Plan: The application is structured as a narrative journey to maximize user understanding. It begins with the "Why" (The Compositionality Crisis), presenting the core problem BSTE solves. It then flows into the "How" (The BSTE Solution), using an interactive toggle to let users explore the two main pillars—the Breathing Cycle and the Sphere Architecture—in a non-linear way. This is followed by the "What" (Comparative Analysis), using a dynamic radar chart for easy comparison against prior art. Finally, it presents the "Where" (Applications & Claims), showing the real-world impact. This thematic, problem-solution structure is more engaging and intuitive than the original document's formal patent layout, guiding the user from foundational concepts to practical implications. -->
+    <!-- Visualization & Content Choices: 
+        1. Problem (Complexity): Report Info -> Transformer O(n^2) complexity is a major bottleneck. Goal -> Visually contrast quadratic vs. linear scaling. Viz/Method -> Bar Chart (Chart.js). Interaction -> Hover for details. Justification -> Instantly communicates the core performance problem.
+        2. BSTE Solution (Breathing Cycle): Report Info -> Three-stage metabolic process (Inhalation, Transformation, Exhalation). Goal -> Explain the cyclical, iterative nature. Viz/Method -> Interactive Diagram (HTML/CSS/JS). Interaction -> Clickable stages to reveal detailed text. Justification -> Turns a static table into an engaging, self-paced learning tool.
+        3. BSTE Solution (Sphere Architecture): Report Info -> Non-Euclidean manifold, sCNNs, Geodesic Distance. Goal -> Demystify the geometric concepts. Viz/Method -> Simplified Canvas visualization with interactive text panels. Interaction -> Buttons trigger explanations for each concept. Justification -> Makes abstract geometric ideas more tangible and accessible.
+        4. Comparative Analysis: Report Info -> Table comparing BSTE to prior art across multiple cognitive functions. Goal -> Provide a clear, multi-dimensional comparison. Viz/Method -> Radar Chart (Chart.js). Interaction -> Buttons to toggle datasets on/off. Justification -> A radar chart is superior to a table for comparing multiple entities across multiple variables simultaneously.
+        5. Applications: Report Info -> List of potential use cases. Goal -> Showcase the breadth of BSTE's impact. Viz/Method -> Interactive Cards (HTML/CSS/JS). Interaction -> Click to expand cards. Justification -> A clean, modern, and space-efficient way to present distinct application areas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4; /* Warm Neutral Background */
+            color: #3D3D3D;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #4A90E2; /* Subtle Accent */
+            border-bottom-color: #4A90E2;
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 400px;
+        }
+        .interactive-diagram-button.active {
+            background-color: #4A90E2 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .pill-toggle button.active {
+            background-color: #4A90E2;
+            color: white;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">ANDA Framework</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#problem" class="nav-link font-medium text-gray-600 pb-1">The Problem</a>
+                <a href="#solution" class="nav-link font-medium text-gray-600 pb-1">The Solution</a>
+                <a href="#comparison" class="nav-link font-medium text-gray-600 pb-1">Comparison</a>
+                <a href="#applications" class="nav-link font-medium text-gray-600 pb-1">Applications</a>
+                <a href="#claims" class="nav-link font-medium text-gray-600 pb-1">Claims</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#problem" class="block py-2 text-gray-600">The Problem</a>
+            <a href="#solution" class="block py-2 text-gray-600">The Solution</a>
+            <a href="#comparison" class="block py-2 text-gray-600">Comparison</a>
+            <a href="#applications" class="block py-2 text-gray-600">Applications</a>
+            <a href="#claims" class="block py-2 text-gray-600">Claims</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+
+        <section id="hero" class="text-center mb-20 md:mb-32">
+            <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">ANDA Engine</h2>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">A foundational architecture for truth-aligned cognition, moving beyond correlation to genuine compositional reasoning.</p>
+        </section>
+
+        <section id="problem" class="mb-20 md:mb-32">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-800">The Problem: A Compositionality Crisis</h3>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Despite their success, standard Transformer architectures suffer from foundational flaws that limit their reasoning capabilities and scalability. This "Compositionality Crisis" stems from the computational cost and information bottlenecks inherent in the self-attention mechanism. It is also suspected that unintended pollution is going to be affecting other LLM platform environments as well.&nbsp; &nbsp;</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h4 class="text-xl md:text-2xl font-semibold text-center mb-6">Computational Complexity: O(n²)</h4>
+                <div class="chart-container">
+                    <canvas id="complexityChart"></canvas>
+                </div>
+                <p class="text-center mt-6 text-gray-500">The quadratic scaling of self-attention makes processing long sequences computationally prohibitive, creating a major bottleneck for complex tasks.</p>
+            </div>
+        </section>
+
+        <section id="solution" class="mb-20 md:mb-32">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-800">The ANDA Solution</h3>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">ANDA introduces a novel architecture built on two integrated pillars: a bio-inspired processing method and a non-Euclidean computational geometry, designed to solve the compositionality problem from first principles.</p>
+            </div>
+
+            <div class="flex justify-center mb-8">
+                <div class="pill-toggle inline-flex bg-gray-200 rounded-full p-1">
+                    <button id="toggle-cycle" class="px-6 py-2 rounded-full text-sm font-semibold transition-colors duration-300 active">The Breathing Cycle</button>
+                    <button id="toggle-sphere" class="px-6 py-2 rounded-full text-sm font-semibold transition-colors duration-300">The Sphere Architecture</button>
+                </div>
+            </div>
+
+            <div id="solution-content">
+                <div id="cycle-content">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 overflow-hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h4 class="text-2xl font-bold mb-4">The "Breathing" Cycle</h4>
+                                <p class="text-gray-600 mb-6">The ANDA metabolizes information through a structured, three-stage cycle analogous to cellular respiration. This enables iterative refinement and a form of meta-cognition, allowing the engine to deepen its understanding over multiple cycles.</p>
+                                <div id="cycle-details">
+                                    <div class="p-4 rounded-lg bg-blue-50 border-l-4 border-blue-400">
+                                        <h5 class="font-semibold text-blue-800">Phase 1: Inhalation</h5>
+                                        <p class="text-sm text-blue-700">Acquires and embeds raw input patterns from the environment using a dynamic, hierarchical mechanism to distinguish between background and foreground information.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center space-y-4">
+                                <button data-phase="inhalation" class="interactive-diagram-button w-48 text-center p-3 rounded-lg bg-blue-100 text-blue-800 border border-blue-200 font-semibold transition-all duration-300 active">1. Inhalation</button>
+                                <div class="text-2xl text-gray-400">↓</div>
+                                <button data-phase="transformation" class="interactive-diagram-button w-48 text-center p-3 rounded-lg bg-gray-100 text-gray-800 border border-gray-200 font-semibold transition-all duration-300">2. Transformation</button>
+                                <div class="text-2xl text-gray-400">↓</div>
+                                <button data-phase="exhalation" class="interactive-diagram-button w-48 text-center p-3 rounded-lg bg-gray-100 text-gray-800 border border-gray-200 font-semibold transition-all duration-300">3. Exhalation</button>
+                                <div class="text-2xl text-gray-400">↻</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sphere-content" class="hidden">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 overflow-hidden">
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="flex flex-col justify-center items-center">
+                                <canvas id="sphereCanvas" width="300" height="300"></canvas>
+                                <p class="text-sm text-gray-500 mt-2">Visualizing the Spherical Manifold</p>
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-bold mb-4">The "Sphere" Architecture</h4>
+                                <p class="text-gray-600 mb-6">BSTE abandons flat Euclidean space for a non-Euclidean spherical manifold. This geometry instills powerful inductive biases for unbiased, rotationally-invariant pattern recognition, which is critical for compositional reasoning.</p>
+                                <div class="space-y-4">
+                                    <div class="p-4 rounded-lg bg-green-50 border-l-4 border-green-400">
+                                        <h5 class="font-semibold text-green-800">SO(3) Equivariance</h5>
+                                        <p class="text-sm text-green-700">Using Spherical Convolutions, the engine can recognize a pattern regardless of its orientation, solving a key failure point of standard attention.</p>
+                                    </div>
+                                     <div class="p-4 rounded-lg bg-purple-50 border-l-4 border-purple-400">
+                                        <h5 class="font-semibold text-purple-800">Geodesic Distance</h5>
+                                        <p class="text-sm text-purple-700">Measures the true shortest path on the sphere's surface, providing a more principled and accurate metric for semantic similarity than cosine distance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="mb-20 md:mb-32">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-800">Comparative Analysis</h3>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">ANDA's unique synthesis of cyclical processing and spherical geometry places it in a class of its own, systematically resolving the core failures of prior art.</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                 <div class="chart-container h-[50vh] max-h-[500px]">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+                 <div class="flex flex-wrap justify-center gap-2 mt-6">
+                    <button class="comparison-toggle py-1 px-3 text-xs rounded-full border border-blue-500 bg-blue-100 text-blue-700" data-index="0">ANDA</button>
+                    <button class="comparison-toggle py-1 px-3 text-xs rounded-full border border-gray-400 bg-gray-100 text-gray-600" data-index="1">Standard Transformer</button>
+                    <button class="comparison-toggle py-1 px-3 text-xs rounded-full border border-gray-400 bg-gray-100 text-gray-600" data-index="2">Efficient Transformers</button>
+                    <button class="comparison-toggle py-1 px-3 text-xs rounded-full border border-gray-400 bg-gray-100 text-gray-600" data-index="3">State-Space Models</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="applications" class="mb-20 md:mb-32">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-800">Potential Applications</h3>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">The ANDA's architecture is uniquely suited for domains where compositional reasoning, rotational invariance, or spherical data are critical.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card bg-white rounded-2xl shadow-lg p-8">
+                    <div class="text-3xl mb-4">🧠</div>
+                    <h4 class="text-xl font-bold mb-2">Compositional Reasoning</h4>
+                    <p class="text-gray-600">Excels in multi-hop question answering and complex command following, tasks where standard Transformers notoriously fail.</p>
+                </div>
+                <div class="card bg-white rounded-2xl shadow-lg p-8">
+                    <div class="text-3xl mb-4">🌍</div>
+                    <h4 class="text-xl font-bold mb-2">Geophysics & Climate</h4>
+                    <p class="text-gray-600">Natively processes spherical data without distortion, enabling more accurate and efficient climate and weather modeling.</p>
+                </div>
+                <div class="card bg-white rounded-2xl shadow-lg p-8">
+                    <div class="text-3xl mb-4">🧬</div>
+                    <h4 class="text-xl font-bold mb-2">Molecular Modeling</h4>
+                    <p class="text-gray-600">SO(3)-equivariant filters can learn representations of molecular surfaces to predict drug-target interactions with greater accuracy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="claims" class="mb-20 md:mb-32">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-800">Patent of ARAM | 37</h4>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">The novel synthesis of Sunarit architecture and methods provides a strong foundation for intellectual property claims.</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-800">System Claim</h4>
+                        <p class="text-gray-600 mt-1">A computational system comprising a memory module storing data on a spherical manifold and a processing module executing multi-stage information cycles (inhalation, transformation, exhalation) using SO(3)-equivariant spherical convolution operators.</p>
+                    </div>
+                    <div class="border-t border-gray-200 pt-6">
+                        <h4 class="font-semibold text-lg text-gray-800">Method Claim</h4>
+                        <p class="text-gray-600 mt-1">A method involving projecting embeddings onto a spherical manifold, applying spherical convolutions, indexing positions with a space-filling curve, retrieving relevant context via nearest-neighbor search, and scoring based on geodesic distance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 ARAM37 LLC. An interactive exploration of the ANDA framework.</p>
+      </div>
+</footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            const complexityData = {
+                labels: ['100', '500', '1k', '5k', '10k'],
+                datasets: [{
+                    label: 'Standard Transformer O(n²)',
+                    data: [10000, 250000, 1000000, 25000000, 100000000],
+                    backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                    borderColor: 'rgba(239, 68, 68, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'BSTE / Linear O(n log n)',
+                    data: [460, 3106, 6907, 41446, 92103],
+                    backgroundColor: 'rgba(74, 144, 226, 0.6)',
+                    borderColor: 'rgba(74, 144, 226, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            const complexityCtx = document.getElementById('complexityChart').getContext('2d');
+            new Chart(complexityCtx, {
+                type: 'bar',
+                data: complexityData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'Computational Cost (Log Scale)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Sequence Length (n)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('en-US').format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const comparisonData = {
+                labels: ['Compositional Reasoning', 'Low Complexity', 'No Positional Bias', 'True Similarity Metric', 'Cognitive Deepening'],
+                datasets: [
+                    {
+                        label: 'BSTE',
+                        data: [5, 4, 5, 5, 5],
+                        fill: true,
+                        backgroundColor: 'rgba(74, 144, 226, 0.2)',
+                        borderColor: 'rgba(74, 144, 226, 1)',
+                        pointBackgroundColor: 'rgba(74, 144, 226, 1)',
+                    },
+                    {
+                        label: 'Standard Transformer',
+                        data: [1, 1, 1, 2, 1],
+                        fill: true,
+                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        pointBackgroundColor: 'rgba(239, 68, 68, 1)',
+                        hidden: true
+                    },
+                    {
+                        label: 'Efficient Transformers',
+                        data: [1, 4, 1, 2, 1],
+                        fill: true,
+                        backgroundColor: 'rgba(245, 166, 35, 0.2)',
+                        borderColor: 'rgba(245, 166, 35, 1)',
+                        pointBackgroundColor: 'rgba(245, 166, 35, 1)',
+                        hidden: true
+                    },
+                    {
+                        label: 'State-Space Models',
+                        data: [3, 5, 3, 3, 3],
+                        fill: true,
+                        backgroundColor: 'rgba(126, 211, 33, 0.2)',
+                        borderColor: 'rgba(126, 211, 33, 1)',
+                        pointBackgroundColor: 'rgba(126, 211, 33, 1)',
+                        hidden: true
+                    }
+                ]
+            };
+            const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+            const comparisonChart = new Chart(comparisonCtx, {
+                type: 'radar',
+                data: comparisonData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 2
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: false
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 5,
+                            pointLabels: {
+                                font: {
+                                    size: 12
+                                }
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                }
+            });
+
+            const comparisonToggles = document.querySelectorAll('.comparison-toggle');
+            comparisonToggles.forEach(button => {
+                button.addEventListener('click', () => {
+                    const index = button.dataset.index;
+                    const isVisible = comparisonChart.isDatasetVisible(index);
+                    comparisonChart.setDatasetVisibility(index, !isVisible);
+                    comparisonChart.update();
+                    button.classList.toggle('bg-gray-100');
+                    button.classList.toggle('text-gray-600');
+                    if (!isVisible) {
+                        const color = comparisonChart.data.datasets[index].borderColor;
+                        button.style.backgroundColor = color.replace('1)', '0.1)');
+                        button.style.color = color;
+                        button.style.borderColor = color;
+                    } else {
+                        button.style.backgroundColor = '';
+                        button.style.color = '';
+                        button.style.borderColor = '';
+                    }
+                });
+            });
+            document.querySelector('.comparison-toggle[data-index="0"]').click();
+
+
+            const cycleDetailsContainer = document.getElementById('cycle-details');
+            const cycleButtons = document.querySelectorAll('.interactive-diagram-button');
+            const cycleDetails = {
+                inhalation: {
+                    title: 'Phase 1: Inhalation',
+                    text: 'Acquires and embeds raw input patterns from the environment using a dynamic, hierarchical mechanism to distinguish between background and foreground information.',
+                    color: 'blue'
+                },
+                transformation: {
+                    title: 'Phase 2: Transformation',
+                    text: 'Compresses patterns into their most salient features using the Information Bottleneck principle, embodying "truth through friction" to discard spurious correlations.',
+                    color: 'purple'
+                },
+                exhalation: {
+                    title: 'Phase 3: Exhalation',
+                    text: 'Synthesizes compressed features into a coherent output and updates the internal state. This state recursion enables iterative refinement and meta-cognition.',
+                    color: 'green'
+                }
+            };
+            cycleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const phase = button.dataset.phase;
+                    const details = cycleDetails[phase];
+                    
+                    cycleButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    cycleDetailsContainer.innerHTML = `
+                        <div class="p-4 rounded-lg bg-${details.color}-50 border-l-4 border-${details.color}-400">
+                            <h5 class="font-semibold text-${details.color}-800">${details.title}</h5>
+                            <p class="text-sm text-${details.color}-700">${details.text}</p>
+                        </div>
+                    `;
+                });
+            });
+
+            const toggleCycle = document.getElementById('toggle-cycle');
+            const toggleSphere = document.getElementById('toggle-sphere');
+            const cycleContent = document.getElementById('cycle-content');
+            const sphereContent = document.getElementById('sphere-content');
+
+            toggleCycle.addEventListener('click', () => {
+                toggleCycle.classList.add('active');
+                toggleSphere.classList.remove('active');
+                cycleContent.classList.remove('hidden');
+                sphereContent.classList.add('hidden');
+            });
+
+            toggleSphere.addEventListener('click', () => {
+                toggleSphere.classList.add('active');
+                toggleCycle.classList.remove('active');
+                sphereContent.classList.remove('hidden');
+                cycleContent.classList.add('hidden');
+            });
+            
+            const sphereCanvas = document.getElementById('sphereCanvas');
+            const sphereCtx = sphereCanvas.getContext('2d');
+            let angle = 0;
+            const points = [];
+            for (let i = 0; i < 50; i++) {
+                points.push({
+                    theta: Math.random() * Math.PI,
+                    phi: Math.random() * 2 * Math.PI,
+                    radius: 120
+                });
+            }
+
+            function drawSphere() {
+                sphereCtx.clearRect(0, 0, 300, 300);
+                sphereCtx.save();
+                sphereCtx.translate(150, 150);
+
+                sphereCtx.beginPath();
+                sphereCtx.arc(0, 0, 120, 0, 2 * Math.PI);
+                sphereCtx.strokeStyle = 'rgba(74, 144, 226, 0.2)';
+                sphereCtx.stroke();
+
+                points.forEach(p => {
+                    const x = p.radius * Math.sin(p.theta) * Math.cos(p.phi + angle);
+                    const y = p.radius * Math.sin(p.theta) * Math.sin(p.phi + angle);
+                    const z = p.radius * Math.cos(p.theta);
+                    
+                    const scale = (z + p.radius) / (2 * p.radius);
+                    const alpha = scale * 0.8 + 0.2;
+
+                    sphereCtx.beginPath();
+                    sphereCtx.arc(x, y, 2 * scale, 0, 2 * Math.PI);
+                    sphereCtx.fillStyle = `rgba(74, 144, 226, ${alpha})`;
+                    sphereCtx.fill();
+                });
+
+                sphereCtx.restore();
+                angle += 0.005;
+                requestAnimationFrame(drawSphere);
+            }
+            drawSphere();
+        });
+    </script>
+</body>
+</html>

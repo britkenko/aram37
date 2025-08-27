@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Autonomous Ecosystem Restoration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues -->
+    <!-- Application Structure Plan: The infographic follows a problem-solution-impact narrative. It starts by establishing the 'Problem' with large, impactful statistics. It then introduces the 'Solution,' breaking down the innovative Biomimetic Restoration Pod (BRP). The 'Process' section visualizes the 4-phase operational workflow. Finally, the 'Advantage' section uses a comparative chart to highlight the invention's superiority over prior art. This structure guides the user logically from the 'why' to the 'what,' 'how,' and 'why it's better,' making complex patent information highly digestible. -->
+    <!-- Visualization & Content Choices: 1. Land Degradation Stats: Data Point -> Key statistics on deforestation and wildfires. Goal -> Inform. Chosen Visualization -> Single Big Number. Justification -> Immediately grabs attention and conveys the scale of the problem. Method -> HTML/CSS. 2. BRP Composition: Data Point -> Table 2 (BRP Formulation). Goal -> Compare (composition). Chosen Visualization -> Donut Chart. Justification -> Excellent for showing parts of a whole in a simple, visual format. Library -> Chart.js. 3. 4-Phase Restoration Cycle: Data Point -> Section 1.3 (End-to-End Process). Goal -> Organize (process). Chosen Visualization -> Flow Chart. Justification -> Clearly illustrates the cyclical and interconnected nature of the restoration method. Method -> HTML/CSS with Tailwind. 4. Prior Art Comparison: Data Point -> Table 1 (Comparative Analysis). Goal -> Compare (categories). Chosen Visualization -> Bar Chart. Justification -> Provides a direct, quantitative comparison of the invention against existing technologies across multiple features. Library -> Chart.js. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F7FF; /* Light Blue Background */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-8">
+
+        <!-- Header Section -->
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-[#003B73]">Healing the Planet, One Pod at a Time</h1>
+            <p class="mt-4 text-lg md:text-xl text-[#00509E]">An infographic on the revolutionary patent for autonomous ecosystem restoration.</p>
+        </header>
+
+        <!-- Section 1: The Problem -->
+        <section class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-[#003B73] mb-10">A Planet in Peril: The Scale of Land Degradation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-[#0074D9]">
+                    <p class="text-6xl font-extrabold text-[#0074D9]">4.1M</p>
+                    <p class="mt-2 text-lg font-semibold">Hectares of tropical rainforest lost in 2022 alone.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-[#0074D9]">
+                    <p class="text-6xl font-extrabold text-[#0074D9]">7M</p>
+                    <p class="mt-2 text-lg font-semibold">Acres of U.S. forest burn annually on average.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-[#0074D9]">
+                    <p class="text-6xl font-extrabold text-[#0074D9]">0-20%</p>
+                    <p class="mt-2 text-lg font-semibold">Typical success rate of drone seeding due to the "Verification Gap."</p>
+                </div>
+            </div>
+            <p class="mt-8 text-center max-w-3xl mx-auto text-lg text-[#00509E]">Traditional methods are too slow, costly, and ineffective. They lack a critical feedback loop, making large-scale restoration a "plant and pray" gamble.</p>
+        </section>
+
+        <!-- Section 2: The Solution - BRP -->
+        <section class="my-16 bg-white p-8 md:p-12 rounded-2xl shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-[#003B73] mb-4">The Solution: The Biomimetic Restoration Pod (BRP)</h2>
+                    <p class="text-lg mb-6 text-gray-700">The core of the invention is an intelligent, biodegradable micro-ecosystem. It's not just a seed; it's a life-support system designed for survival, containing everything a seed needs to thrive in harsh environments.</p>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#0074D9]">🌱</span><div><strong class="font-semibold">Structural Matrix:</strong> A biodegradable shell that provides protection and a slow-release carbon source.</div></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#0074D9]">💧</span><div><strong class="font-semibold">Binder/Hydrogel:</strong> Retains critical moisture and binds all components together.</div></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#0074D9]">🍄</span><div><strong class="font-semibold">Mycorrhizal Inoculant:</strong> Beneficial fungi that create a symbiotic root network, boosting nutrient and water uptake.</div></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#0074D9]">📡</span><div><strong class="font-semibold">Embedded Sensor:</strong> The game-changer. A tiny, passive sensor that reports soil conditions, closing the "Verification Gap."</div></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-[#003B73]">What's Inside a BRP?</h3>
+                    <div class="chart-container">
+                        <canvas id="brpCompositionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Process -->
+        <section class="my-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-[#003B73] mb-10">The 4-Phase Restoration Cycle: From Data to Forest</h2>
+            <p class="text-center max-w-3xl mx-auto text-lg mb-12 text-[#00509E]">This invention creates a closed-loop, adaptive system. It's a continuous cycle of planning, deploying, monitoring, and learning, making restoration a data-driven science.</p>
+            <div class="relative flex flex-col md:flex-row justify-between items-center w-full max-w-5xl mx-auto">
+                <!-- Process Steps -->
+                <div class="flex flex-col items-center w-full md:w-1/4 p-4 z-10">
+                    <div class="flex items-center justify-center w-20 h-20 rounded-full bg-[#0074D9] text-white text-3xl font-bold border-4 border-white shadow-lg">1</div>
+                    <div class="bg-white p-6 rounded-lg shadow-md mt-4 text-center">
+                        <h3 class="font-bold text-xl text-[#003B73]">Survey & Plan</h3>
+                        <p class="mt-2">UAVs with LiDAR create a 3D map. AI identifies the perfect micro-sites for planting.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center w-full md:w-1/4 p-4 z-10">
+                    <div class="flex items-center justify-center w-20 h-20 rounded-full bg-[#0074D9] text-white text-3xl font-bold border-4 border-white shadow-lg">2</div>
+                    <div class="bg-white p-6 rounded-lg shadow-md mt-4 text-center">
+                        <h3 class="font-bold text-xl text-[#003B73]">Deploy</h3>
+                        <p class="mt-2">A UAV swarm executes the plan, deploying thousands of BRPs per hour with precision.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center w-full md:w-1/4 p-4 z-10">
+                    <div class="flex items-center justify-center w-20 h-20 rounded-full bg-[#0074D9] text-white text-3xl font-bold border-4 border-white shadow-lg">3</div>
+                    <div class="bg-white p-6 rounded-lg shadow-md mt-4 text-center">
+                        <h3 class="font-bold text-xl text-[#003B73]">Monitor</h3>
+                        <p class="mt-2">UAVs act as "data mules," flying over the site to wirelessly collect data from BRP sensors.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center w-full md:w-1/4 p-4 z-10">
+                    <div class="flex items-center justify-center w-20 h-20 rounded-full bg-[#0074D9] text-white text-3xl font-bold border-4 border-white shadow-lg">4</div>
+                    <div class="bg-white p-6 rounded-lg shadow-md mt-4 text-center">
+                        <h3 class="font-bold text-xl text-[#003B73]">Analyze & Adapt</h3>
+                        <p class="mt-2">AI analyzes the data, verifies success, and informs future missions for continuous improvement.</p>
+                    </div>
+                </div>
+                <!-- Connecting Line -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-[#00509E] opacity-50 transform -translate-y-1/2" style="top: 40px;"></div>
+            </div>
+        </section>
+
+        <!-- Section 4: The Advantage -->
+        <section class="my-16 bg-white p-8 md:p-12 rounded-2xl shadow-xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-[#003B73] mb-4">The Decisive Advantage</h2>
+            <p class="text-center max-w-3xl mx-auto text-lg mb-10 text-gray-700">Compared to all previous methods, this invention is a leap forward in every critical metric, especially in its ability to monitor the environment and provide a data feedback loop for verification and learning.</p>
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const processLabel = (label) => {
+                if (label.length <= 16) return label;
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + word).length > 16) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                }
+                lines.push(currentLine.trim());
+                return lines;
+            };
+            
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                return Array.isArray(label) ? label.join(' ') : label;
+            };
+
+            // Chart 1: BRP Composition
+            const brpCtx = document.getElementById('brpCompositionChart').getContext('2d');
+            new Chart(brpCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Structural Matrix (PHA)', 
+                        'Binder/Hydrogel', 
+                        'Nutrient Source', 
+                        'Mycorrhizal Inoculant', 
+                        'Embedded Sensor'
+                    ],
+                    datasets: [{
+                        label: 'BRP Composition',
+                        data: [50, 20, 15, 1, 1], // Adjusted for visual clarity
+                        backgroundColor: ['#003B73', '#00509E', '#0074D9', '#7FDBFF', '#BDEBFF'],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 3,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 14 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed !== null) { label += context.parsed + '%'; }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Comparison Chart
+            const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+            const originalLabels = [
+                'Manual Planting', 
+                'Conventional Aerial Seeding', 
+                'Current Drone Seeding Systems', 
+                'The Present Invention'
+            ];
+            
+            new Chart(comparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        processLabel('In-Situ Micro-Environment Monitoring'),
+                        processLabel('Data Feedback Loop for Verification')
+                    ],
+                    datasets: [
+                        { label: originalLabels[0], data: [0, 0], backgroundColor: '#BDEBFF' },
+                        { label: originalLabels[1], data: [0, 0], backgroundColor: '#7FDBFF' },
+                        { label: originalLabels[2], data: [0, 0], backgroundColor: '#0074D9' },
+                        { label: originalLabels[3], data: [5, 5], backgroundColor: '#003B73' }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    const labels = ['None', 'Low', 'Moderate', 'High', 'Very High', 'Yes'];
+                                    return labels[value];
+                                }
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                font: { size: 14 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    const value = context.parsed.x;
+                                    const labels = ['None', 'Low', 'Moderate', 'High', 'Very High', 'Yes'];
+                                    label += labels[value];
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
