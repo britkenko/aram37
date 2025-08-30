@@ -1,197 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Explorer: 6G Dual-Mode Urban Network</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>6G247: Dual-Mode Urban Network | ARAM37</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: "Urban Harmony" - A calm, professional palette using warm neutrals (bg-stone-50), deep grays for text (text-slate-800), a supportive blue for primary actions (bg-sky-600), and a subtle amber for highlights (amber-400). -->
-    <!-- Application Structure Plan: The SPA is designed around a thematic, task-oriented structure rather than mirroring the patent's linear format. The goal is to facilitate user understanding through exploration. The structure includes: 1) A main header for core identity. 2) An interactive "Dual-Mode Operations" dashboard as the central focus, allowing users to toggle between Civilian and Defense modes to see system-wide changes. 3) A "Technology Core" section explaining the foundational pillars (6G, AI, Drones). 4) A "System Components" section for a detailed look at the hardware. 5) A "Performance & Specifications" section with data visualizations. This structure was chosen because the dual-mode capability is the invention's most unique feature, making it the ideal focal point for user interaction and learning. The flow encourages exploration from the general concept to specific details. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: 5G vs. 6G KPIs -> Goal: Compare -> Viz: Interactive Bar Chart (Chart.js) -> Interaction: Hover for details -> Justification: Clearly visualizes the order-of-magnitude improvement of 6G, which is critical to the invention's feasibility.
-        - Report Info: Civilian vs. Defense operations -> Goal: Organize & Compare -> Presentation: Interactive Toggle Switch with dynamic text/diagram updates -> Interaction: Click toggle -> Justification: Provides a clear, immediate understanding of the system's core duality, making an abstract concept tangible.
-        - Report Info: AI Threat Detection Process -> Goal: Organize/Change -> Viz: HTML/CSS Flowchart Diagram -> Interaction: Hover to highlight steps -> Justification: Simplifies a complex multi-stage process into a digestible visual flow.
-        - Report Info: Technical Specs (drone mass, speed, etc.) -> Goal: Inform -> Viz: Key-value table and HTML/CSS "gauges" -> Interaction: Static display -> Justification: Presents precise data in a clear, scannable format for technical users.
-        - Library/Method: Chart.js for canvas-based charts, Vanilla JS for all state management and DOM manipulation, Tailwind CSS for layout and styling. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-        .mode-toggle-label {
-            transition: all 0.3s ease;
-        }
-        .mode-toggle-bg:checked {
-            background-color: #dc2626; /* red-600 */
-        }
-        .flow-step {
-            transition: all 0.3s ease;
-        }
-        .flow-step:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-    </style>
 </head>
-<body class="text-slate-800">
-
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-sky-700">6G247</h1>
-            <div class="flex items-center space-x-4">
-                <a href="#overview" class="text-slate-600 hover:text-sky-600">Overview</a>
-                <a href="#operations" class="text-slate-600 hover:text-sky-600">Operations</a>
-                <a href="#technology" class="text-slate-600 hover:text-sky-600">Technology</a>
-                <a href="#specs" class="text-slate-600 hover:text-sky-600">Specifications</a>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
             </div>
-      </nav>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="#specs">Specs</a></li>
+                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-        
-        <section id="overview" class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">A Unified Network for a Smarter, Safer Green City</h2>
-            <p class="max-w-3xl mx-auto text-lg text-slate-600">
-                This interactive application explores a patented 6G-enabled modular network that transforms urban infrastructure. The system uses a swarm of micro-drones, managed by a central AI, to perform dual roles: providing helpful civilian services by default, and instantly converting into a coordinated defense system when a threat is detected. Explore the sections below to understand how this technology works.
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <h1>6G247</h1>
+            <p class="text-xl max-w-4xl mx-auto">
+                Dual-Mode Urban Network - A unified 6G system for smarter cities and instant defense transformation.
             </p>
         </section>
 
-        <section id="operations" class="mb-16 bg-white p-8 rounded-2xl shadow-lg">
-            <h3 class="text-3xl font-bold text-center mb-2">Dual-Mode Operations</h3>
-            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">The network's core innovation is its ability to seamlessly switch between two operational modes. Use the toggle below to see how the system's objectives, drone payloads, and AI priorities adapt in real-time.</p>
-            
-            <div class="flex justify-center items-center space-x-4 mb-10">
-                <span id="civilian-label" class="font-semibold text-sky-600 text-xl mode-toggle-label">Civilian Support</span>
-                <label for="mode-toggle" class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="mode-toggle" class="sr-only peer mode-toggle-bg">
-                    <div class="w-14 h-8 bg-sky-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600"></div>
-                </label>
-                <span id="defense-label" class="font-semibold text-slate-400 text-xl mode-toggle-label">Emergency Defense</span>
-            </div>
+        <main>
+            <!-- Overview Section -->
+            <section id="overview" class="content-card mb-12">
+                <h2>A Unified Network for a Smarter, Safer Green City</h2>
+                <p>
+                    This interactive application explores a patented 6G-enabled modular network that transforms urban infrastructure. The system uses a swarm of micro-drones, managed by a central AI, to perform dual roles: providing helpful civilian services by default, and instantly converting into a coordinated defense system when a threat is detected.
+                </p>
+            </section>
 
-            <div class="grid md:grid-cols-2 gap-8 items-start">
-                <div>
-                    <h4 id="mode-title" class="text-2xl font-bold mb-3 text-sky-700">Civilian Support Mode</h4>
-                    <p id="mode-description" class="text-slate-600 mb-6">In its default state, the network focuses on improving urban life. Drones are equipped with specialized tools to perform helpful tasks, coordinated by the AI to maximize efficiency and safety.</p>
-                    <div id="mode-details" class="space-y-4">
-                        <!-- JS will populate this section -->
-                    </div>
-                </div>
-                <div id="mode-diagram-container" class="bg-slate-100 p-6 rounded-xl h-full flex items-center justify-center min-h-[300px]">
-                    <!-- JS will populate this diagram -->
-                </div>
-            </div>
-        </section>
+            <!-- Operations Section -->
+            <section id="operations" class="content-card mb-12">
+                <h2>Dual-Mode Operations</h2>
+                <p class="text-center">
+                    The network's core innovation is its ability to seamlessly switch between two operational modes. Use the toggle below to see how the system's objectives, drone payloads, and AI priorities adapt in real-time.
+                </p>
 
-        <section id="technology" class="mb-16">
-            <h3 class="text-3xl font-bold text-center mb-10">The Technology Core</h3>
-            <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <h4 class="text-xl font-bold mb-2">6G: The Neural Network</h4>
-                    <p class="text-slate-600">6G communication is the backbone of the system, offering a quantum leap in performance over 5G. This enables the real-time, ultra-reliable coordination necessary for a massive swarm of autonomous devices.</p>
+                <!-- Mode Toggle -->
+                <div class="flex justify-center items-center space-x-4 my-8">
+                    <span id="civilian-label" class="font-semibold text-lg" style="color: var(--sky-blue-deep);">Civilian Support</span>
+                    <label for="mode-toggle" class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="mode-toggle" class="sr-only peer">
+                        <div class="w-14 h-7 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-500"></div>
+                    </label>
+                    <span id="defense-label" class="font-semibold text-lg text-gray-400">Emergency Defense</span>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <h4 class="text-xl font-bold mb-2">AI: The Central Brain</h4>
-                    <p class="text-slate-600">A central AI core analyzes data from the entire network, optimizes drone routes, manages missions, and, most critically, detects threats to decide when to switch the network to defense mode.</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <h4 class="text-xl font-bold mb-2">Drones: The Active Multi Agents</h4>
-                    <p class="text-slate-600">Lightweight, modular drones act as the system's hands and eyes. Their payloads can be automatically swapped at newsstand hubs, allowing them to adapt to different missions on demand.</p>
-                </div>
-            </div>
-            <div class="mt-12 bg-white p-8 rounded-2xl shadow-lg">
-                <h4 class="text-2xl font-bold text-center mb-6">Performances : 5G &amp; 6G</h4>
-                <div class="chart-container">
-                    <canvas id="techChart"></canvas>
-                </div>
-            </div>
-             <div class="mt-12 bg-white p-8 rounded-2xl shadow-lg">
-                <h4 class="text-2xl font-bold text-center mb-2">AI Threat Detection Flow</h4>
-                <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">The AI uses a two-stage process to identify threats with high accuracy, ensuring the system only enters defense mode when necessary. Hover over the steps to learn more.</p>
-                <div class="flex flex-col md:flex-row justify-center items-stretch space-y-4 md:space-y-0 md:space-x-4">
-                    <div class="flow-step bg-slate-50 border border-slate-200 p-4 rounded-lg flex-1 text-center">
-                        <div class="text-2xl mb-2">📡</div>
-                        <h5 class="font-bold">1. Data Ingestion</h5>
-                        <p class="text-sm text-slate-500">The AI continuously monitors data from thousands of network nodes (vehicles, drones, hubs).</p>
-                    </div>
-                    <div class="flex items-center justify-center text-2xl text-slate-400 font-mono">&rarr;</div>
-                    <div class="flow-step bg-slate-50 border border-slate-200 p-4 rounded-lg flex-1 text-center">
-                        <div class="text-2xl mb-2">🧠</div>
-                        <h5 class="font-bold">2. Anomaly Detection (LSTM)</h5>
-                        <p class="text-sm text-slate-500">A neural network identifies activity patterns that deviate from the learned "normal" urban rhythm.</p>
-                    </div>
-                    <div class="flex items-center justify-center text-2xl text-slate-400 font-mono">&rarr;</div>
-                    <div class="flow-step bg-slate-50 border border-slate-200 p-4 rounded-lg flex-1 text-center">
-                        <div class="text-2xl mb-2">⚖️</div>
-                        <h5 class="font-bold">3. Threat Classification (Bayesian)</h5>
-                        <p class="text-sm text-slate-500">A probabilistic model fuses evidence to calculate the likelihood that an anomaly is a genuine threat.</p>
-                    </div>
-                     <div class="flex items-center justify-center text-2xl text-slate-400 font-mono">&rarr;</div>
-                    <div class="flow-step bg-red-50 border border-red-200 p-4 rounded-lg flex-1 text-center">
-                        <div class="text-2xl mb-2">🚨</div>
-                        <h5 class="font-bold">4. Mode Switch Trigger</h5>
-                        <p class="text-sm text-slate-500">If threat probability exceeds 80%, the AI triggers the switch to Emergency Defense Mode.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="specs" class="mb-16 bg-white p-8 rounded-2xl shadow-lg">
-            <h3 class="text-3xl font-bold text-center mb-8">System Components & Specifications</h3>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-slate-50 p-6 rounded-xl">
-                    <h4 class="font-bold text-lg mb-3">Micro-Drone</h4>
-                    <ul class="space-y-2 text-slate-600">
-                        <li><strong>Mass:</strong> 150 ± 25 g</li>
-                        <li><strong>Max Speed:</strong> 20 m/s</li>
-                        <li><strong>Flight Time:</strong> 15-25 mins</li>
-                        <li><strong>Payloads:</strong> Modular (LED, Gripper, DBBP)</li>
-                    </ul>
+                <!-- Mode Content -->
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <h3 id="mode-title" style="color: var(--sky-blue-deep);">Civilian Support Mode</h3>
+                        <p id="mode-description">
+                            In its default state, the network focuses on improving urban life. Drones are equipped with specialized tools to perform helpful tasks, coordinated by the AI to maximize efficiency and safety.
+                        </p>
+                        <div id="mode-details" class="space-y-4">
+                            <!-- JS will populate this section -->
+                        </div>
+                    </div>
+                    <div id="mode-diagram-container" class="bg-sky-50 rounded-xl p-6 h-full flex items-center justify-center min-h-[250px]">
+                        <!-- JS will populate this diagram -->
+                    </div>
                 </div>
-                <div class="bg-slate-50 p-6 rounded-xl">
-                    <h4 class="font-bold text-lg mb-3">Newsstand Hub</h4>
-                    <ul class="space-y-2 text-slate-600">
-                        <li><strong>Drone Capacity:</strong> 50 units</li>
-                        <li><strong>Power:</strong> Solar w/ Battery Backup</li>
-                        <li><strong>Function:</strong> Charge, Store, Reload Drones</li>
-                        <li><strong>Connectivity:</strong> 6G Backhaul</li>
-                    </ul>
-                </div>
-                <div class="bg-slate-50 p-6 rounded-xl">
-                    <h4 class="font-bold text-lg mb-3">DBBP Countermeasure</h4>
-                    <ul class="space-y-2 text-slate-600">
-                        <li><strong>Effective Radius:</strong> 20-40 m</li>
-                        <li><strong>Stage 1:</strong> Polymer Entanglement</li>
-                        <li><strong>Stage 2:</strong> Localized Graphene EM Pulse</li>
-                        <li><strong>Collateral Damage:</strong> Minimal</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <footer class="bg-slate-800 text-white mt-16">
-        <div class="container mx-auto px-8 py-6 text-center text-slate-400">
-            <p>This interactive application is a conceptual visualization based on patent filing information for the 6G-Enabled Modular Mobility and Dual-Mode Defense Network.</p>
-      </div>
-</footer>
+            <!-- Technology Section -->
+            <section id="technology" class="content-card mb-12">
+                <h2>The Technology Core</h2>
+                <div class="grid grid-cols-3 gap-8 my-8">
+                    <div class="feature-card">
+                        <span class="icon">📡</span>
+                        <h4>6G: The Neural Network</h4>
+                        <p class="text-sm">
+                            6G communication is the backbone of the system, offering a quantum leap in performance over 5G for real-time, ultra-reliable coordination.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🧠</span>
+                        <h4>AI: The Central Brain</h4>
+                        <p class="text-sm">
+                            A central AI core analyzes data, optimizes drone routes, manages missions, and detects threats to switch the network to defense mode.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🚁</span>
+                        <h4>Drones: The Active Multi Agents</h4>
+                        <p class="text-sm">
+                            Lightweight, modular drones act as the system's hands and eyes. Their payloads can be automatically swapped at hubs to adapt to missions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="dancheon-accent-border">
+                    <div class="content-card">
+                        <h3 class="text-center">Performance: 5G vs 6G</h3>
+                        <div class="chart-container">
+                            <canvas id="techChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Specifications Section -->
+            <section id="specs" class="content-card">
+                <h2>System Components & Specifications</h2>
+                <div class="grid grid-cols-3 gap-8 mt-8">
+                    <!-- Micro-Drone -->
+                    <div class="feature-card">
+                        <h4 class="font-bold text-xl mb-4">Micro-Drone</h4>
+                        <ul class="text-left space-y-2">
+                            <li><strong>Mass:</strong> 150 ± 25 g</li>
+                            <li><strong>Max Speed:</strong> 20 m/s</li>
+                            <li><strong>Flight Time:</strong> 15-25 mins</li>
+                            <li><strong>Payloads:</strong> Modular</li>
+                        </ul>
+                    </div>
+                    <!-- Newsstand Hub -->
+                    <div class="feature-card">
+                        <h4 class="font-bold text-xl mb-4">Newsstand Hub</h4>
+                        <ul class="text-left space-y-2">
+                            <li><strong>Drone Capacity:</strong> 50 units</li>
+                            <li><strong>Power:</strong> Solar w/ Battery</li>
+                            <li><strong>Function:</strong> Charge, Store, Reload</li>
+                            <li><strong>Connectivity:</strong> 6G Backhaul</li>
+                        </ul>
+                    </div>
+                    <!-- DBBP Countermeasure -->
+                    <div class="feature-card">
+                        <h4 class="font-bold text-xl mb-4">DBBP Countermeasure</h4>
+                        <ul class="text-left space-y-2">
+                            <li><strong>Effective Radius:</strong> 20-40 m</li>
+                            <li><strong>Stage 1:</strong> Polymer Entanglement</li>
+                            <li><strong>Stage 2:</strong> EM Pulse</li>
+                            <li><strong>Collateral Damage:</strong> Minimal</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2024 ARAM37. All rights reserved. | Powered by 6G Dual-Mode Technology</p>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -213,16 +179,9 @@
                 ],
                 diagram: `
                     <div class="text-center">
-                        <div class="mb-4 text-6xl animate-pulse">🏙️</div>
+                        <div class="mb-4 text-5xl">🏙️</div>
                         <h5 class="font-bold text-lg">A City in Harmony</h5>
-                        <p class="text-slate-500">Drones perform helpful tasks, vehicles relay data, and hubs coordinate operations for a smarter, more efficient urban environment.</p>
-                        <div class="flex justify-around items-center mt-6 text-3xl">
-                            <span>🧒</span>
-                            <span class="text-slate-300 font-mono">&harr;</span>
-                            <span>🌿</span>
-                            <span class="text-slate-300 font-mono">&harr;</span>
-                            <span>🚲</span>
-                        </div>
+                        <p class="text-sm text-slate-600">Drones perform helpful tasks for a smarter, more efficient urban environment.</p>
                     </div>
                 `
             };
@@ -233,42 +192,32 @@
                 details: [
                     { icon: '🚨', title: 'Instant Asset Re-tasking', text: 'All available drones are recalled, re-armed with DBBP capsules, and launched towards intercept vectors.' },
                     { icon: '🛡️', title: 'Coordinated Defensive Screen', text: 'The AI organizes drones into an optimal formation to create a protective barrier between the threat and civilian areas.' },
-                    { icon: '💥', title: 'DBBP Countermeasure', text: 'Drones deploy a two-stage payload: polymer filaments to entangle propellers and a localized EM pulse to disable electronics with minimal collateral damage.' }
+                    { icon: '💥', title: 'DBBP Countermeasure', text: 'Drones deploy a two-stage payload: polymer filaments to entangle propellers and a localized EM pulse to disable electronics.' }
                 ],
                 diagram: `
                     <div class="text-center">
-                        <div class="mb-4 text-6xl">💥</div>
-                        <h5 class="font-bold text-lg text-red-700">Threat Neutralization</h5>
-                        <p class="text-slate-500">Defender drones form a screen to intercept and neutralize an invasive swarm using targeted DBBP countermeasures.</p>
-                        <div class="flex justify-center items-center mt-6 space-x-4">
-                            <span class="text-3xl">🛡️🛡️🛡️</span>
-                            <span class="text-red-500 font-mono text-2xl font-bold">&rarr;</span>
-                            <span class="text-3xl animate-ping">🛸</span>
-                        </div>
+                        <div class="mb-4 text-5xl">💥</div>
+                        <h5 class="font-bold text-lg" style="color: var(--dancheon-red);">Threat Neutralization</h5>
+                        <p class="text-sm text-slate-600">Defender drones form a screen to intercept and neutralize an invasive swarm.</p>
                     </div>
                 `
             };
 
             function updateMode(isDefense) {
                 const data = isDefense ? defenseData : civilianData;
-                const primaryColor = isDefense ? 'red' : 'sky';
-                const secondaryColor = isDefense ? 'sky' : 'red';
-
-                civilianLabel.classList.toggle('text-sky-600', !isDefense);
-                civilianLabel.classList.toggle('text-slate-400', isDefense);
-                defenseLabel.classList.toggle('text-red-600', isDefense);
-                defenseLabel.classList.toggle('text-slate-400', !isDefense);
+                civilianLabel.style.color = isDefense ? '#9ca3af' : 'var(--sky-blue-deep)';
+                defenseLabel.style.color = isDefense ? 'var(--dancheon-red)' : '#9ca3af';
 
                 modeTitle.textContent = data.title;
-                modeTitle.className = `text-2xl font-bold mb-3 text-${primaryColor}-700`;
+                modeTitle.style.color = isDefense ? 'var(--dancheon-red)' : 'var(--sky-blue-deep)';
                 modeDescription.textContent = data.description;
-                
+
                 modeDetails.innerHTML = data.details.map(item => `
-                    <div class="flex items-start">
-                        <div class="text-2xl mr-4">${item.icon}</div>
+                    <div class="flex items-start space-x-3">
+                        <div class="text-2xl flex-shrink-0 pt-1">${item.icon}</div>
                         <div>
-                            <h5 class="font-semibold">${item.title}</h5>
-                            <p class="text-sm text-slate-500">${item.text}</p>
+                            <h5 class="font-semibold mb-1">${item.title}</h5>
+                            <p class="text-sm">${item.text}</p>
                         </div>
                     </div>
                 `).join('');
@@ -291,15 +240,15 @@
                         {
                             label: '5G (Prior Art)',
                             data: [5, 1000000, 20],
-                            backgroundColor: 'rgba(14, 165, 233, 0.6)',
-                            borderColor: 'rgba(14, 165, 233, 1)',
+                            backgroundColor: 'rgba(125, 211, 252, 0.7)', // sky-300
+                            borderColor: 'rgba(56, 189, 248, 1)', // sky-400
                             borderWidth: 1
                         },
                         {
                             label: '6G (Invention)',
                             data: [0.1, 10000000, 1000],
-                            backgroundColor: 'rgba(2, 8, 22, 0.7)',
-                            borderColor: 'rgba(2, 8, 22, 1)',
+                            backgroundColor: 'rgba(248, 113, 113, 0.7)', // red-400
+                            borderColor: 'rgba(239, 68, 68, 1)', // red-500
                             borderWidth: 1
                         }
                     ]
@@ -311,33 +260,19 @@
                         y: {
                             type: 'logarithmic',
                             beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Value (Logarithmic Scale)'
-                            }
+                            title: { display: false },
+                            grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                            ticks: { color: '#334155' } // slate-700
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#334155' } // slate-700
                         }
                     },
                     plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += context.parsed.y.toLocaleString();
-                                    }
-                                    return label;
-                                }
-                            }
-                        },
                         legend: {
                             position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Key Performance Indicator Comparison'
+                            labels: { color: '#1e293b' } // slate-800
                         }
                     }
                 }

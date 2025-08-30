@@ -1,4 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -7,82 +8,112 @@
 }
 
 body {
-	color: #0900F4;
-	font-family: "TheGoodMonolith", monospace;
+	color: #1e40af;
+	font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
 	padding: 20px;
+	background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+	line-height: 1.6;
 }
 
 
 .layout-container {
-	width: 80%;
-	max-width: 900px;
-	margin: 20px auto 60px;
-	border: 1px solid #0E67FF;
+	width: 85%;
+	max-width: 1000px;
+	margin: 30px auto 80px;
+	border: 2px solid #3b82f6;
+	border-radius: 12px;
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(10px);
+	box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
 }
 
 .layout-header {
-  padding: 20px 30px;
-  border-bottom: 1px solid #002CBE;
-  height: 60px;
+  padding: 24px 32px;
+  border-bottom: 1px solid #dbeafe;
+  height: auto;
   display: flex;
   align-items: center;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 12px 12px 0 0;
 }
 
 .layout-title {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #1e40af;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .layout-progress {
-  padding: 20px 30px;
-  border-bottom: 1px solid #002CBE;
-  font-size: 14px;
+  padding: 24px 32px;
+  border-bottom: 1px solid #dbeafe;
+  font-size: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #ffffff;
 }
 
 .shortcut-info {
-  font-size: 12px;
-  opacity: 0.7;
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
 }
 
 .layout-services {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  background: #ffffff;
+  border-radius: 0 0 12px 12px;
 }
 
 .service-item {
-  padding: 20px 30px;
-  border-right: 1px solid #002CBE;
-  border-bottom: 1px solid #002CBE;
+  padding: 24px 32px;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.8) 100%);
+}
+
+.service-item:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 197, 253, 0.05) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
 .service-item h3 {
   margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 14px;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e40af;
+  line-height: 1.4;
 }
 
 .service-item p {
   margin: 0;
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151;
 }
 
 .service-item code {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2px 4px;
-  border-radius: 3px;
-  font-size: 10px;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #93c5fd;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
 }
 
 .service-item:nth-child(3n) {
@@ -95,11 +126,16 @@ body {
 
 /* Code formatting */
 pre {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border: 1px solid #cbd5e1;
+  padding: 16px;
   overflow-x: auto;
-  font-size: 10px;
-  margin: 10px 0;
+  font-size: 13px;
+  margin: 16px 0;
+  border-radius: 8px;
+  line-height: 1.5;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  color: #334155;
 }
 
 /* Tweakpane container */
@@ -116,7 +152,7 @@ pre {
   }
 
   .service-item:nth-child(3n) {
-    border-right: 1px solid #002CBE;
+    border-right: 1px solid #e5e7eb;
   }
 
   .service-item:nth-child(2n) {
@@ -124,7 +160,7 @@ pre {
   }
 
   .service-item:nth-last-child(-n + 3) {
-    border-bottom: 1px solid #002CBE;
+    border-bottom: 1px solid #e5e7eb;
   }
 
   .service-item:nth-last-child(-n + 2) {
@@ -142,6 +178,21 @@ pre {
   }
 
   .service-item:not(:last-child) {
-    border-bottom: 1px solid #002CBE !important;
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  .layout-container {
+    width: 95%;
+    margin: 20px auto 60px;
+  }
+
+  .layout-header,
+  .layout-progress,
+  .service-item {
+    padding: 20px;
+  }
+
+  .layout-title {
+    font-size: 24px;
   }
 }

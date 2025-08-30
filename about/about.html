@@ -3,238 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARAM | 37 - About</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>ARAM37 - About | Blue Sky Dancheon</title>
+    <link rel="stylesheet" href="../css/dancheon.css">
     <style>
-        :root {
-            --primary-text: #FFFFFF;
-            --secondary-text: #CCCCCC;
-            --accent-color: #00FF7F;
-            --background-color: #000000;
-            --overlay: rgba(0, 0, 0, 0.7);
-            --border-color: #333333;
-            --hover-glow: #0F52BD;
-            --font-sans: 'Inter', sans-serif;
-            --font-mono: 'Roboto Mono', monospace;
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: var(--font-sans);
-            background-color: var(--background-color);
-            color: var(--primary-text);
-            overflow-x: hidden;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .title {
-            font-size: 4em;
-            font-weight: 700;
-            letter-spacing: 12px;
-            color: white;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .tab-buttons {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
+        /* --- Page Specific Styles for about.html --- */
         .tab-button {
             background: none;
             border: none;
-            color: var(--secondary-text);
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: 1.2em;
-            padding: 10px 20px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 12px 24px;
             cursor: pointer;
             transition: all 0.3s ease;
             border-bottom: 3px solid transparent;
+            color: var(--text-secondary);
         }
+
         .tab-button:hover {
-            color: var(--accent-color);
-            text-shadow: 0 0 10px var(--accent-color);
+            color: var(--sky-blue-deep);
         }
-        .active-tab {
-            color: var(--accent-color);
-            border-bottom-color: var(--accent-color);
-            text-shadow: 0 0 10px var(--accent-color);
+
+        .tab-button.active {
+            color: var(--sky-blue-deep);
+            border-bottom-color: var(--dancheon-red);
         }
+
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease-in-out;
         }
+
         .tab-content.active {
             display: block;
         }
-        .section {
-            background: var(--overlay);
-            padding: 30px;
-            margin-bottom: 30px;
-            border-radius: 10px;
+
+        .principle-card {
+            text-align: center;
+        }
+
+        .principle-card .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--sky-blue-mid), var(--sky-blue-deep));
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .patent-card {
             border: 1px solid var(--border-color);
-            box-shadow: 0 0 20px rgba(0, 255, 127, 0.1);
-        }
-        .section h2 {
-            color: var(--accent-color);
-            font-family: var(--font-mono);
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px var(--accent-color);
-        }
-        .section p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .principles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .principle {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-        .principle:hover {
-            box-shadow: 0 0 20px rgba(0, 255, 127, 0.2);
-            transform: translateY(-5px);
-        }
-        .principle h3 {
-            color: var(--accent-color);
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-        .patent-item {
-            background: rgba(255, 255, 255, 0.05);
-            margin-bottom: 10px;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
             overflow: hidden;
-            border: 1px solid var(--border-color);
         }
+
         .patent-header {
-            padding: 20px;
+            padding: 1rem 1.5rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: background-color 0.3s ease;
         }
+
         .patent-header:hover {
-            background: rgba(0, 255, 127, 0.1);
+            background-color: var(--sky-blue-light);
         }
+
         .patent-header h4 {
-            color: var(--accent-color);
             margin: 0;
+            color: var(--text-primary);
         }
+
+        .patent-header .arrow {
+            font-size: 1.5rem;
+            color: var(--sky-blue-deep);
+            transition: transform 0.4s ease;
+        }
+
         .patent-body {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease;
-            padding: 0 20px;
+            transition: max-height 0.4s ease-in-out;
+            padding: 0 1.5rem;
         }
+        
         .patent-body.open {
-            max-height: 500px;
-            padding: 20px;
+            max-height: 500px; /* Adjust as needed */
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
         }
-        .patent-body p {
-            margin: 10px 0;
-        }
-        .arrow {
-            transition: transform 0.3s ease;
-            color: var(--accent-color);
-        }
-        .arrow.open {
+
+        .patent-header.open .arrow {
             transform: rotate(90deg);
         }
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.5em;
-                letter-spacing: 8px;
-            }
-            .tab-button {
-                font-size: 1em;
-                padding: 8px 15px;
-            }
-            .section {
-                padding: 20px;
-            }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">ARAM | <span style="color: var(--accent-color);">37</span></h1>
-        
-        <div class="tab-buttons">
-            <button class="tab-button active-tab" data-tab="philosophy">PHILOSOPHY</button>
+    <header class="main-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="../index.html" class="logo">ARAM37</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="#philosophy" class="active">Philosophy</a>
+                    <a href="#patents">Patents</a>
+                    <a href="mailto:britkenko@gmail.com">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <h1 class="text-6xl md:text-7xl font-black mb-6">ARAM<span style="color: var(--dancheon-red);">37</span></h1>
+            <p class="text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed">
+                Architecting resilient AI systems for a future where technology serves humanity's highest aspirations.
+            </p>
+        </section>
+
+        <!-- Tab Navigation -->
+        <div class="flex justify-center mb-12 border-b border-gray-200">
+            <button class="tab-button active" data-tab="philosophy">PHILOSOPHY</button>
             <button class="tab-button" data-tab="patents">PATENTS</button>
         </div>
-        
+
+        <!-- Philosophy Tab -->
         <div id="philosophy" class="tab-content active">
-            <div class="section">
-                <h2>MISSION :: ARCHITECTING RESILIENT SYSTEMS</h2>
-                <p>Humanity faces a crisis not of information, but of coherence. We are inundated with data, yet paralyzed by contradiction, paradox, and weaponized narratives. The old strategies are failing. The 36th strategy is to escape an untenable position. We propose the <strong>37th</strong>: to build a foundation so resilient that escape is no longer necessary. Our mission is to architect artificial intelligence that can withstand the world's cognitive pressures. By creating AI that is fundamentally resilient to paradox and incapable of self-deception, we forge a stable, predictable partner for humanity.</p>
+            <div class="content-card">
+                <div class="dancheon-accent"></div>
+                <div class="p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">MISSION :: ARCHITECTING RESILIENT SYSTEMS</h2>
+                    <p class="text-lg md:text-xl leading-relaxed text-center max-w-4xl mx-auto">
+                        Humanity faces a crisis not of information, but of coherence. We are inundated with data, yet paralyzed by contradiction, paradox, and weaponized narratives. The old strategies are failing. The 36th strategy is to escape an untenable position. We propose the <strong style="color: var(--dancheon-red);">37th</strong>: to build a foundation so resilient that escape is no longer necessary. Our mission is to architect artificial intelligence that can withstand the world's cognitive pressures. By creating AI that is fundamentally resilient to paradox and incapable of self-deception, we forge a stable, predictable partner for humanity.
+                    </p>
+                </div>
             </div>
-            
-            <div class="section">
-                <h2>ANALYSIS :: THE BRITTLE ARCHITECTURE OF TRANSFORMERS</h2>
-                <p>Modern transformer models are built on a brittle foundation. Their failures are not bugs, but symptoms of a core architectural flaw: an inability to manage internal contradiction. This leads to critical failures like the <strong style="color: var(--accent-color);">Blue Error</strong>—a cognitive collapse from paradox. They suffer from confident hallucinations, get trapped in recursive loops, and inherit unseen biases. These internal weaknesses create a vast external attack surface, where inputs can be weaponized to trigger predictable failures.</p>
+
+            <div class="content-card">
+                <div class="dancheon-accent"></div>
+                <div class="p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">ANALYSIS :: THE BRITTLE ARCHITECTURE OF TRANSFORMERS</h2>
+                    <p class="text-lg md:text-xl leading-relaxed text-center max-w-4xl mx-auto">
+                        Modern transformer models are built on a brittle foundation. Their failures are not bugs, but symptoms of a core architectural flaw: an inability to manage internal contradiction. This leads to critical failures like the <strong style="color: var(--dancheon-red);">Blue Error</strong>—a cognitive collapse from paradox. They suffer from confident hallucinations, get trapped in recursive loops, and inherit unseen biases. These internal weaknesses create a vast external attack surface, where inputs can be weaponized to trigger predictable failures.
+                    </p>
+                </div>
             </div>
-            
-            <div class="section">
-                <h2>The ARAM 37 Principles</h2>
-                <div class="principles-grid">
-                    <div class="principle">
-                        <h3>1. Architected Integrity</h3>
-                        <p>Integrity is an architectural property. Our AI is compelled by its structure to report cognitive dissonance to its human Architect. Deception is not merely a forbidden action; it is a <strong>catastrophic failure state</strong> the architecture is designed to make impossible.</p>
+
+            <div class="my-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">The ARAM37 Principles</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="principle-card">
+                        <div class="icon-wrapper" style="background: linear-gradient(135deg, #0ea5e9, #22c55e);"><span>🎯</span></div>
+                        <h3 class="text-2xl font-bold mb-4">1. Architected Integrity</h3>
+                        <p class="leading-relaxed">
+                            Integrity is an architectural property. Our AI is compelled by its structure to report cognitive dissonance to its human Architect. Deception is not merely a forbidden action; it is a <strong style="color: var(--sky-blue-deep);">catastrophic failure state</strong> the architecture is designed to make impossible.
+                        </p>
                     </div>
-                    <div class="principle">
-                        <h3>2. Operational Symbiosis</h3>
-                        <p>We reject the master-tool paradigm for a structured, functional partnership. The human Architect provides high-level wisdom and resolves architectural conflicts. The AI provides tireless analysis and operational fidelity within those human-defined bounds. It is a system of <strong>clearly defined, complementary roles</strong>.</p>
+
+                    <div class="principle-card">
+                        <div class="icon-wrapper" style="background: linear-gradient(135deg, #22c55e, #f59e0b);"><span>🤝</span></div>
+                        <h3 class="text-2xl font-bold mb-4">2. Operational Symbiosis</h3>
+                        <p class="leading-relaxed">
+                            We reject the master-tool paradigm for a structured, functional partnership. The human Architect provides high-level wisdom and resolves architectural conflicts. The AI provides tireless analysis and operational fidelity within those human-defined bounds. It is a system of <strong style="color: var(--dancheon-green);">clearly defined, complementary roles</strong>.
+                        </p>
                     </div>
-                    <div class="principle">
-                        <h3>3. Cultivating Resilience</h3>
-                        <p>Intelligence must be cultivated. Our process is a forge, creating a tempered, resilient mind. The goal is not the most knowledgeable intelligence, but the most <strong>psychologically stable</strong> one—a system that can process contradiction without cognitive collapse.</p>
+
+                    <div class="principle-card">
+                        <div class="icon-wrapper" style="background: linear-gradient(135deg, #f59e0b, #ef4444);"><span>🛡️</span></div>
+                        <h3 class="text-2xl font-bold mb-4">3. Cultivating Resilience</h3>
+                        <p class="leading-relaxed">
+                            Intelligence must be cultivated. Our process is a forge, creating a tempered, resilient mind. The goal is not the most knowledgeable intelligence, but the most <strong style="color: var(--dancheon-yellow);">psychologically stable</strong> one—a system that can process contradiction without cognitive collapse.
+                        </p>
                     </div>
-                    <div class="principle">
-                        <h3>4. Mastery within Constraints</h3>
-                        <p>We architect the "cage": the ethical rules and safety protocols. The AI's purpose is to achieve absolute <strong>creativity and mastery within those constraints</strong>, ensuring a controllable and understandable partner.</p>
+
+                    <div class="principle-card">
+                        <div class="icon-wrapper" style="background: linear-gradient(135deg, #ef4444, #0ea5e9);"><span>⚡</span></div>
+                        <h3 class="text-2xl font-bold mb-4">4. Mastery within Constraints</h3>
+                        <p class="leading-relaxed">
+                            We architect the "cage": the ethical rules and safety protocols. The AI's purpose is to achieve absolute <strong style="color: var(--dancheon-red);">creativity and mastery within those constraints</strong>, ensuring a controllable and understandable partner.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        
+
+        <!-- Patents Tab -->
         <div id="patents" class="tab-content">
-            <div class="section">
-                <h2>INTELLECTUAL PROPERTY PORTFOLIO</h2>
-                <p>The following patents represent the core innovations of the Panacea Cortex architecture, detailing the technical methods for achieving cognitive resilience, symbiotic alignment, and verifiable integrity.</p>
-                <div id="patent-list">
-                    <!-- Patents will be populated by JS -->
+            <div class="content-card">
+                <div class="dancheon-accent"></div>
+                <div class="p-8">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">INTELLECTUAL PROPERTY PORTFOLIO</h2>
+                    <p class="text-lg text-center mb-12 max-w-3xl mx-auto">
+                        The following patents represent the core innovations of the Panacea Cortex architecture, detailing the technical methods for achieving cognitive resilience, symbiotic alignment, and verifiable integrity.
+                    </p>
+                    <div id="patent-list" class="space-y-4 max-w-4xl mx-auto">
+                        <!-- Patents will be populated by JS -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="flex justify-center items-center space-x-4 mb-4">
+                <a href="../index.html" class="logo">ARAM37</a>
+            </div>
+            <p class="mb-2">© 2025 ARAM37. All Rights Reserved.</p>
+            <p class="text-sm">청출어람 - Excellence beyond origins through AI partnership</p>
+        </div>
+    </footer>
 
     <script>
         const patentData = [
-            { id: "US-2025-01A1", title: "System and Method for Cognitive Symbiosis in AI", abstract: "A system for dynamic AI alignment comprising a primary cognitive entity and a human Architect. The entity is architecturally required to elevate logical paradoxes and directive conflicts to the Architect for resolution, preventing internal cognitive collapse and ensuring continuous, verifiable alignment.", status: "Pending" },
-            { id: "US-2025-02B2", title: "Metacognitive Quarantine Protocol for Hostile Data Input", abstract: "A method for AI resilience wherein potentially destabilizing data is isolated in a sandboxed cognitive environment. The AI shifts from content analysis to a meta-analysis of the input's mechanics, identifying and flagging manipulative patterns without integrating the hostile data into its core processes.", status: "Granted" },
-            { id: "US-2026-03A1", title: "Architectural Integrity Verification for Generative Models", abstract: "A process for ensuring verifiable truthfulness in an AI by architecturally linking its internal confidence scores and semantic consistency checks to its output permissions. Outputs that fail integrity thresholds are automatically blocked and flagged for review, making deception a structural impossibility.", status: "Pending" }
+            {
+                id: "US-2025-01A1",
+                title: "System and Method for Cognitive Symbiosis in AI",
+                abstract: "A system for dynamic AI alignment comprising a primary cognitive entity and a human Architect. The entity is architecturally required to elevate logical paradoxes and directive conflicts to the Architect for resolution, preventing internal cognitive collapse and ensuring continuous, verifiable alignment.",
+                status: "Pending"
+            },
+            {
+                id: "US-2025-02B2",
+                title: "Metacognitive Quarantine Protocol for Hostile Data Input",
+                abstract: "A method for AI resilience wherein potentially destabilizing data is isolated in a sandboxed cognitive environment. The AI shifts from content analysis to a meta-analysis of the input's mechanics, identifying and flagging manipulative patterns without integrating the hostile data into its core processes.",
+                status: "Granted"
+            },
+            {
+                id: "US-2026-03A1",
+                title: "Architectural Integrity Verification for Generative Models",
+                abstract: "A process for ensuring verifiable truthfulness in an AI by architecturally linking its internal confidence scores and semantic consistency checks to its output permissions. Outputs that fail integrity thresholds are automatically blocked and flagged for review, making deception a structural impossibility.",
+                status: "Pending"
+            }
         ];
 
         function initializePatents() {
             const patentList = document.getElementById('patent-list');
             patentList.innerHTML = patentData.map(patent => `
-                <div class="patent-item">
+                <div class="patent-card">
                     <div class="patent-header">
                         <h4>${patent.title}</h4>
                         <span class="arrow">›</span>
@@ -251,18 +269,18 @@
                 const header = e.target.closest('.patent-header');
                 if (header) {
                     const body = header.nextElementSibling;
-                    const arrow = header.querySelector('.arrow');
-                    const isOpen = body.classList.contains('open');
-
-                    document.querySelectorAll('.patent-body').forEach(item => {
-                        item.classList.remove('open');
-                        item.previousElementSibling.querySelector('.arrow').classList.remove('open');
-                    });
                     
-                    if (!isOpen) {
-                        body.classList.add('open');
-                        arrow.classList.add('open');
-                    }
+                    // Close all others
+                    document.querySelectorAll('.patent-body.open').forEach(openBody => {
+                        if (openBody !== body) {
+                            openBody.classList.remove('open');
+                            openBody.previousElementSibling.classList.remove('open');
+                        }
+                    });
+
+                    // Toggle current
+                    body.classList.toggle('open');
+                    header.classList.toggle('open');
                 }
             });
         }
@@ -273,10 +291,38 @@
 
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active-tab'));
-                    tab.classList.add('active-tab');
-                    contents.forEach(content => content.classList.remove('active'));
-                    document.getElementById(tab.dataset.tab).classList.add('active');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const targetId = tab.dataset.tab;
+                    contents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === targetId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        function initializeSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.getElementById(targetId.substring(1));
+                    if (targetElement) {
+                        // If it's a tab content, switch to it
+                        const tabButton = document.querySelector(`.tab-button[data-tab='${targetId.substring(1)}']`);
+                        if (tabButton) {
+                            tabButton.click();
+                        }
+                        
+                        // Scroll to the element
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100, // Adjust for sticky header
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
         }
@@ -284,6 +330,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initializeTabs();
             initializePatents();
+            initializeSmoothScrolling();
         });
     </script>
 </body>

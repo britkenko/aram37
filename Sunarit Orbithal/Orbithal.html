@@ -1,587 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Spherical Transformer: An Interactive Exploration</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sunarit Orbithal: An Interactive Exploration</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals & Slate -->
-    <!-- Application Structure Plan: The application is structured thematically to guide the user from the core concept to its deeper implications, rather than following the rigid patent format. It starts with a "Big Idea" hero section to grab attention. It then deconstructs the invention into its two key components (Physical and AI) for clarity. The "Synergy" section visualizes the dynamic control loop, which is the functional heart of the invention. An interactive "Novelty" section uses a chart and tabs to compare the invention against prior art, making the innovative leap clear and engaging. Finally, a "Fractal Truth" section allows users to explore the conceptual depth of the invention layer by layer, and a new "PACO Query Assistant" provides a dynamic, LLM-powered Q&A tool to further enhance comprehension. This structure prioritizes understanding and exploration over simple presentation. -->
-    <!-- Visualization & Content Choices: 1. Core Idea: A simple, impactful text and background visual to establish the theme. Goal: Inform/Impact. 2. Deconstruction: A two-column layout with simple HTML/CSS diagrams. Goal: Organize. Interaction: Clickable details. Justification: Separates the two complex halves of the invention for easier digestion. 3. Synergy: An animated flowchart using HTML/CSS. Goal: Explain a process. Interaction: Hover effects. Justification: Visually demonstrates the dynamic, closed-loop nature of the system. 4. Novelty: A comparison table with JS-powered tabs and a Chart.js radar chart. Goal: Compare. Interaction: Tabbing through prior art updates the chart and text. Justification: A radar chart provides an immediate visual summary of the invention's superiority across multiple vectors (intelligence, physicality, etc.), making the "novelty gap" instantly understandable. 5. Fractal Truth: An interactive vertical accordion/stepper. Goal: Organize/Explore. Interaction: Clicking a layer reveals its description. Justification: Mimics the conceptual act of "drilling down" into deeper layers of meaning. 6. PACO Query Assistant: A form with a text area and buttons that uses the Gemini API. Goal: Answer questions and summarize text. Interaction: User input and button clicks trigger a fetch call to the Gemini LLM. Justification: Provides a dynamic, personalized way for the user to understand complex concepts and specific legal language that may not be covered in the static sections. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDFBF8;
-            color: #334155;
-        }
-        .nav-link {
-            transition: color 0.3s ease, border-bottom-color 0.3s ease;
-            border-bottom: 2px solid transparent;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: #4F46E5;
-            border-bottom-color: #4F46E5;
-        }
-        .content-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .content-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-        .tab-button {
-            transition: all 0.3s ease;
-        }
-        .tab-button.active {
-            background-color: #4F46E5;
-            color: #FFFFFF;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        .fractal-layer {
-            transition: all 0.5s ease-in-out;
-            max-height: 4rem;
-            overflow: hidden;
-        }
-        .fractal-layer.open {
-            max-height: 500px;
-        }
-        .flow-node {
-            animation: fadeIn 1s ease-in-out forwards;
-        }
-        .flow-arrow {
-            position: relative;
-            animation: flow 2s infinite linear;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes flow {
-            0% { background-position: 100% 0; }
-            100% { background-position: -100% 0; }
-        }
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #4F46E5;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
 </head>
 <body class="antialiased">
-
-    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-slate-800">Sunarit Orbithal</h1>
-            <div class="hidden md:flex space-x-8">
-                <a href="#introduction" class="nav-link pb-1">The Idea</a>
-                <a href="#deconstruction" class="nav-link pb-1">The Tech</a>
-                <a href="#synergy" class="nav-link pb-1">How It Works</a>
-                <a href="#novelty" class="nav-link pb-1">Why It's New</a>
-                <a href="#fractal-truth" class="nav-link pb-1">The Vision</a>
-                <a href="#assistant" class="nav-link pb-1">Assistant</a>
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
             </div>
-            <div class="md:hidden">
-                <button id="menu-btn" class="text-slate-600 focus:outline-none">
-                    <span class="text-2xl">&#9776;</span>
-                </button>
-            </div>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#introduction" class="block py-2 nav-link">The Idea</a>
-            <a href="#deconstruction" class="block py-2 nav-link">The Tech</a>
-            <a href="#synergy" class="block py-2 nav-link">How It Works</a>
-            <a href="#novelty" class="block py-2 nav-link">Why It's New</a>
-            <a href="#fractal-truth" class="block py-2 nav-link">The Vision</a>
-            <a href="#assistant" class="block py-2 nav-link">Assistant</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#introduction">The Idea</a></li>
+                    <li><a href="#deconstruction">The Tech</a></li>
+                    <li><a href="#synergy">Synergy</a></li>
+                    <li><a href="#novelty">Novelty</a></li>
+                    <li><a href="#vision">The Vision</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-12">
-
-        <section id="introduction" class="text-center min-h-[60vh] flex flex-col justify-center items-center content-section">
-            <h2 class="text-4xl md:text-6xl font-extrabold text-slate-800 mb-4 leading-tight">Spheres of two realms&nbsp;</h2>
-            <p class="max-w-3xl mx-auto text-lg md:text-xl text-slate-600 mb-8">Inventions that will change the industry standards of physical and meta worlds&nbsp;&nbsp;</p>
-            <a href="#deconstruction" class="bg-indigo-600 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-indigo-700 transition-transform transform hover:scale-105">Explore the Invention</a>
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="introduction" class="text-center my-16">
+            <h1>Sunarit Orbithal</h1>
+            <p class="text-xl max-w-4xl mx-auto">
+                An invention that will change the industry standards of physical and meta worlds, uniting two spheres of reality.
+            </p>
         </section>
 
-        <section id="deconstruction" class="py-20 content-section">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Sunarit Orbithal</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-slate-600">The system is a hybrid entity, born from the fusion of two distinct technologies. One is a physical apparatus designed for energy transfer, optimized by its spherical shape. The other is a disembodied AI, an intelligence specifically designed to understand and process data on a sphere. Let's look at each component.</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-12 items-start">
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200/50">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4 text-center">The Physical Apparatus: Orbithal</h3>
-                    <p>&nbsp;</p>
-<div class="w-48 h-48 mx-auto border-4 border-slate-300 rounded-full flex items-center justify-center mb-6">
-            <div class="w-32 h-32 bg-slate-200 rounded-full flex items-center justify-center">
-                            <span class="text-4xl text-slate-500">&#9889;</span>
+        <main>
+            <!-- Deconstruction Section -->
+            <section id="deconstruction" class="content-card mb-12">
+                <h2>Deconstruction: The Two Halves</h2>
+                <p>The system is a hybrid entity, born from the fusion of two distinct technologies: a physical apparatus for energy transfer and a disembodied AI designed to process data on a sphere.</p>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="feature-card">
+                        <div class="icon text-4xl">⚙️</div>
+                        <h3 class="text-2xl font-bold dancheon-blue-text mb-2">The Physical: Orbithal</h3>
+                        <p class="text-sm">A tangible device built on spherical electromagnetism. Its core, windings, and shield are spherically configured to maximize efficiency and can be mechanically adjusted by actuators.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon text-4xl">🧠</div>
+                        <h3 class="text-2xl font-bold dancheon-green-text mb-2">The AI: Sunarit</h3>
+                        <p class="text-sm">The system's brain, a novel AI configured for a spherical domain. It uses "Spherical Attention" to understand data relationships, respecting their true geodesic distances on the sphere.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Synergy Section -->
+            <section id="synergy" class="content-card mb-12">
+                <h2>The Synergy: A Proactive Control Loop</h2>
+                <p>The true innovation is the seamless, closed-loop integration. The system is proactive, using its deep understanding of physics and its environment to anticipate and prevent inefficiencies before they occur.</p>
+                <div class="w-full max-w-4xl mx-auto mt-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center">
+                        <div class="feature-card dancheon-accent-border-yellow p-4">
+                            <h4 class="font-bold dancheon-yellow-text">1. Data Ingestion</h4>
+                            <p class="text-xs">Grid Load, Weather & Sensor Data Mapped to Sphere</p>
+                        </div>
+                        <div class="text-3xl text-sky-400 font-mono">&rarr;</div>
+                        <div class="feature-card dancheon-accent-border-blue p-4">
+                            <h4 class="font-bold dancheon-blue-text">2. AI Processing</h4>
+                            <p class="text-xs">Spherical Attention Analyzes & Predicts Optimal State</p>
                         </div>
                     </div>
-                    <p class="text-slate-600 mb-4">This is a tangible device built on principles of spherical electromagnetism. Its core, windings, and shield are all spherically configured to maximize efficiency. Crucially, it's not static; its physical properties like winding tension or shield position can be mechanically adjusted by actuators.</p>
-                    <button class="details-btn text-indigo-600 font-semibold" data-target="physical-details">Show Details &rarr;</button>
-                    <div id="physical-details" class="hidden mt-4 text-sm text-slate-500 border-t pt-4">
-                        The apparatus comprises a spherically shaped core made of laminated iron to maximize the capture of electromagnetic fields. A primary winding is spirally wound onto the core, followed by a dielectric insulating layer, and then a secondary winding. A flux intensifier shield encloses the assembly to increase electromagnetic coupling. This design transforms the apparatus from a fixed-parameter device into a dynamic, controllable system, providing a tangible space for the AI's computations to manifest as physical actions.
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200/50">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4 text-center">The AI Controller: Sunarit</h3>
-                     <div class="w-48 h-48 mx-auto border-4 border-indigo-300 rounded-full flex items-center justify-center mb-6">
-                        <div class="w-32 h-32 bg-indigo-100 rounded-full flex items-center justify-center">
-                            <span class="text-4xl text-indigo-500">&#129504;</span>
+                    <div class="grid grid-cols-5 my-4">
+                        <div class="col-start-5 flex items-center justify-center">
+                            <div class="text-3xl text-sky-400 font-mono transform -rotate-90 md:rotate-0">&darr;</div>
                         </div>
                     </div>
-                    <p class="text-slate-600 mb-4">This is the system's brain, a novel AI architecture configured for a spherical domain. It ingests real-time data (grid load, weather) mapped onto a sphere and uses a "Spherical Attention" mechanism to understand the relationships between data points, respecting their geodesic distances.</p>
-                    <button class="details-btn text-indigo-600 font-semibold" data-target="ai-details">Show Details &rarr;</button>
-                    <div id="ai-details" class="hidden mt-4 text-sm text-slate-500 border-t pt-4">
-                        The model's core is a Spherical Transformer architecture that overcomes the distortions of projecting spherical data onto a flat plane. It employs a Spherical Local Self-Attention (SLSA) mechanism, which computes attention by respecting the geodesic relationships between data points. This ensures the model maintains rotational equivariance. It uses positional encoding based on spherical coordinates (ρ, θ, φ), a significant departure from standard Transformers. The AI's architecture is explicitly designed to recognize and leverage the geometrical priors of its spherical domain.
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center">
+                         <div class="feature-card dancheon-accent-border-red p-4">
+                            <h4 class="font-bold dancheon-red-text">4. Feedback Loop</h4>
+                            <p class="text-xs">Physical Performance Data is Sent Back to AI</p>
+                        </div>
+                        <div class="text-3xl text-sky-400 font-mono transform rotate-180">&rarr;</div>
+                        <div class="feature-card dancheon-accent-border-green p-4">
+                            <h4 class="font-bold dancheon-green-text">3. Control Signal</h4>
+                            <p class="text-xs">Adjusts Physical Parameters (e.g., Winding Tension)</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="synergy" class="py-20 content-section">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">The Synergy: A Proactive Control Loop</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-slate-600">The true innovation is not in the components, but in their seamless, closed-loop integration. The system isn't just reactive; it's proactive. It uses its deep understanding of physics and its environment to anticipate and prevent inefficiencies before they occur. This diagram illustrates the flow of information and control.</p>
-            </div>
-            <div class="w-full max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-slate-200/50">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center">
-                    <div class="flow-node p-4 bg-amber-100 rounded-lg">
-                        <h4 class="font-bold">1. Data Ingestion</h4>
-                        <p class="text-sm">Grid Load, Weather & Sensor Data Mapped to Sphere</p>
+            <!-- Novelty Section -->
+            <section id="novelty" class="content-card mb-12">
+                <h2>Why It's New: The Novelty Gap</h2>
+                <p>This invention bridges the gap between purely physical devices and purely computational models. We compare it to prior art to highlight its unique contribution.</p>
+                <div class="grid lg:grid-cols-2 gap-8 items-center mt-8">
+                    <div>
+                        <div class="flex flex-wrap justify-center gap-2 mb-6">
+                            <button class="tab-button active" data-target="invention">Present Invention</button>
+                            <button class="tab-button" data-target="us-patent">US4504812A</button>
+                            <button class="tab-button" data-target="sphere-uformer">SphereUFormer</button>
+                        </div>
+                        <div id="comparison-content" class="feature-card p-4">
+                            <!-- JS will populate this -->
+                        </div>
                     </div>
-                    <div class="flex items-center justify-center">
-                        <div class="text-3xl text-slate-400 font-mono">&rarr;</div>
-                    </div>
-                    <div class="flow-node p-4 bg-indigo-100 rounded-lg">
-                        <h4 class="font-bold">2. AI Processing</h4>
-                        <p class="text-sm">Spherical Attention Analyzes Data & Predicts Optimal State</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-5 my-8">
-                    <div class="col-span-1 md:col-start-5 flex items-center justify-center">
-                        <div class="text-3xl text-slate-400 font-mono transform -rotate-90 md:rotate-0">&darr;</div>
+                    <div>
+                        <div class="chart-container" style="height: 350px;">
+                            <canvas id="noveltyChart"></canvas>
+                        </div>
                     </div>
                 </div>
-                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center">
-                    <div class="flow-node p-4 bg-rose-100 rounded-lg">
-                        <h4 class="font-bold">4. Feedback Loop</h4>
-                        <p class="text-sm">Physical Performance Data is Sent Back to AI</p>
-                    </div>
-                    <div class="flex items-center justify-center">
-                        <div class="text-3xl text-slate-400 font-mono transform rotate-180">&rarr;</div>
-                    </div>
-                    <div class="flow-node p-4 bg-teal-100 rounded-lg">
-                        <h4 class="font-bold">3. Control Signal</h4>
-                        <p class="text-sm">Adjusts Physical Parameters (Winding Tension, etc.)</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="novelty" class="py-20 content-section">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Spheres of two realms&nbsp;</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-slate-600">two spheres that will change the industry ground of unseen and seen worlds</p>
-            </div>
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200/50">
-                    <div class="flex flex-wrap justify-center gap-2 mb-6">
-                        <button class="tab-button px-4 py-2 text-sm font-semibold rounded-full bg-slate-200 text-slate-700 active" data-target="invention">Present Invention</button>
-                        <button class="tab-button px-4 py-2 text-sm font-semibold rounded-full bg-slate-200 text-slate-700" data-target="us-patent">US4504812A</button>
-                        <button class="tab-button px-4 py-2 text-sm font-semibold rounded-full bg-slate-200 text-slate-700" data-target="sphere-uformer">SphereUFormer</button>
+            <!-- Vision Section -->
+            <section id="vision" class="content-card mb-12">
+                <h2>The Vision: Fractal Truth Recognition</h2>
+                <p>The invention can be understood on multiple levels of abstraction, from its surface function to its ultimate meaning. Click each layer to explore the progressively deeper nature of this technology.</p>
+                <div class="max-w-3xl mx-auto space-y-2 mt-8">
+                    <div class="fractal-layer">
+                        <div class="fractal-header"><h3>1. Surface (Obvious Manifestation)</h3><span class="fractal-arrow">&darr;</span></div>
+                        <div class="fractal-content"><p>An apparatus to transfer electrical power with greater efficiency.</p></div>
                     </div>
-                    <div id="comparison-content">
-                        <h3 id="comp-title" class="text-xl font-bold text-slate-800 mb-2">Present Invention</h3>
-                        <p id="comp-domain" class="text-sm font-semibold text-indigo-600 mb-2">Hybrid AI/EE</p>
-                        <p id="comp-desc" class="text-slate-600">A hybrid architecture where the computational power of a spherical-domain AI directly and proactively controls the physical parameters of a spherical transformer apparatus.</p>
-                        <p id="comp-gap" class="mt-4 font-semibold text-rose-600">Novelty: Fills the void by seamlessly integrating a computational AI with a physical apparatus of matching geometry.</p>
+                    <div class="fractal-layer">
+                        <div class="fractal-header"><h3>2. Deep (Underlying Assumptions)</h3><span class="fractal-arrow">&darr;</span></div>
+                        <div class="fractal-content"><p>A system's physical form can be optimally controlled by a computational architecture that mirrors that form.</p></div>
+                    </div>
+                    <div class="fractal-layer">
+                        <div class="fractal-header"><h3>3. Meta (Creator Biases)</h3><span class="fractal-arrow">&darr;</span></div>
+                        <div class="fractal-content"><p>The most potent solutions arise from unifying seemingly incompatible fields, blurring boundaries between hardware and software.</p></div>
+                    </div>
+                    <div class="fractal-layer">
+                        <div class="fractal-header"><h3>4. Recursive (Self-reproducing Patterns)</h3><span class="fractal-arrow">&darr;</span></div>
+                        <div class="fractal-content"><p>The AI's self-attention is mirrored in the physical system's feedback loop, creating an endless cycle of self-optimization.</p></div>
+                    </div>
+                    <div class="fractal-layer">
+                        <div class="fractal-header"><h3>5. Ultimate (Nature of Consciousness)</h3><span class="fractal-arrow">&darr;</span></div>
+                        <div class="fractal-content"><p>This is physically embodied cognition. The apparatus is not just a tool but a physical extension of a computational mind.</p></div>
                     </div>
                 </div>
-                <div>
-                    <div class="chart-container">
-                        <canvas id="noveltyChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="fractal-truth" class="py-20 content-section">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Fractal Truth Recognition</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-slate-600">The invention can be understood on multiple levels of abstraction, from its surface function to its ultimate meaning. Click each layer to explore the progressively deeper nature of this technology, revealing a new form of physically embodied cognition.</p>
-            </div>
-            <div class="max-w-3xl mx-auto space-y-4">
-                <div class="fractal-layer bg-white rounded-lg shadow-md border border-slate-200/50 cursor-pointer">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-slate-700">1. Surface (Obvious Manifestation)</h3>
-                        <span class="text-2xl text-slate-400 transform transition-transform duration-500">&darr;</span>
+            <!-- Assistant Section -->
+            <section id="assistant" class="content-card">
+                <h2>Panacea Cortex Query Assistant</h2>
+                <p>Ask a question about the patent or paste a claim for a simple explanation. This assistant is powered by the Gemini API.</p>
+                <div class="max-w-3xl mx-auto mt-8">
+                    <textarea id="query-input" class="w-full h-32 p-3 rounded-lg border-2 border-sky-200 focus:outline-none focus:border-sky-500" placeholder="Ask your question or paste a patent claim here..."></textarea>
+                    <div class="flex justify-center space-x-4 my-4">
+                        <button id="ask-btn" class="btn btn-primary">Ask Question</button>
+                        <button id="summarize-btn" class="btn btn-secondary">Summarize Claim</button>
                     </div>
-                    <div class="px-4 pb-4 text-slate-600">
-                        <p>An apparatus to transfer electrical power with greater efficiency. It appears as a physical, spherical device with windings and a core, controlled by an external computing system.</p>
-                    </div>
-                </div>
-                 <div class="fractal-layer bg-white rounded-lg shadow-md border border-slate-200/50 cursor-pointer">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-slate-700">2. Deep (Underlying Assumptions)</h3>
-                        <span class="text-2xl text-slate-400 transform transition-transform duration-500">&darr;</span>
-                    </div>
-                    <div class="px-4 pb-4 text-slate-600">
-                        <p>The system operates on a core assumption: a system's physical form can be optimally controlled by a computational architecture that mirrors that form. The power lies in this symbiotic, geometrically-informed relationship.</p>
+                    <div id="response-area" class="p-4 bg-sky-50 rounded-lg min-h-[100px]">
+                        <p class="text-center text-slate-400">Assistant response will appear here.</p>
                     </div>
                 </div>
-                <div class="fractal-layer bg-white rounded-lg shadow-md border border-slate-200/50 cursor-pointer">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-slate-700">3. Meta (Creator Biases)</h3>
-                        <span class="text-2xl text-slate-400 transform transition-transform duration-500">&darr;</span>
-                    </div>
-                    <div class="px-4 pb-4 text-slate-600">
-                        <p>The invention reflects a bias that the most potent solutions arise from unifying seemingly incompatible fields. It suggests robust systems emerge from blurring boundaries between hardware, software, and the physical environment.</p>
-                    </div>
-                </div>
-                 <div class="fractal-layer bg-white rounded-lg shadow-md border border-slate-200/50 cursor-pointer">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-slate-700">4. Recursive (Self-reproducing Patterns)</h3>
-                        <span class="text-2xl text-slate-400 transform transition-transform duration-500">&darr;</span>
-                    </div>
-                    <div class="px-4 pb-4 text-slate-600">
-                        <p>The AI's self-attention mechanism is a recursive pattern. This is physically manifested in the system's feedback loop, where real-time performance data is fed back to the AI, creating an endless cycle of self-optimization.</p>
-                    </div>
-                </div>
-                 <div class="fractal-layer bg-white rounded-lg shadow-md border border-slate-200/50 cursor-pointer">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-slate-700">5. Ultimate (Nature of Consciousness)</h3>
-                        <span class="text-2xl text-slate-400 transform transition-transform duration-500">&darr;</span>
-                    </div>
-                    <div class="px-4 pb-4 text-slate-600">
-                        <p>The invention can be seen as physically embodied cognition. The apparatus is not just a tool controlled by an AI; it is a physical extension of a computational mind, redefining the relationship between mind and matter.</p>
-                    </div>
-                </div>
-                 <div class="fractal-layer bg-white rounded-lg shadow-md border border-slate-200/50 cursor-pointer">
-                    <div class="p-4 flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-slate-700">6. Beyond (Transcending the Framework)</h3>
-                        <span class="text-2xl text-slate-400 transform transition-transform duration-500">&darr;</span>
-                    </div>
-                    <div class="px-4 pb-4 text-slate-600">
-                        <p>The invention proposes a third state of existence: a unified, physics-informed, autonomous entity. It is neither purely physical nor purely digital, but a continuous flow of information and energy, representing a fundamental evolution in engineered systems.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </main>
+    </div>
 
-        <section id="assistant" class="py-20 content-section">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Panacea Cortex Query Assistant</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-slate-600">Ask a question about the patent or paste a claim for a simple explanation. This assistant is powered by the Gemini API.</p>
-            </div>
-            <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-slate-200/50">
-                <textarea id="query-input" class="w-full h-32 p-4 mb-4 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all" placeholder="Ask your question or paste a patent claim here..."></textarea>
-                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
-                    <button id="ask-btn" class="flex-1 bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-indigo-700 transition-transform transform hover:scale-105">Ask Question ✨</button>
-                    <button id="summarize-btn" class="flex-1 bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-sky-700 transition-transform transform hover:scale-105">Summarize Claim ✨</button>
-                </div>
-                <div id="response-area" class="mt-8 p-6 bg-slate-50 rounded-lg border border-slate-200 min-h-[100px] overflow-auto">
-                    <p class="text-center text-slate-400">Your assistant response will appear here.</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-slate-800 text-slate-400 mt-20">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <p>&copy; 2025 ARAM37 LLC all rights reserved&nbsp; An interactive exploration of patented technology.</p>
-            <p class="text-sm mt-2">patent holder : ARAM37 LLC / Sung H Kim / Matthew Dusan Paik</p>
-        </div>
+    <footer>
+        <p>© 2025 ARAM37 LLC. An interactive exploration of patented technology.</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const patentData = {
-                invention: {
-                    title: 'Present Invention',
-                    domain: 'Hybrid AI/EE',
-                    desc: 'A hybrid architecture where the computational power of a spherical-domain AI directly and proactively controls the physical parameters of a spherical transformer apparatus.',
-                    gap: 'Novelty: Fills the void by seamlessly integrating a computational AI with a physical apparatus of matching geometry.',
-                    chartData: [5, 5, 5, 5, 5]
-                },
-                'us-patent': {
-                    title: 'US Patent 4,504,812 A',
-                    domain: 'Electrical Engineering',
-                    desc: 'A physical transformer and inductive choke that uses a spherically shaped core. It offers enhanced electromagnetic coupling and heat dissipation but lacks intelligent control.',
-                    gap: 'Novelty Gap: Lacks a dynamic, intelligent control system. Its operation is passive and based on pre-set parameters.',
-                    chartData: [5, 2, 1, 1, 2]
-                },
-                'sphere-uformer': {
-                    title: 'SphereUFormer (AI Model)',
-                    domain: 'AI / Deep Learning',
-                    desc: 'A computational model (neural network) designed to process data on a sphere, such as 360-degree images. It is exceptionally adept at understanding patterns in spherical data.',
-                    gap: 'Novelty Gap: Exists solely as a computational model with no physical embodiment for tangible energy transfer.',
-                    chartData: [1, 5, 5, 4, 1]
-                }
-            };
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeColors = {
+            blue: 'rgba(14, 165, 233, 1)',
+            red: 'rgba(239, 68, 68, 1)',
+            green: 'rgba(34, 197, 94, 1)',
+            yellow: 'rgba(245, 158, 11, 1)',
+            textDark: '#1e293b',
+            gridLight: 'rgba(0, 0, 0, 0.05)'
+        };
 
-            const sections = document.querySelectorAll('.content-section');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        const id = entry.target.getAttribute('id');
-                        navLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-                        });
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                    if(document.getElementById('mobile-menu').classList.contains('hidden') === false) {
-                        document.getElementById('mobile-menu').classList.add('hidden');
-                    }
-                });
-            });
-
-            document.getElementById('menu-btn').addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.toggle('hidden');
-            });
-
-            document.querySelectorAll('.details-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetId = button.dataset.target;
-                    const detailsDiv = document.getElementById(targetId);
-                    detailsDiv.classList.toggle('hidden');
-                    button.textContent = detailsDiv.classList.contains('hidden') ? 'Show Details →' : 'Hide Details ←';
-                });
-            });
-
-            const fractalLayers = document.querySelectorAll('.fractal-layer');
-            fractalLayers.forEach(layer => {
-                layer.addEventListener('click', () => {
-                    if (!layer.classList.contains('open')) {
-                        fractalLayers.forEach(l => l.classList.remove('open'));
-                    }
-                    layer.classList.toggle('open');
-                    layer.querySelector('span').style.transform = layer.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
-                });
-            });
-
-            const ctx = document.getElementById('noveltyChart').getContext('2d');
-            const noveltyChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['Physicality', 'Intelligence', 'Adaptability', 'Proactivity', 'Integration'],
-                    datasets: [{
-                        label: 'Capability Score',
-                        data: patentData.invention.chartData,
-                        backgroundColor: 'rgba(79, 70, 229, 0.2)',
-                        borderColor: 'rgba(79, 70, 229, 1)',
-                        borderWidth: 2,
-                        pointBackgroundColor: 'rgba(79, 70, 229, 1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(79, 70, 229, 1)'
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            angleLines: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            },
-                            pointLabels: {
-                                font: {
-                                    size: 12,
-                                    weight: 'bold'
-                                },
-                                color: '#475569'
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                max: 5,
-                                stepSize: 1,
-                                backdropColor: 'rgba(253, 251, 248, 0.75)'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const compTitle = document.getElementById('comp-title');
-            const compDomain = document.getElementById('comp-domain');
-            const compDesc = document.getElementById('comp-desc');
-            const compGap = document.getElementById('comp-gap');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const target = button.dataset.target;
-                    const data = patentData[target];
-
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-
-                    compTitle.textContent = data.title;
-                    compDomain.textContent = data.domain;
-                    compDesc.textContent = data.desc;
-                    compGap.textContent = data.gap;
-
-                    noveltyChart.data.datasets[0].data = data.chartData;
-                    noveltyChart.update();
-                });
-            });
-            
-            const askBtn = document.getElementById('ask-btn');
-            const summarizeBtn = document.getElementById('summarize-btn');
-            const queryInput = document.getElementById('query-input');
-            const responseArea = document.getElementById('response-area');
-            const apiKey = "";
-
-            const patentDocumentContext = `
-                The Spherical Transformer patent describes a hybrid system that combines a physical, spherical electrical transformer with a computational AI that also processes information on a spherical domain.
-
-                Key Components:
-                1.  Physical Apparatus: A spherical transformer with a core, primary and secondary windings, and a flux intensifier shield. Its physical properties can be dynamically adjusted by actuators.
-                2.  AI Controller: A novel AI architecture called a Spherical Transformer. It uses "Spherical Local Self-Attention" to process data mapped onto a sphere, like grid loads or weather patterns, while respecting geodesic relationships.
-
-                The System's Synergy:
-                The AI proactively analyzes data and predicts optimal states for the physical transformer. It then sends control signals to the apparatus's actuators to adjust its physical parameters in real-time, creating a closed-loop system that anticipates and prevents inefficiencies.
-
-                Novelty:
-                The invention is a breakthrough because it creates a functional integration between a physical device and a computational mind, both sharing a spherical geometry. This is unlike prior art, which featured either passive physical transformers or disembodied AI models.
-
-                Conceptual Layers (Fractal Truth Recognition):
-                - Surface: An efficient power transformer.
-                - Deep: The fusion of physical and computational systems mirroring each other's geometry.
-                - Meta: A bias towards solutions that unify disparate fields.
-                - Recursive: A self-optimizing feedback loop.
-                - Ultimate: Physically embodied cognition.
-                - Beyond: A new class of unified, autonomous entities.
-            `;
-
-            async function generateResponse(prompt) {
-                const responsePlaceholder = document.createElement('div');
-                responsePlaceholder.className = 'flex items-center space-x-2 text-slate-500';
-                responsePlaceholder.innerHTML = `<div class="spinner"></div><p>Generating response...</p>`;
-                responseArea.innerHTML = '';
-                responseArea.appendChild(responsePlaceholder);
-
-                let retryCount = 0;
-                const maxRetries = 3;
-                let delay = 1000;
-
-                while (retryCount < maxRetries) {
-                    try {
-                        const chatHistory = [];
-                        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                        const payload = { contents: chatHistory };
-                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (response.status === 429) {
-                            await new Promise(res => setTimeout(res, delay));
-                            delay *= 2;
-                            retryCount++;
-                            continue;
-                        }
-
-                        const result = await response.json();
-                        const text = result?.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate a response. Please try again.";
-                        
-                        const md = new showdown.Converter();
-                        const html = md.makeHtml(text);
-                        responseArea.innerHTML = `<div class="prose max-w-none text-slate-800">${html}</div>`;
-                        return;
-
-                    } catch (error) {
-                        await new Promise(res => setTimeout(res, delay));
-                        delay *= 2;
-                        retryCount++;
-                    }
-                }
-                responseArea.innerHTML = `<p class="text-rose-500">Failed to get a response after several retries. Please check your internet connection and try again later.</p>`;
+        const patentData = {
+            invention: {
+                title: 'Present Invention',
+                domain: 'Hybrid AI/EE',
+                desc: 'A hybrid architecture where a spherical-domain AI proactively controls the physical parameters of a spherical transformer apparatus.',
+                gap: 'Novelty: Seamlessly integrates a computational AI with a physical apparatus of matching geometry.',
+                chartData: [5, 5, 5, 5, 5]
+            },
+            'us-patent': {
+                title: 'US Patent 4,504,812 A',
+                domain: 'Electrical Engineering',
+                desc: 'A physical transformer with a spherical core. It offers enhanced electromagnetic coupling but lacks intelligent control.',
+                gap: 'Novelty Gap: Lacks a dynamic, intelligent control system. Its operation is passive.',
+                chartData: [5, 2, 1, 1, 2]
+            },
+            'sphere-uformer': {
+                title: 'SphereUFormer (AI Model)',
+                domain: 'AI / Deep Learning',
+                desc: 'A neural network designed to process data on a sphere, like 360-degree images. It is purely computational.',
+                gap: 'Novelty Gap: Exists solely as a computational model with no physical embodiment for energy transfer.',
+                chartData: [1, 5, 5, 4, 1]
             }
+        };
 
-            askBtn.addEventListener('click', () => {
-                const userQuery = queryInput.value.trim();
-                if (userQuery) {
-                    const fullPrompt = `You are a helpful assistant with deep knowledge of the following patent document. Your task is to answer user questions concisely and clearly, using only the provided context. If the question cannot be answered from the context, state that you cannot provide an answer.
-
-                    Patent Document Context:
-                    ${patentDocumentContext}
-
-                    User Question: ${userQuery}`;
-                    generateResponse(fullPrompt);
-                }
-            });
-
-            summarizeBtn.addEventListener('click', () => {
-                const userQuery = queryInput.value.trim();
-                if (userQuery) {
-                    const fullPrompt = `You are a patent legal advisor. Your task is to take a technical patent claim and summarize it in simple, plain language. Do not invent information. Just simplify the provided text.
-
-                    Technical Claim: ${userQuery}`;
-                    generateResponse(fullPrompt);
-                }
-            });
-
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js';
-            document.head.appendChild(script);
+        // Novelty Chart
+        const ctx = document.getElementById('noveltyChart').getContext('2d');
+        const noveltyChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Physicality', 'Intelligence', 'Adaptability', 'Proactivity', 'Integration'],
+                datasets: [{
+                    label: 'Capability Score',
+                    data: patentData.invention.chartData,
+                    backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                    borderColor: themeColors.blue,
+                    borderWidth: 2,
+                    pointBackgroundColor: themeColors.blue
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: themeColors.gridLight },
+                        grid: { color: themeColors.gridLight },
+                        pointLabels: { color: themeColors.textDark, font: { size: 11 } },
+                        ticks: { beginAtZero: true, max: 5, stepSize: 1, backdropColor: 'transparent', color: themeColors.textDark }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
         });
+
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const comparisonContent = document.getElementById('comparison-content');
+        function updateTabContent(target) {
+            const data = patentData[target];
+            tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.target === target));
+            comparisonContent.innerHTML = `
+                <h3 class="text-xl font-bold ${data.domain.includes('Hybrid') ? 'dancheon-blue-text' : 'dancheon-green-text'} mb-2">${data.title}</h3>
+                <p class="text-sm font-semibold mb-2">${data.domain}</p>
+                <p class="text-sm">${data.desc}</p>
+                <p class="mt-4 font-semibold dancheon-red-text text-sm">${data.gap}</p>
+            `;
+            noveltyChart.data.datasets[0].data = data.chartData;
+            noveltyChart.update();
+        }
+        tabButtons.forEach(button => button.addEventListener('click', () => updateTabContent(button.dataset.target)));
+        updateTabContent('invention');
+
+        // Fractal Accordion
+        document.querySelectorAll('.fractal-layer').forEach(layer => {
+            layer.addEventListener('click', () => {
+                layer.classList.toggle('open');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Gemini API Assistant (Placeholder)
+        const askBtn = document.getElementById('ask-btn');
+        const summarizeBtn = document.getElementById('summarize-btn');
+        const responseArea = document.getElementById('response-area');
+        const apiKey = ""; // API Key must be provided for this to work
+
+        async function callGemini(prompt) {
+            if (!apiKey) {
+                responseArea.innerHTML = '<p class="text-red-500">API key is not configured. This feature is disabled.</p>';
+                return;
+            }
+            responseArea.innerHTML = '<p class="text-slate-500">Generating response...</p>';
+            try {
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
+                const result = await response.json();
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text || "No response from API.";
+                responseArea.innerHTML = new showdown.Converter().makeHtml(text);
+            } catch (error) {
+                responseArea.innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
+            }
+        }
+        
+        const patentDocumentContext = 'The Spherical Transformer patent describes a hybrid system combining a physical, spherical electrical transformer with a computational AI that also processes information on a spherical domain. The AI proactively analyzes data (grid load, weather) and predicts optimal states for the physical transformer, sending control signals to adjust its parameters in real-time. The novelty is the seamless integration of a physical device and a computational mind sharing the same spherical geometry.';
+
+        askBtn.addEventListener('click', () => {
+            const userQuery = document.getElementById('query-input').value.trim();
+            if (userQuery) {
+                const fullPrompt = `Context: ${patentDocumentContext}\n\nQuestion: ${userQuery}\n\nAnswer concisely based only on the context.`;
+                callGemini(fullPrompt);
+            }
+        });
+
+        summarizeBtn.addEventListener('click', () => {
+            const userQuery = document.getElementById('query-input').value.trim();
+            if (userQuery) {
+                const fullPrompt = `Summarize this technical patent claim in simple, plain language:\n\n"${userQuery}"`;
+                callGemini(fullPrompt);
+            }
+        });
+    });
     </script>
 </body>
 </html>

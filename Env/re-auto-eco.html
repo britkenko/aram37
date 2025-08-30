@@ -1,514 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Patent Explorer: Autonomous Ecosystem Restoration</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Re-Auto-Eco: Autonomous Ecosystem Restoration | ARAM37</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Earthy Harmony -->
-    <!-- Application Structure Plan: The application is structured as a narrative journey to maximize user understanding and engagement. It starts with the 'Why' (The Problem), moves to the 'What' (The Solution broken into three core pillars: Platform, Pod, Brain), then the 'How' (The 4-Phase Process), and finally the 'Proof' (Data & Specifications). This thematic, non-linear structure transforms a dense technical document into an explorable story. Key interactions include an interactive pod diagram and comparative charts, designed to make complex information digestible and intuitive, guiding the user from a high-level concept down to the specific technical details in a logical flow. -->
-    <!-- Visualization & Content Choices: 1. Prior Art Comparison: Report Info -> Comparison of restoration methods. Goal -> Compare. Viz -> Interactive Bar Chart. Interaction -> Hover tooltips for data. Justification -> Clearly visualizes performance gaps between old and new technology. Library -> Chart.js. 2. BRP Composition: Report Info -> Pod material breakdown (Table 2). Goal -> Inform (proportions). Viz -> Donut Chart. Interaction -> Hover to see component details. Justification -> Intuitive for showing parts of a whole. Library -> Chart.js. 3. 4-Phase Process: Report Info -> The method section. Goal -> Organize/Show Change. Viz -> Interactive Step-by-Step Diagram. Interaction -> Click to expand details for each phase. Justification -> Simplifies a complex workflow into a clear, linear process. Method -> HTML/CSS/JS. 4. Interactive Pod: Report Info -> BRP components description. Goal -> Organize/Inform. Viz -> Visual diagram with hotspots. Interaction -> Click/hover on hotspots to reveal component functions. Justification -> Highly engaging way to deconstruct the core apparatus. Method -> HTML/CSS/JS. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-	font-family: 'Inter', sans-serif;
-	background-color: #FDFBF8; /* Warm Neutral Background */
-	color: #4A4A4A;
-        }
-        .nav-link {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            padding-bottom: 4px;
-        }
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4A6C6F; /* Accent Color */
-            transition: width 0.3s ease;
-        }
-        .nav-link.active:after, .nav-link:hover:after {
-            width: 100%;
-        }
-        .content-section {
-            display: none;
-        }
-        .content-section.active {
-            display: block;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 400px;
-            max-height: 50vh;
-        }
-        @media (max-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-        .stat-card {
-            background-color: #FFFFFF;
-            border-left: 4px solid #8F8370; /* Muted Accent */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .interactive-pod-hotspot {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(74, 108, 111, 0.7);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid white;
-        }
-        .interactive-pod-hotspot:hover {
-            transform: scale(1.2);
-            background-color: rgba(182, 160, 124, 1);
-        }
-        .process-step {
-            transition: all 0.3s ease;
-            border-color: #EAE5DD;
-        }
-        .process-step:hover, .process-step.active {
-            border-color: #4A6C6F;
-            background-color: #F7F4F0;
-        }
-        .tab-button {
-            transition: all 0.3s ease;
-        }
-        .tab-button.active {
-            background-color: #4A6C6F;
-            color: #FFFFFF;
-        }
-    </style>
 </head>
 <body class="antialiased">
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#challenge">Challenge</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-[#4A6C6F] mb-2">Re-Auto-Eco</h1>
-
-            <a href="infoeco.html">
-            <infog>
-              <fog>Infograph</fog>
-            &nbsp;</infog>
-            </a>
-            <p class="text-lg text-[#8F8370]">An Interactive Exploration of a Revolutionary Restoration Made autonomously by Panacea Cortex Applied Model</p>
-        </header>
-
-        <nav class="flex justify-center space-x-4 md:space-x-8 mb-12 border-b border-gray-200">
-            <a class="nav-link active" data-target="challenge">The Challenge</a>
-            <a class="nav-link" data-target="solution">The Solution</a>
-            <a class="nav-link" data-target="process">The Process</a>
-            <a class="nav-link" data-target="data">Data & Specs</a>
-            <a class="nav-link" data-target="impact">The Impact</a>
-        </nav>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <h1>Re-Auto-Eco</h1>
+            <p class="text-xl max-w-4xl mx-auto">
+                An Interactive Exploration of a Revolutionary Autonomous Ecosystem Restoration System, conceived and designed by the Panacea Cortex AI.
+            </p>
+        </section>
 
         <main>
-            <section id="challenge" class="content-section active">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-3xl font-bold mb-4 text-[#4A6C6F]">The Crisis of Land Degradation</h2>
-                    <p class="text-lg">Our planet faces an unprecedented challenge of land degradation from deforestation, wildfires, and unsustainable practices. Traditional restoration methods are too slow, expensive, and inefficient to meet this global crisis. This invention addresses a critical "Verification Gap": the inability to know if restoration efforts actually work after seeds are planted.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                     <div class="stat-card p-6 rounded-lg shadow-md">
-                        <h3 class="text-4xl font-bold text-[#B6A07C]">4.1M</h3>
-                        <p class="text-md text-gray-600">hectares of tropical rainforest lost in 2022 alone.</p>
+            <!-- The Challenge Section -->
+            <section id="challenge" class="content-card mb-12">
+                <h2>The Crisis of Land Degradation</h2>
+                <p>
+                    Our planet faces an unprecedented challenge of land degradation. Traditional restoration methods are too slow, expensive, and inefficient to meet this global crisis. This invention addresses a critical "Verification Gap": the inability to know if restoration efforts actually work after seeds are planted.
+                </p>
+                <div class="grid grid-cols-3 gap-4 mt-8">
+                    <div class="feature-card">
+                        <h3 class="text-2xl font-bold" style="color: var(--dancheon-red);">4.1M</h3>
+                        <p>hectares of rainforest lost in 2022.</p>
                     </div>
-                    <div class="stat-card p-6 rounded-lg shadow-md">
-                        <h3 class="text-4xl font-bold text-[#B6A07C]">7M</h3>
-                        <p class="text-md text-gray-600">acres of US forest burn annually on average.</p>
+                    <div class="feature-card">
+                        <h3 class="text-2xl font-bold" style="color: var(--dancheon-red);">7M</h3>
+                        <p>acres of US forest burn annually.</p>
                     </div>
-                    <div class="stat-card p-6 rounded-lg shadow-md">
-                        <h3 class="text-4xl font-bold text-[#B6A07C]">0-20%</h3>
-                        <p class="text-md text-gray-600">Typical success rate of first-generation drone seeding projects due to the "Verification Gap".</p>
-                    </div>
-                </div>
-                
-                <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-bold text-center mb-6 text-[#4A6C6F]">Comparing Restoration Methods</h3>
-                    <p class="text-center max-w-2xl mx-auto mb-6">Existing methods are fundamentally flawed for large-scale, verifiable restoration. This chart highlights the deficiencies that the new invention overcomes, particularly in monitoring and data feedback.</p>
-                    <div class="chart-container">
-                        <canvas id="priorArtChart"></canvas>
+                    <div class="feature-card">
+                        <h3 class="text-2xl font-bold" style="color: var(--dancheon-red);">0-20%</h3>
+                        <p>success rate of typical drone seeding.</p>
                     </div>
                 </div>
             </section>
 
-            <section id="solution" class="content-section">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-3xl font-bold mb-4 text-[#4A6C6F]">An Integrated, Closed-Loop System</h2>
-                    <p class="text-lg">The invention is not just one component, but a synergistic system of three core pillars working together: an autonomous aerial platform, an intelligent biodegradable pod, and a powerful data analytics engine. This combination transforms restoration from a game of chance into a data-driven science.</p>
-                </div>
-                <div class="flex justify-center mb-8">
-                    <div class="flex space-x-2 p-1 bg-gray-200 rounded-full">
-                        <button class="tab-button active py-2 px-6 rounded-full text-sm font-semibold" data-tab="platform">The Platform</button>
-                        <button class="tab-button py-2 px-6 rounded-full text-sm font-semibold" data-tab="pod">The Pod</button>
-                        <button class="tab-button py-2 px-6 rounded-full text-sm font-semibold" data-tab="brain">The Brain</button>
+            <!-- The Solution Section -->
+            <section id="solution" class="content-card mb-12">
+                <h2>An Integrated, Closed-Loop System</h2>
+                <p>
+                    The invention is a synergistic system of three core pillars: an autonomous aerial platform, an intelligent biodegradable pod, and a powerful data analytics engine. This transforms restoration from a game of chance into a data-driven science.
+                </p>
+                <div class="grid grid-cols-3 gap-4 mt-8">
+                    <div class="feature-card">
+                        <span class="icon">🗺️</span>
+                        <h4>The Platform</h4>
+                        <p class="text-sm">UAVs survey, deploy pods with precision, and collect data wirelessly.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🌱</span>
+                        <h4>The Pod (BRP)</h4>
+                        <p class="text-sm">A biomimetic pod with seed, nutrients, fungi, and a biodegradable sensor.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🧠</span>
+                        <h4>The Brain</h4>
+                        <p class="text-sm">An AI engine analyzes data to plan, predict success, and adapt strategies.</p>
                     </div>
                 </div>
+            </section>
 
-                <div id="platformContent" class="solution-tab-content">
-                    <div class="bg-white p-8 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                        <div>
-                            <div class="text-5xl mb-4 text-[#4A6C6F]">🗺️</div>
-                            <h4 class="text-xl font-bold mb-2">Site Survey & Mapping</h4>
-                            <p>UAVs equipped with LiDAR and multispectral cameras create a high-resolution 3D digital twin of the target area, identifying optimal planting micro-sites.</p>
-                        </div>
-                        <div>
-                            <div class="text-5xl mb-4 text-[#4A6C6F]">🎯</div>
-                            <h4 class="text-xl font-bold mb-2">Precision Deployment</h4>
-                            <p>The swarm executes a data-driven plan, deploying thousands of pods per hour with centimeter-level accuracy using pneumatic launchers or dispensers.</p>
-                        </div>
-                        <div>
-                            <div class="text-5xl mb-4 text-[#4A6C6F]">📡</div>
-                            <h4 class="text-xl font-bold mb-2">Data Mule Operation</h4>
-                            <p>Post-deployment, UAVs fly over the site, wirelessly powering and collecting data from the network of pods without needing to land.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="podContent" class="solution-tab-content" style="display: none;">
-                    <div class="bg-white p-8 rounded-lg shadow-lg flex flex-col md:flex-row gap-8 items-center">
-                        <div class="w-full md:w-1/2 relative">
-                            <img src="https://placehold.co/600x600/F7F4F0/4A4A4A?text=Biomimetic+Pod" alt="Biomimetic Restoration Pod" class="rounded-full w-full h-auto">
-                            <div class="interactive-pod-hotspot" style="top: 15%; left: 50%;" data-pod-info="shell"></div>
-                            <div class="interactive-pod-hotspot" style="top: 40%; left: 20%;" data-pod-info="matrix"></div>
-                            <div class="interactive-pod-hotspot" style="top: 50%; left: 50%; transform: translate(-50%, -50%);" data-pod-info="seed"></div>
-                            <div class="interactive-pod-hotspot" style="top: 60%; left: 80%;" data-pod-info="fungi"></div>
-                            <div class="interactive-pod-hotspot" style="top: 80%; left: 40%;" data-pod-info="sensor"></div>
-                        </div>
-                        <div class="w-full md:w-1/2">
-                            <h4 class="text-2xl font-bold mb-4 text-[#4A6C6F]">The Biomimetic Restoration Pod (BRP)</h4>
-                            <p class="mb-4">The BRP is the core innovation—an intelligent, self-contained micro-ecosystem. Click or hover on the hotspots on the diagram to explore its components.</p>
-                            <div id="podInfoBox" class="p-4 bg-[#F7F4F0] rounded-lg min-h-[150px]">
-                                <p class="text-gray-600">Select a hotspot to learn more.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="brainContent" class="solution-tab-content" style="display: none;">
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <h4 class="text-2xl font-bold mb-4 text-center text-[#4A6C6F]">The Data Analytics Engine</h4>
-                        <p class="text-center max-w-3xl mx-auto mb-8">This is the computational brain that transforms raw data into actionable intelligence. It manages the entire process, from planning the mission to predicting the outcome.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="p-6 bg-gray-50 rounded-lg">
-                                <h5 class="font-bold text-lg mb-2">Predictive Modeling</h5>
-                                <p>Machine learning models analyze sensor data to forecast germination success, seedling survival rates, and even biomass accumulation for carbon credit verification.</p>
-                            </div>
-                            <div class="p-6 bg-gray-50 rounded-lg">
-                                <h5 class="font-bold text-lg mb-2">Data Imputation</h5>
-                                <p>To handle the sparse data from a vast sensor network, the engine uses advanced algorithms to intelligently fill in missing data points, creating a complete environmental picture.</p>
-                            </div>
-                            <div class="p-6 bg-gray-50 rounded-lg">
-                                <h5 class="font-bold text-lg mb-2">Anomaly Detection</h5>
-                                <p>The system continuously monitors data streams to detect problems, such as a localized area drying out, and alerts operators before widespread failure occurs.</p>
-                            </div>
-                            <div class="p-6 bg-gray-50 rounded-lg">
-                                <h5 class="font-bold text-lg mb-2">Adaptive Management</h5>
-                                <p>The ultimate goal: insights from the data directly inform future actions. The system learns and improves with every mission, optimizing pod formulas and deployment strategies.</p>
-                            </div>
+            <!-- The Process Section -->
+            <section id="process" class="content-card mb-12">
+                <h2>The 4-Phase Restoration Cycle</h2>
+                <p>
+                    The invention operates in a continuous, closed-loop cycle. This data-driven method allows for constant learning and adaptation, ensuring resources are used effectively and dramatically increasing the chances of long-term ecosystem recovery.
+                </p>
+                <div class="dancheon-accent-border mt-8">
+                    <div class="content-card">
+                        <h3 class="text-center">Restoration Methods Comparison</h3>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="priorArtChart"></canvas>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="process" class="content-section">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-3xl font-bold mb-4 text-[#4A6C6F]">The 4-Phase Restoration Cycle</h2>
-                    <p class="text-lg">The invention operates in a continuous, closed-loop cycle. This data-driven method allows for constant learning and adaptation, ensuring resources are used effectively and dramatically increasing the chances of long-term ecosystem recovery. Click each step to learn more.</p>
-                </div>
-                <div class="flex flex-col md:flex-row justify-center items-start gap-4">
-                    <div class="w-full md:w-1/3">
-                        <div id="step1" class="process-step p-6 rounded-lg border-2 cursor-pointer mb-4 active">
-                            <h4 class="font-bold text-xl">Phase 1: Survey & Plan</h4>
-                            <p class="text-sm text-gray-500">Map the terrain and create a data-driven dispersal plan.</p>
-                        </div>
-                        <div id="step2" class="process-step p-6 rounded-lg border-2 cursor-pointer mb-4">
-                            <h4 class="font-bold text-xl">Phase 2: Deploy</h4>
-                            <p class="text-sm text-gray-500">Execute the plan with precision aerial deployment of BRPs.</p>
-                        </div>
-                        <div id="step3" class="process-step p-6 rounded-lg border-2 cursor-pointer mb-4">
-                            <h4 class="font-bold text-xl">Phase 3: Monitor</h4>
-                            <p class="text-sm text-gray-500">Collect real-time ground data wirelessly via UAV data mules.</p>
-                        </div>
-                         <div id="step4" class="process-step p-6 rounded-lg border-2 cursor-pointer">
-                            <h4 class="font-bold text-xl">Phase 4: Analyze & Adapt</h4>
-                            <p class="text-sm text-gray-500">Process data to verify success and guide future interventions.</p>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-2/3 bg-white p-8 rounded-lg shadow-lg">
-                        <div id="process-content">
-                            <h3 class="text-2xl font-bold mb-4 text-[#4A6C6F]">Phase 1: Pre-Deployment Survey & Planning</h3>
-                            <p>The UAV swarm, equipped with LiDAR and multispectral sensors, autonomously flies over the target restoration area. The collected data are processed by the Analytics Engine to create a detailed, multi-layered digital twin of the site. The engine then generates a high-resolution dispersal plan, optimizing the placement and density of BRPs based on the identified micro-site conditions.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="data" class="content-section">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-3xl font-bold mb-4 text-[#4A6C6F]">Data & Technical Specifications</h2>
-                    <p class="text-lg">Explore the technical details that make this system possible. The BRP is a carefully engineered combination of materials, and its embedded sensor meets specific performance targets for effective, low-cost, and biodegradable monitoring.</p>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <h3 class="text-2xl font-bold text-center mb-6 text-[#4A6C6F]">BRP Formulation (% by Weight)</h3>
-                        <div class="chart-container h-64 md:h-80">
-                            <canvas id="brpChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <h3 class="text-2xl font-bold text-center mb-6 text-[#4A6C6F]">Embedded Sensor Specifications</h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="p-3 font-semibold">Parameter</th>
-                                        <th class="p-3 font-semibold">Sensor Type</th>
-                                        <th class="p-3 font-semibold">Lifespan</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="sensorSpecTable" class="divide-y">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="impact" class="content-section">
-                <div class="text-center max-w-3xl mx-auto">
-                    <h2 class="text-3xl font-bold mb-4 text-[#4A6C6F]">Closing the Loop: The Impact</h2>
-                    <p class="text-lg mb-8">This invention represents a paradigm shift. By providing a scalable method to not only plant but also verify and learn from restoration efforts, it moves the field from guesswork to a data-driven science. It enables verifiable carbon credits, effective post-wildfire recovery, and gives humanity a powerful new tool to heal the planet at scale.</p>
-                    <div class="bg-white p-8 rounded-lg shadow-lg text-left">
-                        <h3 class="text-2xl font-bold mb-4">Key Claims of the Invention:</h3>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li>A complete system comprising a UAV platform, biodegradable pods with embedded sensors, and a data analytics engine.</li>
-                            <li>A novel biodegradable pod apparatus containing a seed, beneficial fungi, and a passive, wirelessly-powered environmental sensor.</li>
-                            <li>A data-driven method for restoration that includes pre-deployment surveying, precision deployment, wireless data collection, and adaptive management based on sensor feedback.</li>
-                        </ul>
-                    </div>
+            <!-- The Impact Section -->
+            <section id="impact" class="dancheon-accent-border">
+                <div class="content-card">
+                    <h2 class="text-center">Closing the Loop: The Impact</h2>
+                    <p class="text-center">
+                        This invention represents a paradigm shift. By providing a scalable method to not only plant but also verify and learn from restoration efforts, it moves the field from guesswork to a data-driven science. It enables verifiable carbon credits, effective post-wildfire recovery, and gives humanity a powerful new tool to heal the planet at scale.
+                    </p>
                 </div>
             </section>
         </main>
-</div>
+    </div>
+
+    <footer>
+        <p>© 2025 ARAM37. All rights reserved. | Re-Auto-Eco by Panacea Cortex</p>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const patentData = {
-                priorArt: {
-                    labels: ['Scalability', 'Cost-Effectiveness', 'Safety', 'In-Situ Monitoring', 'Data Feedback Loop'],
+            const themeColors = {
+                skyBlue: 'rgba(14, 165, 233, 0.7)',
+                red: 'rgba(239, 68, 68, 0.7)',
+                green: 'rgba(34, 197, 94, 0.7)',
+                yellow: 'rgba(245, 158, 11, 0.7)',
+                textDark: '#1e293b',
+                gridLight: 'rgba(0, 0, 0, 0.05)'
+            };
+
+            // Chart: Prior Art Comparison
+            new Chart(document.getElementById('priorArtChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Scalability', 'Cost', 'Monitoring', 'Data Feedback'],
                     datasets: [
                         {
                             label: 'Manual Planting',
-                            data: [1, 1, 2, 0, 0],
-                            backgroundColor: '#D3C5B3',
+                            data: [1, 1, 0, 0],
+                            backgroundColor: '#cbd5e1', // slate-300
                         },
                         {
-                            label: 'Conventional Aerial Seeding',
-                            data: [5, 3, 4, 0, 0],
-                            backgroundColor: '#B6A07C',
+                            label: 'Drone Seeding',
+                            data: [4, 4, 0, 0],
+                            backgroundColor: '#f87171', // red-400
                         },
                         {
-                            label: 'Current Drone Seeding',
-                            data: [4, 4, 5, 0, 0],
-                            backgroundColor: '#8F8370',
-                        },
-                        {
-                            label: 'The Present Invention',
-                            data: [5, 5, 5, 5, 5],
-                            backgroundColor: '#4A6C6F',
+                            label: 'The Invention',
+                            data: [5, 5, 5, 5],
+                            backgroundColor: themeColors.skyBlue,
                         }
                     ]
                 },
-                brpFormulation: {
-                    labels: ['Structural Matrix (PHA)', 'Binder/Hydrogel (Pullulan)', 'Nutrient Source', 'Mycorrhizal Inoculant', 'Embedded Sensor'],
-                    datasets: [{
-                        data: [50, 20, 10, 0.5, 0.5],
-                        backgroundColor: ['#4A6C6F', '#8F8370', '#B6A07C', '#D3C5B3', '#EAE5DD'],
-                    }]
-                },
-                sensorSpecs: [
-                    { parameter: 'Soil Moisture', type: 'Capacitive', lifespan: '90-180 days' },
-                    { parameter: 'Nitrate (NO3-)', type: 'ISFET', lifespan: '90-180 days' },
-                    { parameter: 'pH', type: 'ISFET', lifespan: '90-180 days' },
-                    { parameter: 'Temperature', type: 'Resistive', lifespan: '90-180 days' },
-                ],
-                podInfo: {
-                    shell: { title: 'Biodegradable Outer Shell', text: 'Constructed from a rigid biopolymer blend, its aerodynamic shape is optimized for aerial deployment and protects the internal components.' },
-                    matrix: { title: 'Biodegradable Matrix', text: 'A blend of Polyhydroxyalkanoates (PHA) and Pullulan that provides structure, acts as a slow-release nutrient source, and retains moisture like a hydrogel.' },
-                    seed: { title: 'Target Plant Seed', text: 'At least one seed of a native plant species, selected for its ecological suitability for the specific restoration site.' },
-                    fungi: { title: 'Mycorrhizal Inoculant', text: 'Spores of native Arbuscular Mycorrhizal Fungi (AMF) that form a symbiotic relationship with the roots, dramatically enhancing nutrient and water uptake.' },
-                    sensor: { title: 'Embedded Biodegradable Sensor', text: 'A passive, battery-less sensor printed on a cellulose substrate. It measures key soil parameters and transmits data wirelessly to the UAV.' }
-                },
-                processSteps: {
-                    step1: { title: 'Phase 1: Pre-Deployment Survey & Planning', text: 'The UAV swarm, equipped with LiDAR and multispectral sensors, autonomously flies over the target restoration area. The collected data are processed by the Analytics Engine to create a detailed, multi-layered digital twin of the site. The engine then generates a high-resolution dispersal plan, optimizing the placement and density of BRPs based on the identified micro-site conditions.' },
-                    step2: { title: 'Phase 2: BRP Deployment', text: 'The UAVs are re-equipped with the BRP Deployment Mechanism and loaded with the appropriate BRP formulations. The swarm then executes the dispersal plan, autonomously flying to the target coordinates and deploying the pods with high precision. The GPS location of each deployed pod is logged.' },
-                    step3: { title: 'Phase 3: Post-Deployment Monitoring', text: 'At programmable intervals, the UAV swarm, now equipped with the Wireless Data Acquisition Module, flies systematic patterns over the restoration site. The module wirelessly interrogates the network of deployed BRP sensors, collecting time-series data on the environmental conditions at each pod\'s location.' },
-                    step4: { title: 'Phase 4: Data Analysis & Adaptive Management', text: 'The collected spatio-temporal data is transmitted to the Analytics Engine. It analyzes this data to build a dynamic model of the ecosystem\'s recovery, identify areas of failure, and diagnose the cause. This allows operators to make informed decisions for adaptive management, such as targeted re-deployment missions.' }
-                }
-            };
-
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                    const targetId = link.getAttribute('data-target');
-                    contentSections.forEach(section => {
-                        section.classList.remove('active');
-                        if (section.id === targetId) {
-                            section.classList.add('active');
-                        }
-                    });
-                });
-            });
-
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.solution-tab-content');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    tabButtons.forEach(b => b.classList.remove('active'));
-                    button.classList.add('active');
-                    const tabTarget = button.getAttribute('data-tab');
-                    tabContents.forEach(content => {
-                        content.style.display = 'none';
-                        if (content.id === `${tabTarget}Content`) {
-                            content.style.display = 'block';
-                        }
-                    });
-                });
-            });
-
-            const podHotspots = document.querySelectorAll('.interactive-pod-hotspot');
-            const podInfoBox = document.getElementById('podInfoBox');
-            podHotspots.forEach(hotspot => {
-                hotspot.addEventListener('mouseenter', () => {
-                    const infoKey = hotspot.getAttribute('data-pod-info');
-                    const info = patentData.podInfo[infoKey];
-                    podInfoBox.innerHTML = `<h5 class="font-bold text-md mb-1">${info.title}</h5><p class="text-sm">${info.text}</p>`;
-                });
-            });
-
-            const processSteps = document.querySelectorAll('.process-step');
-            const processContent = document.getElementById('process-content');
-            processSteps.forEach(step => {
-                step.addEventListener('click', () => {
-                    processSteps.forEach(s => s.classList.remove('active'));
-                    step.classList.add('active');
-                    const stepKey = step.id;
-                    const content = patentData.processSteps[stepKey];
-                    processContent.innerHTML = `<h3 class="text-2xl font-bold mb-4 text-[#4A6C6F]">${content.title}</h3><p>${content.text}</p>`;
-                });
-            });
-
-            function populateSensorTable() {
-                const tableBody = document.getElementById('sensorSpecTable');
-                patentData.sensorSpecs.forEach(spec => {
-                    const row = `
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-3">${spec.parameter}</td>
-                            <td class="p-3">${spec.type}</td>
-                            <td class="p-3">${spec.lifespan}</td>
-                        </tr>
-                    `;
-                    tableBody.innerHTML += row;
-                });
-            }
-
-            function createCharts() {
-                const priorArtCtx = document.getElementById('priorArtChart').getContext('2d');
-                new Chart(priorArtCtx, {
-                    type: 'bar',
-                    data: patentData.priorArt,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 5,
-                                ticks: {
-                                    stepSize: 1,
-                                    callback: function(value) {
-                                        const labels = ['N/A', 'Low', 'Moderate', 'High', 'Very High'];
-                                        return labels[value];
-                                    }
-                                }
-                            }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: { color: themeColors.textDark, stepSize: 1 },
+                            grid: { color: themeColors.gridLight }
                         },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        const value = context.parsed.y;
-                                        const labels = ['N/A', 'Low', 'Moderate', 'High', 'Very High'];
-                                        label += labels[value];
-                                        return label;
-                                    }
-                                }
-                            }
+                        x: {
+                            ticks: { color: themeColors.textDark },
+                            grid: { display: false }
                         }
+                    },
+                    plugins: {
+                        legend: { position: 'top', labels: { color: themeColors.textDark } }
                     }
-                });
+                }
+            });
 
-                const brpCtx = document.getElementById('brpChart').getContext('2d');
-                new Chart(brpCtx, {
-                    type: 'doughnut',
-                    data: patentData.brpFormulation,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        label += context.parsed + '%';
-                                        return label;
-                                    }
-                                }
-                            }
-                        }
-                    }
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 });
-            }
-            
-            populateSensorTable();
-            createCharts();
+            });
         });
     </script>
 </body>

@@ -1,159 +1,160 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Panacea Cortex Process: A New AI Paradigm</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0F172A; /* Slate 900 */
-            color: #F8FAFC; /* Slate 50 */
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-        .stat-card {
-            background-color: #1E293B; /* Slate 800 */
-            border: 1px solid #334155; /* Slate 700 */
-        }
-        .flow-arrow {
-            font-size: 2rem;
-            line-height: 1;
-            color: #38BDF8; /* Sky 400 */
-        }
-        .flow-box {
-            background-color: #1E293B; /* Slate 800 */
-            border: 1px solid #334155; /* Slate 700 */
-        }
-    </style>
 </head>
 <body class="antialiased">
-    <div class="container mx-auto p-4 md:p-8">
-
-        <header class="text-center mb-16">
-            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500 mb-4">The Panacea Cortex Process</h1>
-            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">A Brain-Inspired Architecture for the Next Generation of Artificial Intelligence</p>
-        </header>
-
-        <section id="problem" class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-red-400">The Transformer Bottleneck</h2>
-            <p class="text-center text-slate-400 mb-12 max-w-4xl mx-auto">Today's leading AI, the Transformer, is powerful but faces fundamental architectural limits that prevent true, adaptive intelligence. These interconnected issues create a ceiling for AI progress.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="stat-card rounded-lg shadow-lg p-6 text-center">
-                    <h3 class="text-2xl font-bold mb-2 text-sky-400">Scaling Dilemma</h3>
-                    <p class="text-7xl font-black text-red-400 mb-4">O(N²)</p>
-                    <p class="text-slate-400">Computational cost explodes quadratically with input length, creating a finite "context window" and limiting long-form understanding.</p>
-                </div>
-                <div class="stat-card rounded-lg shadow-lg p-6 text-center">
-                    <h3 class="text-2xl font-bold mb-2 text-sky-400">Amnesiac Machine</h3>
-                    <p class="text-7xl font-black text-red-400 mb-4">0%</p>
-                    <p class="text-slate-400">New learning catastrophically overwrites old knowledge. Transformers are incapable of true lifelong, continual learning without complete retraining.</p>
-                </div>
-                <div class="stat-card rounded-lg shadow-lg p-6 text-center">
-                    <h3 class="text-2xl font-bold mb-2 text-sky-400">Brittle Reasoning</h3>
-                    <p class="text-7xl font-black text-red-400 mb-4">0%</p>
-                    <p class="text-slate-400">Achieves 0% accuracy on complex logic puzzles. Relies on "Chain-of-Thought" pattern matching, an illusion of true, internal reasoning.</p>
-                </div>
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
             </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#problem">Bottleneck</a></li>
+                    <li><a href="#comparison">Comparison</a></li>
+                    <li><a href="#solution">Blueprint</a></li>
+                    <li><a href="#performance">Performance</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="hero" class="text-center my-16">
+            <h1>The Panacea Cortex Process</h1>
+            <p class="text-xl max-w-4xl mx-auto">
+                A Brain-Inspired Architecture for the Next Generation of Artificial Intelligence.
+            </p>
         </section>
 
-        <section id="comparison" class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-green-400">A Paradigm Shift in AI Capability</h2>
-            <p class="text-center text-slate-400 mb-12 max-w-4xl mx-auto">The Panacea Cortex Process is not an incremental update; it's a fundamental redesign. By adopting brain-inspired principles, it moves from a monolithic, brute-force approach to a specialized, efficient, and integrated system.</p>
-            <div class="bg-slate-800 border border-slate-700 rounded-lg shadow-lg p-6">
-                <div class="chart-container h-[400px] md:h-[500px] max-h-[500px]">
-                    <canvas id="capabilityRadarChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <section id="solution" class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-sky-400">The Cortical Blueprint: An Integrated Architecture</h2>
-            <p class="text-center text-slate-400 mb-12 max-w-4xl mx-auto">The framework integrates four neuroscientific principles into a synergistic system, where each component addresses a core failure of the Transformer architecture, creating a virtuous cycle of perception, memory, and reasoning.</p>
-            <div class="flex flex-col items-center space-y-4">
-                <div class="flow-box w-full max-w-2xl p-6 rounded-lg text-center">
-                    <h3 class="text-xl font-bold text-sky-400">1. Input Processing Layer (Cortical Waves)</h3>
-                    <p class="text-slate-300 mt-2">Processes continuous data streams efficiently by encoding time into space, overcoming the O(N²) bottleneck of self-attention.</p>
-                </div>
-                <div class="flow-arrow">↓</div>
-                <div class="flow-box w-full max-w-2xl p-6 rounded-lg text-center">
-                    <h3 class="text-xl font-bold text-sky-400">2. Dual Memory Core (Hippocampus & Neocortex)</h3>
-                    <p class="text-slate-300 mt-2">A dual-system memory with an 'episodic buffer' for new data and a stable 'semantic knowledge base' powered by Neuron-Astrocyte networks, enabling lifelong learning without catastrophic forgetting.</p>
-                </div>
-                <div class="flow-arrow">↓</div>
-                <div class="flow-box w-full max-w-2xl p-6 rounded-lg text-center">
-                    <h3 class="text-xl font-bold text-sky-400">3. Reasoning Engine (Hierarchical Reasoning)</h3>
-                    <p class="text-slate-300 mt-2">A 'fast and slow' thinking module performs deep, internal, multi-step logical inference, moving beyond brittle pattern matching to genuine problem-solving.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="performance" class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-green-400">Reasoning: Architecture over Scale</h2>
-            <p class="text-center text-slate-400 mb-12 max-w-4xl mx-auto">Superior architecture enables genuine logical problem-solving. A small, 27-million parameter Hierarchical Reasoning Model (HRM) dramatically outperforms massive, multi-billion parameter LLMs on complex reasoning benchmarks where they fail completely.</p>
-            <div class="bg-slate-800 border border-slate-700 rounded-lg shadow-lg p-6">
-                <div class="chart-container">
-                    <canvas id="reasoningPerformanceChart"></canvas>
-                </div>
-            </div>
-        </section>
-        
-        <section id="memory" class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-sky-400">Memory: Capacity & Continual Learning</h2>
-            <p class="text-center text-slate-400 mb-12 max-w-4xl mx-auto">The Panacea Cortex Process proposes a memory system with vast, supralinear scaling capacity. This is achieved through Neuron-Astrocyte networks, a biological design that far outpaces traditional neuron-only models and forms the foundation for stable, lifelong knowledge retention.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="stat-card rounded-lg shadow-lg p-6">
-                    <h3 class="text-2xl font-bold mb-4 text-sky-400 text-center">Memory Capacity Scaling Law</h3>
-                    <div class="chart-container h-[300px] max-h-[300px]">
-                        <canvas id="memoryScalingChart"></canvas>
+        <main>
+            <!-- The Problem Section -->
+            <section id="problem" class="content-card mb-12">
+                <h2 class="dancheon-red-text">The Transformer Bottleneck</h2>
+                <p>
+                    Today's leading AI, the Transformer, is powerful but faces fundamental architectural limits that prevent true, adaptive intelligence. These interconnected issues create a ceiling for AI progress.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                    <div class="feature-card text-center">
+                        <h3 class="text-2xl font-bold dancheon-blue-text">Scaling Dilemma</h3>
+                        <p class="text-5xl font-black dancheon-red-text my-2">O(N²)</p>
+                        <p class="text-sm">Computational cost explodes quadratically with input length, limiting long-form understanding.</p>
+                    </div>
+                    <div class="feature-card text-center">
+                        <h3 class="text-2xl font-bold dancheon-blue-text">Amnesiac Machine</h3>
+                        <p class="text-5xl font-black dancheon-red-text my-2">0%</p>
+                        <p class="text-sm">New learning catastrophically overwrites old knowledge. Transformers are incapable of true lifelong learning.</p>
+                    </div>
+                    <div class="feature-card text-center">
+                        <h3 class="text-2xl font-bold dancheon-blue-text">Brittle Reasoning</h3>
+                        <p class="text-5xl font-black dancheon-red-text my-2">0%</p>
+                        <p class="text-sm">Relies on pattern matching ("Chain-of-Thought"), an illusion of true, internal reasoning.</p>
                     </div>
                 </div>
-                <div class="stat-card rounded-lg shadow-lg p-6 text-center flex flex-col justify-center h-full">
-                    <h3 class="text-2xl font-bold mb-4 text-sky-400">The Stability-Plasticity Solution</h3>
-                    <div class="text-6xl mb-4">🧠 ↔️ 📚</div>
-                    <p class="text-slate-300">A <span class="font-bold text-green-400">plastic</span> 'hippocampus' rapidly learns new episodes, while a <span class="font-bold text-green-400">stable</span> 'neocortex' slowly consolidates knowledge via offline replay. This dual system solves catastrophic forgetting, enabling true adaptation.</p>
+            </section>
+
+            <!-- Comparison Section -->
+            <section id="comparison" class="content-card mb-12">
+                <h2 class="dancheon-green-text">A Paradigm Shift in AI Capability</h2>
+                <p>The Panacea Cortex Process is not an incremental update; it's a fundamental redesign. By adopting brain-inspired principles, it moves from a monolithic, brute-force approach to a specialized, efficient, and integrated system.</p>
+                <div class="chart-container mt-8" style="height: 400px;">
+                    <canvas id="capabilityRadarChart"></canvas>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <footer class="text-center mt-16 pt-8 border-t border-slate-700">
-            <p class="text-slate-500">This infographic visualizes the conceptual framework of the Panacea Cortex Process, a next-generation AI architecture designed for robust reasoning and lifelong learning.</p>
-        </footer>
+            <!-- Solution Section -->
+            <section id="solution" class="content-card mb-12">
+                <h2 class="dancheon-blue-text">The Cortical Blueprint: An Integrated Architecture</h2>
+                <p>The framework integrates neuroscientific principles into a synergistic system, where each component addresses a core failure of the Transformer architecture, creating a virtuous cycle of perception, memory, and reasoning.</p>
+                <div class="flex flex-col items-center space-y-4 mt-8">
+                    <div class="feature-card dancheon-accent-border-yellow w-full max-w-2xl p-4 text-center">
+                        <h3 class="text-xl font-bold dancheon-yellow-text">1. Input Processing Layer (Cortical Waves)</h3>
+                        <p class="text-sm mt-2">Processes continuous data streams efficiently by encoding time into space, overcoming the O(N²) bottleneck.</p>
+                    </div>
+                    <div class="text-2xl text-sky-300">↓</div>
+                    <div class="feature-card dancheon-accent-border-blue w-full max-w-2xl p-4 text-center">
+                        <h3 class="text-xl font-bold dancheon-blue-text">2. Dual Memory Core (Hippocampus & Neocortex)</h3>
+                        <p class="text-sm mt-2">A dual-system memory enables lifelong learning without catastrophic forgetting.</p>
+                    </div>
+                    <div class="text-2xl text-sky-300">↓</div>
+                    <div class="feature-card dancheon-accent-border-green w-full max-w-2xl p-4 text-center">
+                        <h3 class="text-xl font-bold dancheon-green-text">3. Reasoning Engine (Hierarchical Reasoning)</h3>
+                        <p class="text-sm mt-2">A 'fast and slow' thinking module performs deep, internal, multi-step logical inference.</p>
+                    </div>
+                </div>
+            </section>
 
+            <!-- Performance Section -->
+            <section id="performance" class="content-card mb-12">
+                <h2 class="dancheon-green-text">Reasoning: Architecture over Scale</h2>
+                <p>Superior architecture enables genuine logical problem-solving. A small, 27-million parameter Hierarchical Reasoning Model (HRM) dramatically outperforms massive LLMs on complex reasoning benchmarks.</p>
+                <div class="chart-container mt-8" style="height: 300px;">
+                    <canvas id="reasoningPerformanceChart"></canvas>
+                </div>
+            </section>
+            
+            <!-- Memory Section -->
+            <section id="memory" class="content-card">
+                <h2 class="dancheon-blue-text">Memory: Capacity & Continual Learning</h2>
+                <p>The Panacea Cortex Process proposes a memory system with vast, supralinear scaling capacity, achieved through Neuron-Astrocyte networks that form the foundation for stable, lifelong knowledge retention.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-8">
+                    <div class="feature-card">
+                        <h3 class="text-xl font-bold text-center dancheon-blue-text">Memory Capacity Scaling Law</h3>
+                        <div class="chart-container h-[300px] max-h-[300px] mt-4">
+                            <canvas id="memoryScalingChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="feature-card text-center flex flex-col justify-center h-full p-6">
+                        <h3 class="text-xl font-bold dancheon-blue-text">The Stability-Plasticity Solution</h3>
+                        <div class="text-6xl my-4">🧠 ↔️ 📚</div>
+                        <p class="text-sm">A <span class="font-bold dancheon-green-text">plastic</span> 'hippocampus' rapidly learns new episodes, while a <span class="font-bold dancheon-green-text">stable</span> 'neocortex' slowly consolidates knowledge. This dual system solves catastrophic forgetting.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
+    <footer>
+        <p>An interactive visualization of the Panacea Cortex Process.</p>
+    </footer>
+
     <script>
-        const COLORS = {
-            sky: '#38BDF8',
-            green: '#4ADE80',
-            red: '#F87171',
-            slate: '#64748B',
-            bg: '#1E293B',
-            grid: '#334155',
-            text: '#F8FAFC'
+    document.addEventListener('DOMContentLoaded', function () {
+        const themeColors = {
+            skyBlue: 'rgba(14, 165, 233, 1)',
+            red: 'rgba(239, 68, 68, 1)',
+            green: 'rgba(34, 197, 94, 1)',
+            textDark: '#1e293b',
+            gridLight: 'rgba(0, 0, 0, 0.05)'
+        };
+
+        const defaultChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: { legend: { labels: { color: themeColors.textDark, font: { size: 12 } } } },
+            scales: {
+                r: {
+                    angleLines: { color: themeColors.gridLight },
+                    grid: { color: themeColors.gridLight },
+                    pointLabels: { color: themeColors.textDark, font: { size: 11 } },
+                    ticks: { color: themeColors.textDark, backdropColor: 'rgba(255, 255, 255, 0.75)' }
+                },
+                x: { grid: { color: themeColors.gridLight }, ticks: { color: themeColors.textDark, font: { size: 12 } } },
+                y: { grid: { color: themeColors.gridLight }, ticks: { color: themeColors.textDark, font: { size: 12 } }, beginAtZero: true }
+            }
         };
 
         function wrapLabel(str, maxWidth) {
-            if (str.length <= maxWidth) {
-                return str;
-            }
+            if (str.length <= maxWidth) return str;
             const words = str.split(' ');
             let lines = [];
             let currentLine = '';
@@ -168,80 +169,22 @@
             return lines.filter(line => line.length > 0);
         }
 
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-                return label.join(' ');
-            }
-            return label;
-        };
-        
-        const defaultChartOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: COLORS.text,
-                        font: {
-                            size: 14
-                        }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
-                    }
-                }
-            },
-            scales: {
-                r: {
-                    angleLines: { color: COLORS.grid },
-                    grid: { color: COLORS.grid },
-                    pointLabels: { 
-                        color: COLORS.text,
-                        font: { size: 12 }
-                    },
-                    ticks: {
-                        color: COLORS.text,
-                        backdropColor: COLORS.bg
-                    }
-                },
-                x: {
-                    grid: { color: COLORS.grid },
-                    ticks: { color: COLORS.text, font: { size: 12 } }
-                },
-                y: {
-                    grid: { color: COLORS.grid },
-                    ticks: { color: COLORS.text, font: { size: 12 } },
-                    beginAtZero: true
-                }
-            }
-        };
-
         new Chart(document.getElementById('capabilityRadarChart'), {
             type: 'radar',
             data: {
-                labels: ['Computational Efficiency', 'Continual Learning', 'Logical Reasoning', 'Context Handling', 'Biological Plausibility', 'Memory Capacity'],
+                labels: ['Efficiency', 'Continual Learning', 'Reasoning', 'Context', 'Plausibility', 'Memory'],
                 datasets: [{
                     label: 'Standard Transformer',
                     data: [2, 1, 2, 3, 1, 4],
-                    backgroundColor: 'rgba(248, 113, 113, 0.2)',
-                    borderColor: COLORS.red,
-                    pointBackgroundColor: COLORS.red,
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: COLORS.red
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    borderColor: themeColors.red,
+                    pointBackgroundColor: themeColors.red
                 }, {
-                    label: 'Panacea Cortex Process',
+                    label: 'Panacea Cortex',
                     data: [8, 9, 9, 10, 9, 10],
-                    backgroundColor: 'rgba(74, 222, 128, 0.2)',
-                    borderColor: COLORS.green,
-                    pointBackgroundColor: COLORS.green,
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: COLORS.green
+                    backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                    borderColor: themeColors.green,
+                    pointBackgroundColor: themeColors.green
                 }]
             },
             options: defaultChartOptions
@@ -250,28 +193,21 @@
         new Chart(document.getElementById('reasoningPerformanceChart'), {
             type: 'bar',
             data: {
-                labels: [wrapLabel('Sudoku-Extreme Puzzles', 16), wrapLabel('Maze-Hard Pathfinding', 16)],
+                labels: [wrapLabel('Sudoku-Extreme', 16), wrapLabel('Maze-Hard', 16)],
                 datasets: [{
-                    label: 'State-of-the-Art LLM (e.g., GPT-4, Claude 3)',
+                    label: 'State-of-the-Art LLM',
                     data: [0, 0],
-                    backgroundColor: COLORS.red,
-                    borderColor: COLORS.red,
-                    borderWidth: 1
+                    backgroundColor: themeColors.red,
                 }, {
-                    label: 'Hierarchical Reasoning Model (HRM)',
+                    label: 'Hierarchical Reasoning Model',
                     data: [100, 100],
-                    backgroundColor: COLORS.green,
-                    borderColor: COLORS.green,
-                    borderWidth: 1
+                    backgroundColor: themeColors.green,
                 }]
             },
             options: { ...defaultChartOptions,
                 indexAxis: 'y',
                 scales: {
-                    x: { ...defaultChartOptions.scales.x,
-                        max: 100,
-                        title: { display: true, text: 'Accuracy (%)', color: COLORS.text }
-                    },
+                    x: { ...defaultChartOptions.scales.x, max: 100, title: { display: true, text: 'Accuracy (%)', color: themeColors.textDark } },
                     y: { ...defaultChartOptions.scales.y }
                 }
             }
@@ -282,28 +218,29 @@
             data: {
                 labels: ['1x', '2x', '4x', '8x', '16x'],
                 datasets: [{
-                    label: 'Traditional (Linear Scaling)',
+                    label: 'Traditional (Linear)',
                     data: [1, 2, 4, 8, 16],
-                    borderColor: COLORS.red,
-                    backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                    borderColor: themeColors.red,
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
                     fill: true,
                     tension: 0.1
                 }, {
-                    label: 'Neuron-Astrocyte (Supralinear Scaling)',
+                    label: 'Neuron-Astrocyte (Supralinear)',
                     data: [1, 4, 16, 64, 256],
-                    borderColor: COLORS.green,
-                    backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                    borderColor: themeColors.green,
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
                     fill: true,
                     tension: 0.1
                 }]
             },
             options: { ...defaultChartOptions,
                 scales: {
-                    x: { ...defaultChartOptions.scales.x, title: { display: true, text: 'Network Size', color: COLORS.text } },
-                    y: { ...defaultChartOptions.scales.y, type: 'logarithmic', title: { display: true, text: 'Memory Capacity (Log Scale)', color: COLORS.text } }
+                    x: { ...defaultChartOptions.scales.x, title: { display: true, text: 'Network Size', color: themeColors.textDark } },
+                    y: { ...defaultChartOptions.scales.y, type: 'logarithmic', title: { display: true, text: 'Memory Capacity (Log)', color: themeColors.textDark } }
                 }
             }
         });
+    });
     </script>
 </body>
 </html>

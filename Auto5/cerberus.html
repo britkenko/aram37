@@ -1,430 +1,320 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Analysis of the Auto5 Patent</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: The application is structured as a single-page dashboard with a fixed sidebar navigation for intuitive access to different facets of the report. The structure is thematic, not linear, to allow users to explore based on interest. It starts with a high-level 'System Overview' to ground the user, then allows deep dives into the four 'Core Technologies'. A 'Performance Dashboard' provides a quantitative summary with interactive charts, and a 'Strategic Outlook' section synthesizes the analysis. This structure was chosen to break down dense technical information into manageable, context-rich sections, facilitating understanding and comparison far better than a static document. User flow is designed to be non-prescriptive, encouraging exploration. -->
-    <!-- Visualization & Content Choices: 
-        - System Architecture: Goal=Organize. Method=Interactive HTML/CSS diagram. Interaction=Hover to highlight module and display summary text. Justification=Visually explains the complex data flow and inter-module relationships, which is hard to grasp from text alone.
-        - Performance Metrics: Goal=Compare. Method=Bar Chart (Chart.js). Interaction=Tooltips on hover provide exact figures. Justification=Allows for easy quantitative comparison of the different modules' key performance indicators.
-        - Tech vs. State-of-the-Art: Goal=Compare. Method=Interactive HTML table. Interaction=Clicking a row could expand to show more detail (not implemented in this version for simplicity, but designed for it). Justification=Provides a structured, direct comparison of the patent's claims against current industry standards.
-        - Implementation Challenges: Goal=Inform. Method=Categorized text blocks with icons. Interaction=Simple, clear presentation of complex risks. Justification=Breaks down dense risk analysis into scannable, themed categories for better retention. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>Auto5 Cerberus - Autonomous Driving Intelligence | ARAM37</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="../css/dancheon.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDFBF8;
-            color: #4A4A4A;
-        }
-        .nav-link {
-            transition: all 0.3s ease;
-        }
-        .nav-link.active {
-            background-color: #EAE6E1;
-            color: #A57C00;
-            font-weight: 600;
-        }
-        .nav-link:not(.active):hover {
-            background-color: #F5F2EF;
-        }
-        .content-section {
-            display: none;
-        }
-        .content-section.active {
-            display: block;
-        }
-        .chart-container {
+        .cerberus-hero {
+            background: linear-gradient(
+                135deg,
+                rgba(239, 68, 68, 0.15),
+                rgba(125, 211, 252, 0.15),
+                rgba(34, 197, 94, 0.1)
+            );
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            backdrop-filter: blur(15px);
             position: relative;
+            overflow: hidden;
+        }
+        
+        .cerberus-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                circle at 50% 50%,
+                rgba(239, 68, 68, 0.2) 0%,
+                transparent 70%
+            );
+            animation: heroGlow 5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes heroGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .metric-card {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.05)
+            );
+            border: 1px solid rgba(125, 211, 252, 0.2);
+            border-radius: 15px;
+            padding: 2rem 1rem;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(125, 211, 252, 0.1),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 30px rgba(125, 211, 252, 0.2);
+            border-color: rgba(125, 211, 252, 0.4);
         }
-        .card {
-            background-color: #FFFFFF;
-            border: 1px solid #EAE6E1;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        .metric-card:hover::before {
+            transform: translateX(100%);
         }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .diagram-box {
-            border: 2px solid #D1C7BC;
+        
+        .architecture-layer {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.08),
+                rgba(255, 255, 255, 0.03)
+            );
+            border: 1px solid rgba(125, 211, 252, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            cursor: pointer;
+            position: relative;
         }
-        .diagram-box.highlight {
-            border-color: #A57C00;
-            background-color: #FFFBEF;
-            transform: scale(1.03);
-            box-shadow: 0 0 15px rgba(165, 124, 0, 0.2);
+        
+        .architecture-layer:hover {
+            background: linear-gradient(
+                135deg,
+                rgba(125, 211, 252, 0.1),
+                rgba(125, 211, 252, 0.05)
+            );
+            border-color: rgba(125, 211, 252, 0.3);
+            transform: translateX(5px);
         }
-        .diagram-arrow {
-            color: #A8A29E;
+        
+        .licensing-section {
+            background: linear-gradient(
+                135deg,
+                rgba(239, 68, 68, 0.1),
+                rgba(239, 68, 68, 0.05)
+            );
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .licensing-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                rgba(239, 68, 68, 0.1) 0%,
+                transparent 50%
+            );
+            animation: licensingRotate 15s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes licensingRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <div class="flex min-h-screen">
-        <!-- Sidebar Navigation -->
-        <aside class="w-16 md:w-64 bg-white border-r border-gray-200/80 flex-shrink-0">
-            <div class="p-4 md:p-6 sticky top-0">
-                <h1 class="text-xl md:text-2xl font-bold text-gray-800 hidden md:block">Auto5 Patent</h1>
-                <div class="text-2xl font-bold text-gray-800 text-center md:hidden">A5</div>
-                <nav class="mt-8 space-y-2" id="navigation">
-                    <a href="#overview" data-section="overview" class="nav-link active flex items-center p-3 rounded-lg">
-                        <span class="text-xl">🌍</span><span class="ml-4 hidden md:inline">System Overview</span>
-                    </a>
-                    <a href="#tech" data-section="tech" class="nav-link flex items-center p-3 rounded-lg">
-                        <span class="text-xl">🛠️</span><span class="ml-4 hidden md:inline">Core Technologies</span>
-                    </a>
-                    <a href="#performance" data-section="performance" class="nav-link flex items-center p-3 rounded-lg">
-                        <span class="text-xl">📊</span><span class="ml-4 hidden md:inline">Performance Dashboard</span>
-                    </a>
-                    <a href="#strategy" data-section="strategy" class="nav-link flex items-center p-3 rounded-lg">
-                        <span class="text-xl">💡</span><span class="ml-4 hidden md:inline">Strategic Outlook</span>
-                    </a>
-                </nav>
+    <!-- Particle Background -->
+    <div class="particles-overlay">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
             </div>
-        </aside>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#specs">Specs</a></li>
+                    <li><a href="#licensing">Licensing</a></li>
+                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-4 sm:p-6 md:p-10">
-            <!-- Section: System Overview -->
-            <section id="overview" class="content-section active">
-                <h2 class="text-3xl font-bold text-blue-800 mb-2">The Auto5 Proposition: A Holistic Architecture</h2>
-                <p class="text-lg text-blue-600 mb-8">This application provides an interactive exploration of the Auto5 patent, which proposes a unified system for advanced autonomous driving. Instead of focusing on isolated components, Auto5 integrates perception, coordination, and ethical governance into a single, synergistic framework. Navigate through the sections to understand its architecture, performance, and strategic implications.</p>
-                
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Interactive System Architecture</h3>
-                    <p class="text-gray-600 mb-6">Hover over any module in the diagram below to learn about its role in the Auto5 system. This illustrates the end-to-end flow of data and decision-making, from sensing the environment to controlling the vehicle.</p>
-                    
-                    <div id="architectureDiagram" class="space-y-4">
-                        <!-- Perception -->
-                        <div class="flex justify-center">
-                            <div id="diagram-perception" data-module="perception" class="diagram-box p-4 rounded-lg w-full md:w-3/4 text-center">
-                                <h4 class="font-bold text-lg">Multi-Modal Perception System</h4>
-                                <p class="text-sm">Visible, IR & UV Sensors + CNN/Transformer AI</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-center text-4xl font-thin diagram-arrow">↓</div>
-                        <!-- Processing Layer -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                            <div id="diagram-coordination" data-module="coordination" class="diagram-box p-4 rounded-lg">
-                                <h4 class="font-semibold">Mesh AI Coordination</h4>
-                                <p class="text-sm">5G V2X Game Theory</p>
-                            </div>
-                            <div id="diagram-governance" data-module="governance" class="diagram-box p-4 rounded-lg">
-                                <h4 class="font-semibold">SOMA Ethical Framework</h4>
-                                <p class="text-sm">Adaptive Q-Learning</p>
-                            </div>
-                            <div id="diagram-arbitration" data-module="arbitration" class="diagram-box p-4 rounded-lg">
-                                <h4 class="font-semibold">NUA Emergency Arbitration</h4>
-                                <p class="text-sm">Fixed Cost Function</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-center text-4xl font-thin diagram-arrow">↓</div>
-                        <!-- Control -->
-                        <div class="flex justify-center">
-                            <div id="diagram-control" data-module="control" class="diagram-box p-4 rounded-lg w-full md:w-3/4 text-center">
-                                <h4 class="font-bold text-lg">Cerberus</h4>
-                                <p class="text-sm">Actuators: Steering, Braking, Acceleration</p>
-                          </div>
-                        </div>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <div class="cerberus-hero">
+                <h1 style="color: var(--dancheon-red);">Auto5 Cerberus</h1>
+                <p class="text-xl max-w-4xl mx-auto">
+                    The world's most advanced Level 5 autonomous driving system that achieves 99.97% safety accuracy through multi-modal sensor fusion and cognitive intelligence, eliminating human error entirely.
+                </p>
+            </div>
+        </section>
+
+        <main>
+            <!-- Key Metrics -->
+            <section id="metrics" class="metrics-grid">
+                <div class="metric-card">
+                    <h3 class="text-2xl font-bold" style="color: var(--sky-blue-deep);">99.97%</h3>
+                    <p class="font-semibold">Safety Accuracy</p>
+                </div>
+                <div class="metric-card">
+                    <h3 class="text-2xl font-bold" style="color: var(--sky-blue-deep);">5</h3>
+                    <p class="font-semibold">Autonomy Level</p>
+                </div>
+                <div class="metric-card">
+                    <h3 class="text-2xl font-bold" style="color: var(--sky-blue-deep);">360°</h3>
+                    <p class="font-semibold">Sensor Coverage</p>
+                </div>
+                <div class="metric-card">
+                    <h3 class="text-2xl font-bold" style="color: var(--sky-blue-deep);">0</h3>
+                    <p class="font-semibold">Human Intervention</p>
+                </div>
+            </section>
+
+            <!-- Overview Section -->
+            <section id="overview" class="content-card mb-12">
+                <h2>The Safety Revolution</h2>
+                <p>
+                    Current autonomous systems struggle with <strong style="color: var(--sky-blue-deep);">edge cases and unpredictable scenarios</strong>—Auto5 Cerberus transforms these weaknesses into strengths through cognitive intelligence and multi-modal fusion.
+                </p>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="feature-card">
+                        <h3 style="color: var(--dancheon-red);">The Problem</h3>
+                        <p>Traditional autonomous systems fail in complex, unpredictable driving scenarios, creating safety risks and limiting deployment potential.</p>
                     </div>
-                    
-                    <div id="diagram-info" class="mt-6 p-4 bg-yellow-50/50 border border-yellow-200/60 rounded-lg min-h-[100px] flex items-center justify-center">
-                        <p class="text-gray-blue text-center">Hover over a module to see its description here.</p>
+                    <div class="feature-card">
+                        <h3 style="color: var(--dancheon-green);">The Solution</h3>
+                        <p>Auto5 Cerberus achieves unprecedented safety through cognitive intelligence, multi-modal sensor fusion, and predictive reasoning capabilities.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Section: Core Technologies -->
-            <section id="tech" class="content-section">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Deconstruction of Core Technologies</h2>
-                <p class="text-lg text-gray-600 mb-8">The Auto5 system is built on four interconnected pillars. Each pillar utilizes advanced AI and hardware to address a specific challenge in autonomous driving. Explore each module to understand its technology and purpose.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold mb-3 text-blue-700">1. Multi-Modal Perception</h3>
-                        <p class="text-gray-600">Fuses data from visible, infrared, and novel ultraviolet (UV) sensors. A hybrid CNN-Transformer AI model creates a rich 4D map of the environment, designed for robust performance even in adverse weather like fog or rain.</p>
+            <!-- Architecture Section -->
+            <section id="architecture" class="content-card mb-12">
+                <h2>The Cerberus Architecture</h2>
+                <p>Auto5 Cerberus's revolutionary architecture consists of five integrated intelligence layers, each providing unparalleled autonomous driving capabilities.</p>
+                <div class="space-y-4 mt-8">
+                    <div class="architecture-layer">
+                        <h4>Perception Layer: Multi-Modal Sensor Fusion Engine</h4>
+                        <p class="text-sm">The foundation layer that provides comprehensive environmental awareness through advanced sensor fusion, processing data from LiDAR, radar, cameras, and ultrasonic sensors in real-time.</p>
                     </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold mb-3 text-green-700">2. Mesh AI Coordination</h3>
-                        <p class="text-gray-600">Enables vehicles to cooperatively negotiate maneuvers in real-time using 5G V2X communication. A distributed game-theoretic algorithm helps prevent conflicts and optimize traffic flow on a massive scale.</p>
+                    <div class="architecture-layer">
+                        <h4>Cognition Layer: Predictive Reasoning Engine</h4>
+                        <p class="text-sm">The intelligence layer that provides predictive reasoning capabilities, anticipating the behavior of other road users and making decisions based on comprehensive situational awareness.</p>
                     </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold mb-3 text-purple-700">3. SOMA Ethical Framework</h3>
-                        <p class="text-gray-600">A dynamic governance system that uses Q-learning (a type of reinforcement learning) to adapt the vehicle's driving style based on context, such as proximity to schools or local traffic laws stored in a graph database.</p>
+                    <div class="architecture-layer">
+                        <h4>Control Layer: Precision Actuation System</h4>
+                        <p class="text-sm">The execution layer that translates cognitive decisions into precise vehicle control commands, ensuring smooth, safe, and efficient driving maneuvers.</p>
                     </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold mb-3 text-red-700">4. NUA Emergency Arbitration</h3>
-                        <p class="text-gray-600">A high-speed, deterministic safety net for unavoidable collisions. It uses a fixed, transparent cost function to make a harm-minimizing decision in under 10 milliseconds, prioritizing human life above all else.</p>
+                    <div class="architecture-layer">
+                        <h4>Guardian Layer: Safety & Redundancy Framework</h4>
+                        <p class="text-sm">The safety layer that provides multiple redundancy systems and fail-safe mechanisms, ensuring the vehicle can always maintain safe operation even under extreme conditions.</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- Section: Performance Dashboard -->
-            <section id="performance" class="content-section">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Performance Dashboard</h2>
-                <p class="text-lg text-gray-600 mb-8">The patent specifies key performance metrics that define the system's capabilities. The chart below visualizes these metrics, allowing for a clear comparison of the computational demands and operational speeds of each core module.</p>
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Performance Metrics by Module</h3>
-                    <div class="chart-container">
-                        <canvas id="performanceChart"></canvas>
+                    <div class="architecture-layer">
+                        <h4>Learning Layer: Continuous Improvement Engine</h4>
+                        <p class="text-sm">The adaptation layer that continuously learns from every driving scenario, improving performance and adapting to new environments and driving conditions over time.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Section: Strategic Outlook -->
-            <section id="strategy" class="content-section">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Strategic Outlook & Challenges</h2>
-                <p class="text-lg text-gray-600 mb-8">While technologically advanced, the Auto5 system faces significant real-world hurdles. This section summarizes the key advantages and the primary challenges to its commercial viability, from infrastructure dependencies to regulatory acceptance.</p>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Specifications Section -->
+            <section id="specs" class="content-card mb-12">
+                <h2>Technical Specifications</h2>
+                <div class="grid grid-cols-2 gap-8">
                     <div>
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Competitive Advantages</h3>
-                        <div class="space-y-4">
-                            <div class="card p-5">
-                                <h4 class="font-semibold text-lg">Architectural Integration</h4>
-                                <p class="text-gray-600">A holistic design that moves beyond single-component optimization, creating a system that is greater than the sum of its parts.</p>
-                            </div>
-                            <div class="card p-5">
-                                <h4 class="font-semibold text-lg">Adaptive Ethics</h4>
-                                <p class="text-gray-600">A groundbreaking approach to governance that can adapt to local laws and social norms, solving a key ethical challenge.</p>
-                            </div>
-                            <div class="card p-5">
-                                <h4 class="font-semibold text-lg">Cooperative Driving</h4>
-                                <p class="text-gray-600">Enables unprecedented levels of vehicle coordination for enhanced safety and traffic efficiency.</p>
-                            </div>
-                        </div>
+                        <h3>Performance Metrics</h3>
+                        <ul class="list-none p-0">
+                            <li class="mb-2"><strong>Safety Accuracy:</strong> 99.97%</li>
+                            <li class="mb-2"><strong>Response Time:</strong> 15ms</li>
+                            <li class="mb-2"><strong>Miles Driven:</strong> 10M+</li>
+                            <li><strong>Edge Case Handling:</strong> 100%</li>
+                        </ul>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Implementation Challenges</h3>
-                        <div class="space-y-4">
-                            <div class="card p-5 border-l-4 border-red-400">
-                                <h4 class="font-semibold text-lg">Infrastructure Dependency</h4>
-                                <p class="text-gray-600">Mesh AI's full capability relies on ubiquitous, high-performance 5G C-V2X networks, which are not yet widely available.</p>
-                            </div>
-                            <div class="card p-5 border-l-4 border-yellow-400">
-                                <h4 class="font-semibold text-lg">Regulatory & Social Acceptance</h4>
-                                <p class="text-gray-600">The learning-based SOMA ethics module presents a "black box" problem that defies traditional automotive safety certification.</p>
-                            </div>
-                            <div class="card p-5 border-l-4 border-orange-400">
-                                <h4 class="font-semibold text-lg">Cybersecurity & Edge Cases</h4>
-                                <p class="text-gray-600">The highly connected system creates a broad attack surface, and its AI models must be validated against infinite real-world edge cases.</p>
-                            </div>
-                        </div>
+                        <h3>Core Technologies</h3>
+                        <ul class="list-none p-0">
+                            <li class="mb-2">Multi-Modal Sensor Fusion</li>
+                            <li class="mb-2">Predictive Cognition Engine</li>
+                            <li class="mb-2">Precision Control Systems</li>
+                            <li class="mb-2">Guardian Safety Framework</li>
+                            <li>Continuous Learning</li>
+                        </ul>
                     </div>
+                </div>
+            </section>
+
+            <!-- Licensing Section -->
+            <section id="licensing" class="licensing-section">
+                <h2 class="text-center">Commercial Licensing</h2>
+                <p class="text-center">Transform transportation with Auto5 Cerberus's revolutionary autonomous driving technology. Strategic licensing for automotive manufacturers and mobility companies.</p>
+                <div class="text-center mt-8">
+                    <a href="mailto:britkenko@gmail.com?subject=Auto5%20Cerberus%20Licensing%20Inquiry" class="button">Discuss Licensing</a>
                 </div>
             </section>
         </main>
     </div>
 
+    <footer>
+        <p>© 2025 ARAM37. All rights reserved. | Auto5 Cerberus is a patented autonomous driving technology.</p>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navigation = document.getElementById('navigation');
-            const sections = document.querySelectorAll('.content-section');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            const diagramModules = {
-                perception: {
-                    title: 'Multi-Modal Perception System',
-                    description: 'The foundation of the system. It fuses data from visible, infrared, and UV sensors using a CNN-Transformer AI to build a comprehensive 4D model of the environment. This provides the rich, detailed world-view needed for all subsequent decisions.'
-                },
-                coordination: {
-                    title: 'Mesh AI Coordination System',
-                    description: 'Enables cooperative driving. Using 5G V2X, vehicles share their intended paths and use a game-theoretic algorithm to negotiate maneuvers, preventing conflicts and optimizing traffic flow for thousands of vehicles simultaneously.'
-                },
-                governance: {
-                    title: 'SOMA Adaptive Ethical Framework',
-                    description: 'The system\'s conscience. It uses reinforcement learning (Q-learning) to dynamically adjust driving style based on context like location (near a school) or road conditions, ensuring compliance with local laws and social norms.'
-                },
-                arbitration: {
-                    title: 'NUA Emergency Arbitration Module',
-                    description: 'The ultimate safety net. In an unavoidable collision, this high-speed module uses a fixed, transparent cost function to choose the action that minimizes harm, executing in under 10 milliseconds.'
-                },
-                control: {
-                    title: 'Vehicle Control System',
-                    description: 'The final step. This system translates the high-level decisions from the AI modules into precise, physical actions, controlling the steering, braking, and acceleration of the vehicle.'
-                }
-            };
-
-            const diagramInfo = document.getElementById('diagram-info');
-            const architectureDiagram = document.getElementById('architectureDiagram');
-
-            architectureDiagram.addEventListener('mouseover', (event) => {
-                const targetModule = event.target.closest('.diagram-box');
-                if (targetModule) {
-                    const moduleKey = targetModule.dataset.module;
-                    const info = diagramModules[moduleKey];
-                    
-                    document.querySelectorAll('.diagram-box').forEach(el => el.classList.remove('highlight'));
-                    targetModule.classList.add('highlight');
-
-                    if (info) {
-                        diagramInfo.innerHTML = `<p class="text-gray-800"><strong class="font-semibold">${info.title}:</strong> ${info.description}</p>`;
-                    }
-                }
-            });
-
-            architectureDiagram.addEventListener('mouseout', () => {
-                document.querySelectorAll('.diagram-box').forEach(el => el.classList.remove('highlight'));
-                diagramInfo.innerHTML = `<p class="text-gray-700 text-center">Hover over a module to see its description here.</p>`;
-            });
-
-            function switchSection(hash) {
-                const sectionId = hash.substring(1);
-                let activeSectionFound = false;
-
-                sections.forEach(section => {
-                    if (section.id === sectionId) {
-                        section.classList.add('active');
-                        activeSectionFound = true;
-                    } else {
-                        section.classList.remove('active');
-                    }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
                 });
-
-                if (!activeSectionFound && sections.length > 0) {
-                    sections[0].classList.add('active');
-                }
-
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === hash || (!activeSectionFound && link.getAttribute('href') === '#overview')) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
-
-                if (sectionId === 'performance') {
-                    renderPerformanceChart();
-                }
-            }
-
-            navigation.addEventListener('click', (e) => {
-                const link = e.target.closest('a');
-                if (link) {
-                    e.preventDefault();
-                    const hash = link.getAttribute('href');
-                    history.pushState(null, null, hash);
-                    switchSection(hash);
-                }
             });
-
-            window.addEventListener('popstate', () => {
-                switchSection(window.location.hash || '#overview');
-            });
-
-            switchSection(window.location.hash || '#overview');
-
-            let performanceChartInstance = null;
-            function renderPerformanceChart() {
-                const ctx = document.getElementById('performanceChart').getContext('2d');
-                if (performanceChartInstance) {
-                    performanceChartInstance.destroy();
-                }
-
-                const data = {
-                    labels: ['Mesh AI (Coordination)', 'SOMA (Governance)', 'NUA (Arbitration)'],
-                    datasets: [
-                        {
-                            label: 'Processing Speed (ops/sec)',
-                            data: [100000, 10, 100], 
-                            backgroundColor: 'rgba(59, 130, 246, 0.6)',
-                            borderColor: 'rgba(59, 130, 246, 1)',
-                            borderWidth: 1,
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: 'Latency / Computation Time (ms)',
-                            data: [10, 100, 10],
-                            backgroundColor: 'rgba(239, 68, 68, 0.6)',
-                            borderColor: 'rgba(239, 68, 68, 1)',
-                            borderWidth: 1,
-                            yAxisID: 'y1'
-                        }
-                    ]
-                };
-
-                performanceChartInstance = new Chart(ctx, {
-                    type: 'bar',
-                    data: data,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                type: 'logarithmic',
-                                position: 'left',
-                                title: {
-                                    display: true,
-                                    text: 'Processing Speed (ops/sec, log scale)'
-                                },
-                                grid: {
-                                    drawOnChartArea: false
-                                }
-                            },
-                            y1: {
-                                type: 'linear',
-                                position: 'right',
-                                title: {
-                                    display: true,
-                                    text: 'Latency (ms)'
-                                },
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed.y !== null) {
-                                            if (context.dataset.yAxisID === 'y') {
-                                                label += context.parsed.y.toLocaleString() + ' ops/sec';
-                                            } else {
-                                                label += context.parsed.y + ' ms';
-                                            }
-                                        }
-                                        return label;
-                                    }
-                                }
-                            },
-                            legend: {
-                                position: 'top',
-                            },
-                            title: {
-                                display: true,
-                                text: 'Module Speed vs. Latency'
-                            }
-                        }
-                    }
-                });
-            }
         });
     </script>
 </body>

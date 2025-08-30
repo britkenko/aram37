@@ -3,342 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COMET: Cooperative V2X Safety System</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>COMET: Cooperative V2X Safety System | ARAM37</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-    </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-
-    <header class="bg-[#003F5C] text-white text-center py-16 px-4">
-        <h1 class="text-4xl md:text-6xl font-black mb-4">COMET: Beyond AI-auto safety</h1>
-        <p class="text-lg md:text-xl max-w-3xl mx-auto text-[#FF6361]">A revolutionary cooperative safety solution designed to protect the most vulnerable road users by giving vehicles a sixth sense.</p>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#problem">Problem</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main class="container mx-auto p-4 md:p-8">
-
-        <section id="problem" class="my-12">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#003F5C]">The Unseen Danger on Our Roads</h2>
-                <p class="mt-4 text-lg max-w-4xl mx-auto">Despite advances in vehicle technology, the risk to pedestrians, cyclists, and other vulnerable road users (VRUs) remains critically high. Standard vehicle sensors have a fundamental limitation: they can't see around corners or through obstructions.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="text-6xl font-extrabold text-[#FF6361]">1.5M+</div>
-                    <p class="mt-2 text-lg font-semibold">Global Road Fatalities Annually</p>
-                    <p class="text-gray-600 mt-1">A significant portion of these are VRUs, highlighting a persistent gap in vehicle safety systems.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="text-6xl font-extrabold text-[#FF6361]">50%+</div>
-                    <p class="mt-2 text-lg font-semibold">of Fatalities are Pedestrians & Cyclists</p>
-                    <p class="text-gray-600 mt-1">The most vulnerable are disproportionately affected in traffic incidents worldwide.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="text-6xl font-extrabold text-[#FF6361]">27%</div>
-                    <p class="mt-2 text-lg font-semibold">Increase in US Pedestrian Deaths</p>
-                    <p class="text-gray-600 mt-1">From 2015-2019, showing the problem is worsening despite "smarter" cars.</p>
-                </div>
-            </div>
-             <div class="mt-12 bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-2xl font-bold text-center text-[#003F5C] mb-4">Why Conventional Sensors Fail</h3>
-                <p class="text-center max-w-3xl mx-auto mb-6">Autonomous and ADAS-equipped vehicles rely on Line-of-Sight sensors like cameras, LIDAR, and radar. They are blind to hidden dangers, creating unavoidable collisions in common urban scenarios.</p>
-                <div class="chart-container mx-auto">
-                    <canvas id="sensorComparisonChart"></canvas>
-                </div>
-            </div>
-      </section>
-
-        <section id="solution" class="my-12">
-             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#003F5C]">The COMET Architecture: A Unified Safety Network</h2>
-                <p class="mt-4 text-lg max-w-4xl mx-auto">COMET creates a cooperative ecosystem where vehicles, infrastructure, and vulnerable road users communicate proactively, preventing accidents before they happen.</p>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-8">
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
-                    <div class="text-center p-4">
-                        <div class="text-6xl mb-2">🏷️</div>
-                        <h3 class="text-xl font-bold text-[#003F5C]">Personal Safety Tags</h3>
-                        <p>VRUs carry simple, low-power tags (like AirTags or SmartTags) that broadcast their presence anonymously.</p>
-                    </div>
-                    <div class="text-4xl text-[#D45087] font-light hidden md:block">&rarr;</div>
-                     <div class="text-4xl text-[#D45087] font-light md:hidden">&darr;</div>
-                    <div class="text-center p-4">
-                         <div class="text-6xl mb-2">🚗</div>
-                        <h3 class="text-xl font-bold text-[#003F5C]">Vehicle Integration Module</h3>
-                        <p>An onboard unit detects tags, predicts trajectories, and triggers safety maneuvers like braking or steering.</p>
-                    </div>
-                    <div class="text-4xl text-[#D45087] font-light hidden md:block">&rarr;</div>
-                    <div class="text-4xl text-[#D45087] font-light md:hidden">&darr;</div>
-                    <div class="text-center p-4">
-                         <div class="text-6xl mb-2">🚦</div>
-                        <h3 class="text-xl font-bold text-[#003F5C]">Smart Infrastructure</h3>
-                        <p>City nodes like traffic lights extend the network, relaying signals around obstacles and managing data.</p>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <h1>COMET</h1>
+            <p class="text-xl max-w-4xl mx-auto">
+                Cooperative V2X Safety System - Giving vehicles a sixth sense to protect the most vulnerable road users.
+            </p>
         </section>
 
-        <section id="technology" class="my-12">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#003F5C]">A Multi-Layered Technology Stack</h2>
-                <p class="mt-4 text-lg max-w-4xl mx-auto">COMET fuses multiple communication protocols, creating a robust and reliable system that is greater than the sum of its parts. This data fusion provides unparalleled contextual awareness.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-2xl font-bold text-center text-[#003F5C] mb-4">Communication Protocol Roles</h3>
-                    <div class="chart-container mx-auto">
-                        <canvas id="techStackChart"></canvas>
-                    </div>
-                     <p class="text-center mt-4 text-gray-600">Each technology provides a unique layer of information, from general presence to precise location, which COMET's AI fuses into a single, actionable insight for the vehicle.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-2xl font-bold text-center text-[#003F5C] mb-4">How Data Fusion Creates Safety</h3>
-                     <div class="space-y-4">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 h-8 w-8 rounded-full bg-[#003F5C] text-white flex items-center justify-center font-bold">1</div>
-                            <div class="ml-4">
-                                <h4 class="font-semibold">Detect Presence (BLE)</h4>
-                                <p class="text-gray-600">A vehicle first gets a general warning: "VRU nearby" from a low-power Bluetooth signal.</p>
-                            </div>
-                        </div>
-                         <div class="flex items-start">
-                            <div class="flex-shrink-0 h-8 w-8 rounded-full bg-[#58508D] text-white flex items-center justify-center font-bold">2</div>
-                            <div class="ml-4">
-                                <h4 class="font-semibold">Pinpoint Location (UWB)</h4>
-                                <p class="text-gray-600">Ultra-Wideband provides centimeter-level accuracy, distinguishing if the person is on the sidewalk or street.</p>
-                            </div>
-                        </div>
-                         <div class="flex items-start">
-                            <div class="flex-shrink-0 h-8 w-8 rounded-full bg-[#BC5090] text-white flex items-center justify-center font-bold">3</div>
-                            <div class="ml-4">
-                                <h4 class="font-semibold">Add Context (GPS)</h4>
-                                <p class="text-gray-600">GPS data places the VRU on a map, correlating their position with a crosswalk or school zone.</p>
-                            </div>
-                        </div>
-                         <div class="flex items-start">
-                            <div class="flex-shrink-0 h-8 w-8 rounded-full bg-[#FF6361] text-white flex items-center justify-center font-bold">4</div>
-                            <div class="ml-4">
-                                <h4 class="font-semibold">Predict & Act (AI)</h4>
-                                <p class="text-gray-600">The vehicle's AI fuses this data to predict a potential collision and preemptively slows down, seconds before visual confirmation.</p>
-                            </div>
+        <main>
+            <!-- Problem Section -->
+            <section id="problem" class="content-card mb-12">
+                <h2>The Unseen Danger on Our Roads</h2>
+                <p>
+                    Despite advances in vehicle technology, the risk to pedestrians, cyclists, and other vulnerable road users (VRUs) remains critically high. Standard vehicle sensors have a fundamental limitation: they can't see around corners or through obstructions.
+                </p>
+                <div class="dancheon-accent-border mt-8">
+                    <div class="content-card">
+                        <h3 class="text-center">Why Conventional Sensors Fail</h3>
+                        <div class="chart-container">
+                            <canvas id="sensorComparisonChart"></canvas>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="features" class="my-12">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-[#003F5C]">Core Innovations & Advantages</h2>
-                <p class="mt-4 text-lg max-w-4xl mx-auto">COMET is strategically designed to overcome the biggest hurdles to adoption: hardware cost, privacy concerns, and network growth.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow-md p-8 text-center">
-                    <div class="text-5xl mb-4">🌍</div>
-                    <h3 class="text-xl font-bold mb-2 text-[#003F5C]">Platform Agnostic</h3>
-                    <p>Works with devices you already own, like Apple AirTags and Samsung SmartTags. No need to buy proprietary hardware, enabling rapid, low-cost adoption.</p>
+            <!-- Solution Section -->
+            <section id="solution" class="content-card mb-12">
+                <h2>COMET: Cooperative V2X Safety System</h2>
+                <p>
+                    COMET revolutionizes vehicle safety by enabling vehicles to share sensor data and situational awareness through cooperative communication. This creates a "virtual sensor network" that extends each vehicle's perception beyond its physical limitations.
+                </p>
+                <div class="grid grid-cols-3 gap-4 mt-8">
+                    <div class="feature-card">
+                        <span class="icon">🔗</span>
+                        <h4>Cooperative Sensing</h4>
+                        <p class="text-sm">Vehicles share sensor data in real-time, creating a collective awareness.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">👁️</span>
+                        <h4>360° Awareness</h4>
+                        <p class="text-sm">See around corners and through buildings using cooperative data fusion.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">⚡</span>
+                        <h4>Real-time Processing</h4>
+                        <p class="text-sm">Ultra-low latency communication ensures instant threat detection and response.</p>
+                    </div>
                 </div>
-                <div class="bg-white rounded-lg shadow-md p-8 text-center">
-                    <div class="text-5xl mb-4">🛡️</div>
-                    <h3 class="text-xl font-bold mb-2 text-[#003F5C]">Privacy by Design</h3>
-                    <p>Uses rotating, anonymous IDs and end-to-end encryption. The system knows a person is there, but not who they are. Safety without surveillance.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-8 text-center">
-                    <div class="text-5xl mb-4">💸</div>
-                    <h3 class="text-xl font-bold mb-2 text-[#003F5C]">Incentive Ecosystem</h3>
-                    <p>Participation can lead to real rewards, like lower insurance premiums. This market-driven approach creates a powerful flywheel for network growth.</p>
-                </div>
-            </div>
-            <div class="mt-12 bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-2xl font-bold text-center text-[#003F5C] mb-4">Competitive Landscape</h3>
-                <div class="chart-container mx-auto" style="height: 400px; max-height: 500px;">
-                    <canvas id="competitiveChart"></canvas>
-                </div>
-            </div>
-        </section>
+            </section>
 
-</main>
+            <!-- Technology Section -->
+            <section id="technology" class="content-card mb-12">
+                <h2>A Multi-Layered Technology Stack</h2>
+                <p>
+                    COMET fuses multiple communication protocols, creating a robust and reliable system that is greater than the sum of its parts. This data fusion provides unparalleled contextual awareness.
+                </p>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="feature-card">
+                        <h3 class="text-center">Data Fusion Process</h3>
+                        <ul class="text-left space-y-2">
+                            <li><strong>1. Detect Presence (BLE):</strong> A vehicle gets a general warning: "VRU nearby".</li>
+                            <li><strong>2. Pinpoint Location (UWB):</strong> Provides centimeter-level accuracy.</li>
+                            <li><strong>3. Add Context (GPS):</strong> Places the VRU on a map.</li>
+                            <li><strong>4. Predict & Act (AI):</strong> Fuses data to predict a potential collision and act.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="text-center">COMET vs Traditional</h3>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="competitiveChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 
-    <footer class="bg-[#003F5C] text-white text-center py-12 px-4">
-        <h2 class="text-3xl font-bold">Join the Cooperative Safety Network</h2>
-        <p class="mt-4 max-w-2xl mx-auto">COMET is more than a technology; it's a new standard for road safety. Whether you're a driver, a cyclist, a city planner, or a developer, you have a role to play in building a safer future.</p>
-        <div class="mt-8 flex flex-wrap justify-center gap-4">
-            <button class="bg-[#FF6361] hover:bg-[#D45087] text-white font-bold py-3 px-6 rounded-lg transition-colors">For Drivers</button>
-            <button class="bg-[#FFA600] hover:bg-[#D45087] text-white font-bold py-3 px-6 rounded-lg transition-colors">For Pedestrians</button>
-            <button class="bg-[#58508D] hover:bg-[#D45087] text-white font-bold py-3 px-6 rounded-lg transition-colors">For Cities & Fleets</button>
-        </div>
+    <footer>
+        <p>© 2025 ARAM37. All rights reserved. | Powered by Cooperative V2X Technology</p>
     </footer>
 
     <script>
-        const wrapLabel = (label, maxWidth = 16) => {
-            const words = label.split(' ');
-            let lines = [];
-            let currentLine = '';
-            words.forEach(word => {
-                if ((currentLine + word).length > maxWidth) {
-                    lines.push(currentLine.trim());
-                    currentLine = '';
-                }
-                currentLine += word + ' ';
-            });
-            lines.push(currentLine.trim());
-            return lines.filter(line => line);
-        };
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeColors = {
+                skyBlue: 'rgba(14, 165, 233, 0.7)',
+                red: 'rgba(239, 68, 68, 0.7)',
+                green: 'rgba(34, 197, 94, 0.7)',
+                yellow: 'rgba(245, 158, 11, 0.7)',
+                textDark: '#1e293b',
+                gridLight: 'rgba(0, 0, 0, 0.05)'
+            };
 
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-                return label.join(' ');
-            } else {
-                return label;
-            }
-        };
-        
-        const energeticPlayfulPalette = {
-            blue: '#003F5C',
-            purple: '#58508D',
-            magenta: '#BC5090',
-            pink: '#FF6361',
-            orange: '#FFA600',
-            lightGray: '#E5E7EB',
-            darkGray: '#374151'
-        };
-
-        const sensorData = {
-            labels: ['Clear Day, No Obstructions', 'Night or Rain', 'Object Around Corner', 'Child Behind Parked Car'],
-            datasets: [{
-                label: 'Conventional Sensors (Camera/LIDAR)',
-                data: [100, 50, 0, 0],
-                backgroundColor: energeticPlayfulPalette.pink,
-                borderColor: energeticPlayfulPalette.pink,
-                borderWidth: 1
-            }, {
-                label: 'COMET System',
-                data: [100, 100, 100, 100],
-                backgroundColor: energeticPlayfulPalette.blue,
-                borderColor: energeticPlayfulPalette.blue,
-                borderWidth: 1
-            }]
-        };
-        new Chart(document.getElementById('sensorComparisonChart'), {
-            type: 'bar',
-            data: sensorData,
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Detection Certainty (%)' },
-                        grid: { color: energeticPlayfulPalette.lightGray }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
+            // Chart 1: Sensor Comparison
+            new Chart(document.getElementById('sensorComparisonChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Clear Day', 'Night/Rain', 'Around Corner', 'Behind Obstacle'],
+                    datasets: [{
+                        label: 'Conventional Sensors',
+                        data: [100, 50, 0, 0],
+                        backgroundColor: themeColors.red,
+                    }, {
+                        label: 'COMET System',
+                        data: [100, 100, 100, 100],
+                        backgroundColor: themeColors.skyBlue,
+                    }]
                 },
-                plugins: {
-                    legend: { position: 'top' },
-                    tooltip: { callbacks: { title: tooltipTitleCallback } }
-                }
-            }
-        });
-
-        const techStackData = {
-            labels: ['BLE (Presence)', 'UWB (Precision)', 'GPS (Context)', 'C-V2X (Messaging)'],
-            datasets: [{
-                label: 'Importance in COMET Fusion Engine',
-                data: [70, 95, 80, 85],
-                backgroundColor: [
-                    energeticPlayfulPalette.blue,
-                    energeticPlayfulPalette.purple,
-                    energeticPlayfulPalette.magenta,
-                    energeticPlayfulPalette.pink
-                ],
-            }]
-        };
-        new Chart(document.getElementById('techStackChart'), {
-            type: 'doughnut',
-            data: techStackData,
-            options: {
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'right' },
-                    tooltip: { callbacks: { title: tooltipTitleCallback } }
-                }
-            }
-        });
-
-        const competitiveData = {
-            labels: [
-                wrapLabel('Non-Line-of-Sight Detection'), 
-                wrapLabel('Platform Interoperability'), 
-                wrapLabel('Privacy by Design'), 
-                wrapLabel('Built-in Incentive Model'), 
-                wrapLabel('Smart Infrastructure Integration')
-            ],
-            datasets: [{
-                label: 'COMET System',
-                data: [5, 5, 5, 5, 5],
-                backgroundColor: energeticPlayfulPalette.blue,
-                borderColor: energeticPlayfulPalette.blue,
-            }, {
-                label: 'Vehicle-Only Sensors',
-                data: [1, 3, 3, 1, 1],
-                backgroundColor: energeticPlayfulPalette.pink,
-                borderColor: energeticPlayfulPalette.pink,
-            }, {
-                label: 'Siloed Smartphone Apps',
-                data: [3, 1, 2, 1, 1],
-                backgroundColor: energeticPlayfulPalette.orange,
-                borderColor: energeticPlayfulPalette.orange,
-            }]
-        };
-        new Chart(document.getElementById('competitiveChart'), {
-            type: 'radar',
-            data: competitiveData,
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
-                        angleLines: { color: energeticPlayfulPalette.lightGray },
-                        grid: { color: energeticPlayfulPalette.lightGray },
-                        pointLabels: { font: { size: 12 } },
-                        ticks: {
-                            display: false,
-                            stepSize: 1
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Detection Certainty (%)', color: themeColors.textDark },
+                            grid: { color: themeColors.gridLight },
+                            ticks: { color: themeColors.textDark }
                         },
-                        suggestedMin: 0,
-                        suggestedMax: 5
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: themeColors.textDark }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top', labels: { color: themeColors.textDark } }
                     }
-                },
-                plugins: {
-                    legend: { position: 'top' },
-                    tooltip: { callbacks: { title: tooltipTitleCallback } }
                 }
-            }
-        });
+            });
 
+            // Chart 2: Competitive Analysis (Radar)
+            const competitiveData = {
+                labels: ['Non-Line-of-Sight', 'Interoperability', 'Privacy', 'Incentives', 'Infrastructure'],
+                datasets: [{
+                    label: 'COMET System',
+                    data: [5, 5, 5, 5, 5],
+                    backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                    borderColor: 'rgba(14, 165, 233, 1)',
+                    pointBackgroundColor: 'rgba(14, 165, 233, 1)',
+                }, {
+                    label: 'Vehicle-Only Sensors',
+                    data: [1, 3, 3, 1, 1],
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    borderColor: 'rgba(239, 68, 68, 1)',
+                    pointBackgroundColor: 'rgba(239, 68, 68, 1)',
+                }]
+            };
+            new Chart(document.getElementById('competitiveChart'), {
+                type: 'radar',
+                data: competitiveData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: themeColors.gridLight },
+                            grid: { color: themeColors.gridLight },
+                            pointLabels: { color: themeColors.textDark, font: { size: 10 } },
+                            ticks: { display: false, stepSize: 1 },
+                            suggestedMin: 0,
+                            suggestedMax: 5
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top', labels: { color: themeColors.textDark } }
+                    }
+                }
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html>
