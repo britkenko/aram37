@@ -21,7 +21,8 @@
             overflow: hidden;
             font-family: var(--primary-font);
             text-align: center;
-            background-color: #000;
+            background: radial-gradient(ellipse at center, #000 0%, #001122 50%, #000 100%);
+            background-attachment: fixed;
         }
 
         #video-bg {
@@ -43,34 +44,40 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 500px; /* Narrower box */
+            max-width: 550px; /* 10% wider */
             height: 100vh;
-            background: rgba(255, 255, 255, 0.15); /* More visible white background */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15));
             z-index: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.2), 0 0 100px rgba(0, 255, 255, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
         }
 
-        /* Blue line animation across screen - positioned at submenu level */
+        /* Blue line animation across submenu options */
         .blue-line {
-            position: fixed;
-            top: 95px; /* Position at the nav bar level where submenu appears */
-            left: -100%;
-            width: 100vw;
-            height: 1.8rem; /* Same as font size */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: 500px; /* Match submenu min-width */
+            height: 2px; /* Thinner line */
             background: linear-gradient(90deg, 
                 #00184b 0%, 
                 #4a90e2 30%, 
-                #87ceeb  50%, 
+                #87ceeb 50%, 
                 #4a90e2 70%, 
                 #00184b 100%
-            ); /* Beautiful blue gradient like the flowers */
-            z-index: 1001; /* Above submenu */
+            );
+            z-index: 1001;
             transition: none;
             pointer-events: none;
-            box-shadow: 0 0 20px rgba(0, 24, 75, 0.3);
+            box-shadow: 0 0 20px rgba(0, 24, 75, 0.5), 0 0 40px rgba(74, 144, 226, 0.3);
             opacity: 0;
+            border-radius: 1px;
         }
 
         .blue-line.animate {
@@ -80,10 +87,6 @@
         .blue-line.stay {
             left: 0;
             opacity: 1;
-        }
-
-        .blue-line.animate {
-            animation: slideAcross 0.8s ease-out forwards;
         }
 
         @keyframes slideAcross {
@@ -98,9 +101,10 @@
         }
 
         .nav-bar {
-            width: 100%;
-            padding: 20px 0;
-            text-align: center;
+	width: 100%;
+	padding: 20px 0;
+	text-align: center;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
         }
 
         .title {
@@ -108,9 +112,13 @@
             font-weight: 700;
             letter-spacing: 12px;
             color: white;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 0 45px rgba(0, 255, 255, 0.3), 2px 2px 4px rgba(0, 0, 0, 0.7);
             font-family: var(--title-font);
             line-height: 1.2;
+            background: linear-gradient(45deg, #ffffff, #87ceeb, #4a90e2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         nav {
@@ -142,16 +150,21 @@
         }
 
         nav .nav-item a {
-            color: #4B0082; /* Indigo */
+            color: #00FF00; /* Electric green */
             text-decoration: none;
             font-family: var(--primary-font);
             font-size: 1.8rem;
             font-weight: 600;
             letter-spacing: 2px;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             display: block;
-            text-shadow: 0 0 10px rgba(75, 0, 130, 0.3);
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        nav .nav-item a:hover {
+            text-shadow: 0 0 25px rgba(0, 255, 0, 1), 0 0 50px rgba(0, 255, 0, 0.8), 2px 2px 6px rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
         }
 
         /* Simple menu items (About, Contact) - just color change */
@@ -215,26 +228,6 @@
             justify-content: center;
             gap: 30px;
         }
-        /* Clean submenu styling */
-
-        /* Submenu rising from digital shatter */
-        @keyframes submenuRiseFromShatter {
-            0% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-30px) scale(0.9);
-                filter: blur(5px);
-            }
-            50% {
-                opacity: 0.7;
-                transform: translateX(-50%) translateY(-40px) scale(0.95);
-                filter: blur(2px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(-50%) scale(1);
-                filter: blur(0);
-            }
-        }
 
         nav .sub-item {
             flex: 1;
@@ -245,30 +238,23 @@
             font-size: 1.2em;
             font-family: var(--primary-font);
             font-weight: 500;
-            color: #cc5500; /* Burnt orange color */
+            color: #FF4500; /* Electric burnt orange */
             text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 10px 15px;
             white-space: nowrap;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             display: inline-block;
             text-align: center;
             line-height: 1.3;
-            background: rgba(204, 85, 0, 0.1); /* Burnt orange background */
-            border: 1px solid rgba(204, 85, 0, 0.3);
-            box-shadow: 0 2px 8px rgba(204, 85, 0, 0.2);
             min-width: 120px;
-            text-shadow: 0 0 10px rgba(204, 85, 0, 0.4);
-            backdrop-filter: blur(10px);
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.7), 0 0 20px rgba(255, 69, 0, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.8);
+            position: relative;
         }
 
         nav .sub-item a:hover {
-            color: #ff6600; /* Brighter burnt orange on hover */
-            background: rgba(255, 102, 0, 0.2);
-            border-color: #ff6600;
-            text-shadow: 0 0 15px rgba(255, 102, 0, 0.8);
+            color: #FF6600; /* Brighter electric burnt orange */
+            text-shadow: 0 0 20px rgba(255, 102, 0, 1), 0 0 40px rgba(255, 102, 0, 0.8), 2px 2px 6px rgba(0, 0, 0, 0.9);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
         }
 
         nav li {
@@ -370,90 +356,10 @@
             }
         }
 
-        /* Red line draws then bursts to green neon */
-        @keyframes lineDrawAndBurst {
-            0% {
-                width: 0%;
-                background: #FF1493;
-                box-shadow: 0 0 10px #FF1493, 0 0 20px #FF1493;
-            }
-            60% {
-                width: 100%;
-                background: #FF1493;
-                box-shadow: 0 0 10px #FF1493, 0 0 20px #FF1493;
-            }
-            70% {
-                width: 100%;
-                background: #00FF7F;
-                box-shadow: 0 0 15px #00FF7F, 0 0 30px #00FF7F, 0 0 45px #00FF7F;
-            }
-            100% {
-                width: 100%;
-                background: #00FF7F;
-                box-shadow: 0 0 20px #00FF7F, 0 0 40px #00FF7F, 0 0 60px #00FF7F;
-            }
-        }
-
-        /* Letters rising up from the hot pink line */
-        @keyframes riseFromLine {
-            0% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(30px);
-                text-shadow: 0 0 5px rgba(255, 20, 147, 0.3);
-            }
-            50% {
-                opacity: 0.7;
-                transform: translateX(-50%) translateY(10px);
-                text-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-                text-shadow: 0 0 20px rgba(255, 20, 147, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
-            }
-        }
-
         nav .contact a {
             font-weight: 600;
             margin-top: 17px;
             font-family: var(--primary-font);
-        }
-
-        nav .sub-menu {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-around;
-            gap: 20px;
-        }
-        @keyframes subItemAppear {
-            0% {
-                opacity: 0;
-                transform: scale(0.5) translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        /* Sub-menu reform animation */
-        @keyframes subMenuReform {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.3);
-                filter: blur(5px);
-            }
-            60% {
-                opacity: 0.8;
-                transform: translate(-50%, -50%) scale(1.1);
-                filter: blur(2px);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-                filter: blur(0px);
-            }
         }
 
         @keyframes fadeIn { 
@@ -501,9 +407,9 @@
                 <li class="nav-item">
                     <a href="#"><span class="menu-text">AI Sentience</span></a>
                     <div class="sub-menu">
+                        <div class="sub-item"><a href="Sunarit Orbithal/Sunarit.html">ANDA</a></div>
                         <div class="sub-item"><a href="paco/paco.html">Panacea Cortex</a></div>
                         <div class="sub-item"><a href="SPL/SPL.html">SPL</a></div>
-                        <div class="sub-item"><a href="Sunarit Orbithal/Sunarit.html">ANDA</a></div>
                     </div>
                 </li>
                 <li class="nav-item">
