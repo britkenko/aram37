@@ -1,2 +1,0 @@
-# ARAM37
-home
