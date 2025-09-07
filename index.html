@@ -50,34 +50,31 @@
             position: relative;
         }
         
-        /* Kelly-style curved division with 청출어람 transformation */
+        /* Kelly-style curved division with 청출어람 transformation - SUPER VISIBLE TEST */
         .kelly-curved-form {
             position: absolute;
             width: 60%;
             height: 80%;
-            background: #2C3E50; /* Darker, more visible muddy indigo */
+            background: #FF0000; /* BRIGHT RED FOR TESTING */
             border-radius: 50% 0% 100% 50%;
             right: -10%;
             top: 10%;
-            z-index: 1; /* Bring to front */
-            opacity: 0.8;
-            animation: muddy-indigo-cycle 12s infinite ease-in-out;
-            box-shadow: 0 0 30px rgba(44, 62, 80, 0.6);
+            z-index: 999; /* BRING TO FRONT */
+            animation: muddy-indigo-cycle 3s infinite ease-in-out; /* FASTER ANIMATION */
         }
 
         /* New blue form that emerges */
+                /* New blue form that emerges - SUPER VISIBLE TEST */
         .emerging-blue {
             position: absolute;
             width: 0%;
             height: 0%;
-            background: #3498DB; /* Brighter blue */
+            background: #00FF00; /* BRIGHT GREEN FOR TESTING */
             border-radius: 100% 50% 0% 50%;
             left: -10%;
             bottom: 15%;
-            z-index: 1; /* Bring to front */
-            opacity: 0;
-            animation: new-blue-emergence 12s infinite ease-in-out;
-            box-shadow: 0 0 30px rgba(52, 152, 219, 0.6);
+            z-index: 998; /* BRING TO FRONT */
+            animation: new-blue-emergence 3s infinite ease-in-out; /* FASTER ANIMATION */
         }
 
         /* 청출어람 Cycle: Muddy indigo diminishes */
@@ -149,6 +146,7 @@
         }
         
         /* Indigo-inspired background animation with 청출어람 ink bleeding effect */
+                /* Background color transformation - SUPER VISIBLE TEST */
         .indigo-gradient-bg {
             position: absolute;
             top: 0;
@@ -157,8 +155,8 @@
             height: 100%;
             overflow: hidden;
             z-index: -1;
-            background: #2C3E50; /* Start with darker muddy indigo */
-            animation: background-hue-shift 12s infinite ease-in-out;
+            background: #FF00FF; /* BRIGHT MAGENTA FOR TESTING */
+            animation: background-hue-shift 3s infinite ease-in-out; /* FASTER ANIMATION */
         }
 
         /* Background shifts from blue to indigo and back */
