@@ -55,12 +55,14 @@
             position: absolute;
             width: 60%;
             height: 80%;
-            background: #555F72;
+            background: #2C3E50; /* Darker, more visible muddy indigo */
             border-radius: 50% 0% 100% 50%;
             right: -10%;
             top: 10%;
-            z-index: -1;
+            z-index: 1; /* Bring to front */
+            opacity: 0.8;
             animation: muddy-indigo-cycle 12s infinite ease-in-out;
+            box-shadow: 0 0 30px rgba(44, 62, 80, 0.6);
         }
 
         /* New blue form that emerges */
@@ -68,12 +70,14 @@
             position: absolute;
             width: 0%;
             height: 0%;
-            background: #87CEEB;
+            background: #3498DB; /* Brighter blue */
             border-radius: 100% 50% 0% 50%;
             left: -10%;
             bottom: 15%;
-            z-index: -1;
+            z-index: 1; /* Bring to front */
+            opacity: 0;
             animation: new-blue-emergence 12s infinite ease-in-out;
+            box-shadow: 0 0 30px rgba(52, 152, 219, 0.6);
         }
 
         /* 청출어람 Cycle: Muddy indigo diminishes */
@@ -81,66 +85,66 @@
             0% {
                 width: 60%;
                 height: 80%;
-                opacity: 1;
-                transform: scale(1);
-            }
-            30% {
-                width: 45%;
-                height: 60%;
                 opacity: 0.8;
-                transform: scale(0.8);
+                transform: scale(1) rotate(0deg);
             }
-            60% {
-                width: 20%;
-                height: 30%;
-                opacity: 0.4;
-                transform: scale(0.4);
+            25% {
+                width: 50%;
+                height: 70%;
+                opacity: 0.7;
+                transform: scale(0.9) rotate(5deg);
+            }
+            50% {
+                width: 30%;
+                height: 40%;
+                opacity: 0.5;
+                transform: scale(0.6) rotate(10deg);
             }
             75% {
-                width: 5%;
-                height: 8%;
-                opacity: 0.1;
-                transform: scale(0.1);
+                width: 10%;
+                height: 15%;
+                opacity: 0.2;
+                transform: scale(0.2) rotate(15deg);
             }
-            80% {
+            85% {
                 width: 0%;
                 height: 0%;
                 opacity: 0;
-                transform: scale(0);
+                transform: scale(0) rotate(20deg);
             }
-            85%, 100% {
+            90%, 100% {
                 width: 60%;
                 height: 80%;
-                opacity: 1;
-                transform: scale(1);
+                opacity: 0.8;
+                transform: scale(1) rotate(0deg);
             }
         }
 
         /* New blue emerges bigger */
         @keyframes new-blue-emergence {
-            0%, 75% {
+            0%, 80% {
                 width: 0%;
                 height: 0%;
                 opacity: 0;
-                transform: scale(0);
+                transform: scale(0) rotate(0deg);
             }
-            80% {
-                width: 10%;
-                height: 15%;
-                opacity: 0.3;
-                transform: scale(0.2);
+            85% {
+                width: 20%;
+                height: 30%;
+                opacity: 0.4;
+                transform: scale(0.3) rotate(-5deg);
             }
-            90% {
-                width: 40%;
-                height: 60%;
+            95% {
+                width: 50%;
+                height: 70%;
                 opacity: 0.7;
-                transform: scale(0.7);
+                transform: scale(0.8) rotate(-10deg);
             }
             100% {
                 width: 70%;
                 height: 85%;
-                opacity: 1;
-                transform: scale(1);
+                opacity: 0.9;
+                transform: scale(1) rotate(-15deg);
             }
         }
         
@@ -153,26 +157,29 @@
             height: 100%;
             overflow: hidden;
             z-index: -1;
-            background: #4169E1;
+            background: #2C3E50; /* Start with darker muddy indigo */
             animation: background-hue-shift 12s infinite ease-in-out;
         }
 
         /* Background shifts from blue to indigo and back */
         @keyframes background-hue-shift {
-            0%, 75% {
-                background: #4169E1; /* Royal Blue */
+            0% {
+                background: #2C3E50; /* Dark muddy indigo */
             }
-            80% {
-                background: #3224FF; /* Blue bonnet (more indigo) */
+            25% {
+                background: #34495E; /* Wet asphalt */
             }
-            85% {
-                background: #2222D3; /* Palatinate blue (indigo) */
+            50% {
+                background: #5D6D7E; /* Blue gray */
+            }
+            75% {
+                background: #2980B9; /* Belize hole blue */
             }
             90% {
-                background: #1a1a3a; /* Deep indigo */
+                background: #3498DB; /* Bright blue */
             }
             100% {
-                background: #87CEEB; /* New lighter blue */
+                background: #85C1E9; /* Light blue - 청출어람 achieved */
             }
         }
 
@@ -689,6 +696,13 @@
         <!-- Kelly-style curved space division with 청출어람 cycle -->
         <div class="kelly-curved-form"></div>
         <div class="emerging-blue"></div>
+        
+        <!-- Kelly geometric forms for hover interactions -->
+        <div class="kelly-form kelly-form-1"></div>
+        <div class="kelly-form kelly-form-2"></div>
+        <div class="kelly-form kelly-form-3"></div>
+        <div class="kelly-form kelly-form-4"></div>
+        <div class="kelly-form kelly-form-5"></div>
         
         <!-- Traditional color splashes -->
         <div class="color-splash splash-1"></div>
