@@ -50,6 +50,100 @@
             position: relative;
         }
         
+        /* Kelly-style curved division with 청출어람 transformation */
+        .kelly-curved-form {
+            position: absolute;
+            width: 60%;
+            height: 80%;
+            background: #555F72;
+            border-radius: 50% 0% 100% 50%;
+            right: -10%;
+            top: 10%;
+            z-index: -1;
+            animation: muddy-indigo-cycle 12s infinite ease-in-out;
+        }
+
+        /* New blue form that emerges */
+        .emerging-blue {
+            position: absolute;
+            width: 0%;
+            height: 0%;
+            background: #87CEEB;
+            border-radius: 100% 50% 0% 50%;
+            left: -10%;
+            bottom: 15%;
+            z-index: -1;
+            animation: new-blue-emergence 12s infinite ease-in-out;
+        }
+
+        /* 청출어람 Cycle: Muddy indigo diminishes */
+        @keyframes muddy-indigo-cycle {
+            0% {
+                width: 60%;
+                height: 80%;
+                opacity: 1;
+                transform: scale(1);
+            }
+            30% {
+                width: 45%;
+                height: 60%;
+                opacity: 0.8;
+                transform: scale(0.8);
+            }
+            60% {
+                width: 20%;
+                height: 30%;
+                opacity: 0.4;
+                transform: scale(0.4);
+            }
+            75% {
+                width: 5%;
+                height: 8%;
+                opacity: 0.1;
+                transform: scale(0.1);
+            }
+            80% {
+                width: 0%;
+                height: 0%;
+                opacity: 0;
+                transform: scale(0);
+            }
+            85%, 100% {
+                width: 60%;
+                height: 80%;
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* New blue emerges bigger */
+        @keyframes new-blue-emergence {
+            0%, 75% {
+                width: 0%;
+                height: 0%;
+                opacity: 0;
+                transform: scale(0);
+            }
+            80% {
+                width: 10%;
+                height: 15%;
+                opacity: 0.3;
+                transform: scale(0.2);
+            }
+            90% {
+                width: 40%;
+                height: 60%;
+                opacity: 0.7;
+                transform: scale(0.7);
+            }
+            100% {
+                width: 70%;
+                height: 85%;
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
         /* Indigo-inspired background animation with 청출어람 ink bleeding effect */
         .indigo-gradient-bg {
             position: absolute;
@@ -59,8 +153,27 @@
             height: 100%;
             overflow: hidden;
             z-index: -1;
-            background: radial-gradient(circle at 30% 70%, #1a1a3a 0%, #0a0e2e 50%, #050818 100%);
-            filter: blur(60px) saturate(180%);
+            background: #4169E1;
+            animation: background-hue-shift 12s infinite ease-in-out;
+        }
+
+        /* Background shifts from blue to indigo and back */
+        @keyframes background-hue-shift {
+            0%, 75% {
+                background: #4169E1; /* Royal Blue */
+            }
+            80% {
+                background: #3224FF; /* Blue bonnet (more indigo) */
+            }
+            85% {
+                background: #2222D3; /* Palatinate blue (indigo) */
+            }
+            90% {
+                background: #1a1a3a; /* Deep indigo */
+            }
+            100% {
+                background: #87CEEB; /* New lighter blue */
+            }
         }
 
         /* 청출어람 - Ellsworth Kelly inspired geometric color fields */
@@ -573,12 +686,9 @@
 </head>
 <body>
     <div class="indigo-gradient-bg">
-        <!-- 청출어람 - Ellsworth Kelly inspired geometric color fields -->
-        <div class="kelly-form kelly-form-1"></div>
-        <div class="kelly-form kelly-form-2"></div>
-        <div class="kelly-form kelly-form-3"></div>
-        <div class="kelly-form kelly-form-4"></div>
-        <div class="kelly-form kelly-form-5"></div>
+        <!-- Kelly-style curved space division with 청출어람 cycle -->
+        <div class="kelly-curved-form"></div>
+        <div class="emerging-blue"></div>
         
         <!-- Traditional color splashes -->
         <div class="color-splash splash-1"></div>
