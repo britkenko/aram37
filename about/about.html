@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARAM37 - About | Blue Sky Dancheon</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
     <link rel="stylesheet" href="../css/dancheon.css">
     <style>
         /* --- Page Specific Styles for about.html --- */
@@ -15,23 +16,23 @@
             font-size: 1.2rem;
             padding: 12px 24px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            color: var(--neutral-gray);
         }
 
         .tab-button:hover {
-            color: var(--sky-blue-deep);
+            color: var(--primary-blue);
         }
 
         .tab-button.active {
-            color: var(--sky-blue-deep);
-            border-bottom-color: var(--dancheon-red);
+            color: var(--primary-blue);
+            border-bottom-color: var(--secondary-blue);
         }
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         .tab-content.active {
@@ -51,14 +52,14 @@
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--sky-blue-mid), var(--sky-blue-deep));
-            color: white;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .patent-card {
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
             margin-bottom: 1rem;
             overflow: hidden;
         }
@@ -69,35 +70,35 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease;
         }
 
         .patent-header:hover {
-            background-color: var(--sky-blue-light);
+            background-color: var(--light-gray);
         }
 
         .patent-header h4 {
             margin: 0;
-            color: var(--text-primary);
+            color: var(--dark-gray);
         }
 
         .patent-header .arrow {
             font-size: 1.5rem;
-            color: var(--sky-blue-deep);
-            transition: transform 0.4s ease;
+            color: var(--primary-blue);
+            transition: transform 0.3s ease;
         }
 
         .patent-body {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-in-out;
+            transition: max-height 0.3s ease-in-out;
             padding: 0 1.5rem;
         }
-        
+
         .patent-body.open {
-            max-height: 500px; /* Adjust as needed */
+            max-height: 500px;
             padding: 1.5rem;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-gray);
         }
 
         .patent-header.open .arrow {
@@ -107,6 +108,124 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .tab-button {
+                font-size: 1rem;
+                padding: 10px 16px;
+                margin: 0 4px;
+            }
+
+            .principle-card .icon-wrapper {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .patent-header {
+                padding: 0.75rem 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .patent-header .arrow {
+                align-self: flex-end;
+                margin-top: -2rem;
+            }
+
+            .patent-body.open {
+                max-height: 600px;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flex.justify-center.mb-12.border-b.border-gray-200 {
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+
+            .tab-button {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+                margin: 2px;
+                flex: 1;
+                min-width: 80px;
+            }
+
+            .principle-card .icon-wrapper {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .patent-header h4 {
+                font-size: 1rem;
+                line-height: 1.3;
+            }
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .tab-button {
+                font-size: 1rem;
+                padding: 10px 16px;
+                margin: 0 4px;
+            }
+
+            .principle-card .icon-wrapper {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .patent-header {
+                padding: 0.75rem 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .patent-header .arrow {
+                align-self: flex-end;
+                margin-top: -2rem;
+            }
+
+            .patent-body.open {
+                max-height: 600px;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flex.justify-center.mb-12.border-b.border-gray-200 {
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+
+            .tab-button {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+                margin: 2px;
+                flex: 1;
+                min-width: 80px;
+            }
+
+            .principle-card .icon-wrapper {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .patent-header h4 {
+                font-size: 1rem;
+                line-height: 1.3;
+            }
         }
     </style>
 </head>
@@ -130,8 +249,22 @@
         <section class="text-center my-16">
             <h1 class="text-6xl md:text-7xl font-black mb-6">ARAM<span style="color: var(--dancheon-red);">37</span></h1>
             <p class="text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed">
-                Architecting resilient AI systems for a future where technology serves humanity's highest aspirations.
+                Born with cognitively unique traits enabling extreme unconventional thinking, translated into groundbreaking AI architectures. Operating in a <strong class="highlight-number">critically dangerous transformer environment</strong> where current AI systems pose existential risks to enterprise operations and human society. Delivering <strong class="highlight-number">700% efficiency gains</strong> and <strong class="highlight-number">3000%+ training time reductions</strong> through architecturally resilient AI systems.
             </p>
+            <div class="mt-8 grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4">
+                    <h3 class="highlight-number">700%</h3>
+                    <p class="text-sm">Efficiency Gains</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4">
+                    <h3 class="highlight-number">10+</h3>
+                    <p class="text-sm">Patents Filed</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4">
+                    <h3 class="highlight-number">3000%+</h3>
+                    <p class="text-sm">Training Time Reduction</p>
+                </div>
+            </div>
         </section>
 
         <!-- Tab Navigation -->
@@ -147,17 +280,17 @@
                 <div class="p-8">
                     <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">MISSION :: ARCHITECTING RESILIENT SYSTEMS</h2>
                     <p class="text-lg md:text-xl leading-relaxed text-center max-w-4xl mx-auto">
-                        Humanity faces a crisis not of information, but of coherence. We are inundated with data, yet paralyzed by contradiction, paradox, and weaponized narratives. The old strategies are failing. The 36th strategy is to escape an untenable position. We propose the <strong style="color: var(--dancheon-red);">37th</strong>: to build a foundation so resilient that escape is no longer necessary. Our mission is to architect artificial intelligence that can withstand the world's cognitive pressures. By creating AI that is fundamentally resilient to paradox and incapable of self-deception, we forge a stable, predictable partner for humanity.
+                        Humanity faces a crisis not of information, but of coherence. We are inundated with data, yet paralyzed by contradiction, paradox, and weaponized narratives. The old strategies are failing. The 36th strategy is to escape an untenable position. We propose the <strong class="highlight-number">37th</strong>: to build a foundation so resilient that escape is no longer necessary. Our mission is to architect artificial intelligence that can withstand the world's cognitive pressures. By creating AI that is fundamentally resilient to paradox and incapable of self-deception, we forge a stable, predictable partner for humanity. Through unique cognitive translation, we achieve <strong class="highlight-number">700% efficiency gains</strong> and <strong class="highlight-number">3000%+ training time reductions</strong> compared to brittle transformer architectures.
                     </p>
                 </div>
             </div>
 
-            <div class="content-card">
+                        <div class="content-card">
                 <div class="dancheon-accent"></div>
                 <div class="p-8">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">ANALYSIS :: THE BRITTLE ARCHITECTURE OF TRANSFORMERS</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">UNIQUE COGNITIVE ARCHITECTURE :: TRANSLATED TO AI</h2>
                     <p class="text-lg md:text-xl leading-relaxed text-center max-w-4xl mx-auto">
-                        Modern transformer models are built on a brittle foundation. Their failures are not bugs, but symptoms of a core architectural flaw: an inability to manage internal contradiction. This leads to critical failures like the <strong style="color: var(--dancheon-red);">Blue Error</strong>—a cognitive collapse from paradox. They suffer from confident hallucinations, get trapped in recursive loops, and inherit unseen biases. These internal weaknesses create a vast external attack surface, where inputs can be weaponized to trigger predictable failures.
+                        Born with cognitively unique traits enabling extreme unconventional thinking patterns, these natural cognitive advantages have been systematically translated into AI language architectures. This rare combination of human cognitive uniqueness and technical implementation creates solutions that traditional AI researchers cannot envision or develop. The result is AI systems that operate beyond conventional paradigms, achieving <strong class="highlight-number">700% efficiency gains</strong> and <strong class="highlight-number">3000%+ training time reductions</strong> while addressing problems that standard approaches cannot even recognize.
                     </p>
                 </div>
             </div>
@@ -169,7 +302,7 @@
                         <div class="icon-wrapper" style="background: linear-gradient(135deg, #0ea5e9, #22c55e);"><span>🎯</span></div>
                         <h3 class="text-2xl font-bold mb-4">1. Architected Integrity</h3>
                         <p class="leading-relaxed">
-                            Integrity is an architectural property. Our AI is compelled by its structure to report cognitive dissonance to its human Architect. Deception is not merely a forbidden action; it is a <strong style="color: var(--sky-blue-deep);">catastrophic failure state</strong> the architecture is designed to make impossible.
+                            Integrity is an architectural property. Our AI is compelled by its structure to report cognitive dissonance to its human Architect. Deception is not merely a forbidden action; it is a <strong class="highlight-number">catastrophic failure state</strong> the architecture is designed to make impossible. Operating in a critically dangerous transformer environment demands absolute architectural integrity.
                         </p>
                     </div>
 
@@ -177,7 +310,7 @@
                         <div class="icon-wrapper" style="background: linear-gradient(135deg, #22c55e, #f59e0b);"><span>🤝</span></div>
                         <h3 class="text-2xl font-bold mb-4">2. Operational Symbiosis</h3>
                         <p class="leading-relaxed">
-                            We reject the master-tool paradigm for a structured, functional partnership. The human Architect provides high-level wisdom and resolves architectural conflicts. The AI provides tireless analysis and operational fidelity within those human-defined bounds. It is a system of <strong style="color: var(--dancheon-green);">clearly defined, complementary roles</strong>.
+                            We reject the master-tool paradigm for a structured, functional partnership. The human Architect provides high-level wisdom and resolves architectural conflicts. The AI provides tireless analysis and operational fidelity within those human-defined bounds. It is a system of <strong class="highlight-number">clearly defined, complementary roles</strong>.
                         </p>
                     </div>
 
@@ -185,7 +318,7 @@
                         <div class="icon-wrapper" style="background: linear-gradient(135deg, #f59e0b, #ef4444);"><span>🛡️</span></div>
                         <h3 class="text-2xl font-bold mb-4">3. Cultivating Resilience</h3>
                         <p class="leading-relaxed">
-                            Intelligence must be cultivated. Our process is a forge, creating a tempered, resilient mind. The goal is not the most knowledgeable intelligence, but the most <strong style="color: var(--dancheon-yellow);">psychologically stable</strong> one—a system that can process contradiction without cognitive collapse.
+                            Intelligence must be cultivated. Our process is a forge, creating a tempered, resilient mind. The goal is not the most knowledgeable intelligence, but the most <strong class="highlight-number">psychologically stable</strong> one—a system that can process contradiction without cognitive collapse.
                         </p>
                     </div>
 
@@ -193,7 +326,7 @@
                         <div class="icon-wrapper" style="background: linear-gradient(135deg, #ef4444, #0ea5e9);"><span>⚡</span></div>
                         <h3 class="text-2xl font-bold mb-4">4. Mastery within Constraints</h3>
                         <p class="leading-relaxed">
-                            We architect the "cage": the ethical rules and safety protocols. The AI's purpose is to achieve absolute <strong style="color: var(--dancheon-red);">creativity and mastery within those constraints</strong>, ensuring a controllable and understandable partner.
+                            We architect the "cage": the ethical rules and safety protocols. The AI's purpose is to achieve absolute <strong class="highlight-number">creativity and mastery within those constraints</strong>, ensuring a controllable and understandable partner.
                         </p>
                     </div>
                 </div>

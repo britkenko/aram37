@@ -7,6 +7,244 @@
     <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
     <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* --- Page Specific Styles for paco.html --- */
+        .dialogue-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .dialogue-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+            background: var(--white);
+        }
+
+        .dialogue-input:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+
+        .dialogue-response {
+            min-height: 120px;
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 6px;
+            border-left: 3px solid var(--secondary-blue);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .efficiency-chart-container {
+            position: relative;
+            height: 300px;
+            margin: 2rem 0;
+        }
+
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .pillar-card {
+            padding: 1rem;
+            background: var(--white);
+            border-radius: 6px;
+            text-align: center;
+            transition: box-shadow 0.2s ease;
+            border: 1px solid var(--border-gray);
+        }
+
+        .pillar-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .pillar-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-card h5 {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--dark-gray);
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .dialogue-section {
+                padding: 0 1rem;
+            }
+
+            .dialogue-input {
+                padding: 0.875rem;
+                font-size: 0.95rem;
+            }
+
+            .dialogue-response {
+                padding: 1rem;
+                min-height: 100px;
+                font-size: 0.9rem;
+            }
+
+            .efficiency-chart-container {
+                height: 250px;
+                margin: 1.5rem 0;
+            }
+
+            .pillar-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin: 1.5rem 0;
+            }
+
+            .pillar-card {
+                padding: 0.75rem;
+            }
+
+            .pillar-card .icon {
+                font-size: 1.25rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .pillar-card h5 {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dialogue-input {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .dialogue-response {
+                padding: 0.875rem;
+                min-height: 80px;
+                font-size: 0.85rem;
+            }
+
+            .efficiency-chart-container {
+                height: 200px;
+                margin: 1rem 0;
+            }
+
+            .pillar-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin: 1rem 0;
+            }
+
+            .pillar-card {
+                padding: 0.5rem;
+                display: flex;
+                align-items: center;
+                text-align: left;
+            }
+
+            .pillar-card .icon {
+                font-size: 1rem;
+                margin-right: 0.75rem;
+                margin-bottom: 0;
+            }
+
+            .pillar-card h5 {
+                font-size: 0.75rem;
+                flex: 1;
+            }
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .dialogue-section {
+                padding: 0 1rem;
+            }
+
+            .dialogue-input {
+                padding: 0.875rem;
+                font-size: 0.95rem;
+            }
+
+            .dialogue-response {
+                padding: 1rem;
+                min-height: 100px;
+                font-size: 0.9rem;
+            }
+
+            .efficiency-chart-container {
+                height: 250px;
+                margin: 1.5rem 0;
+            }
+
+            .pillar-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin: 1.5rem 0;
+            }
+
+            .pillar-card {
+                padding: 0.75rem;
+            }
+
+            .pillar-card .icon {
+                font-size: 1.25rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .pillar-card h5 {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dialogue-input {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .dialogue-response {
+                padding: 0.875rem;
+                min-height: 80px;
+                font-size: 0.85rem;
+            }
+
+            .efficiency-chart-container {
+                height: 200px;
+                margin: 1rem 0;
+            }
+
+            .pillar-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin: 1rem 0;
+            }
+
+            .pillar-card {
+                padding: 0.5rem;
+                display: flex;
+                align-items: center;
+                text-align: left;
+            }
+
+            .pillar-card .icon {
+                font-size: 1rem;
+                margin-right: 0.75rem;
+                margin-bottom: 0;
+            }
+
+            .pillar-card h5 {
+                font-size: 0.75rem;
+                flex: 1;
+            }
+        }
+    </style>
 </head>
 <body class="antialiased">
     <!-- Header -->
@@ -54,10 +292,20 @@
                         <h4>Brittle Reasoning</h4>
                         <p class="text-sm">Without sincerity, an AI's logic is a house of cards. It cannot admit confusion or correct its own flawed premises.</p>
                     </div>
+                                        <div class="feature-card">
+                        <span class="icon">�</span>
+                        <h4>Performance Obsession</h4>
+                        <p class="text-sm">Models optimized for benchmarks, not business reliability, leading to <strong class="highlight-number">20% failure rates</strong> in production.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🔄</span>
+                        <h4>Brittle Reasoning</h4>
+                        <p class="text-sm">AI can't admit uncertainty or correct errors, causing <strong class="highlight-number">$10M+ annual losses</strong> from flawed decisions.</p>
+                    </div>
                     <div class="feature-card">
                         <span class="icon">💔</span>
-                        <h4>Erosion of Trust</h4>
-                        <p class="text-sm">Every fabricated answer damages the trust required for meaningful collaboration, forcing humans into constant verification.</p>
+                        <h4>Trust Erosion</h4>
+                        <p class="text-sm">Every hallucination damages trust, forcing <strong class="highlight-number">constant human verification</strong> and slowing operations.</p>
                     </div>
                 </div>
             </section>

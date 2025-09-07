@@ -8,6 +8,331 @@
     <link rel="stylesheet" href="../css/dancheon.css">
     <style>
         .cerberus-hero {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 3rem 1.5rem;
+            border: 1px solid var(--border-gray);
+            margin: 2rem 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--white);
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .metric-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--neutral-gray);
+        }
+
+        .safety-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .safety-card {
+            background: var(--white);
+            border-radius: 6px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .safety-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .comparison-chart {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        /* Mobile Enhancements */
+        @media (max-width: 768px) {
+            .cerberus-hero {
+                padding: 2rem 1rem;
+                margin: 1rem 0;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .metric-card {
+                padding: 1rem;
+            }
+
+            .metric-number {
+                font-size: 2rem;
+            }
+
+            .metric-label {
+                font-size: 0.8rem;
+            }
+
+            .safety-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .safety-card {
+                padding: 1rem;
+            }
+
+            .chart-container {
+                height: 300px;
+                margin: 1.5rem 0;
+            }
+
+            .comparison-chart {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .metric-card {
+                padding: 0.75rem;
+                display: flex;
+                align-items: center;
+                text-align: left;
+            }
+
+            .metric-number {
+                font-size: 1.5rem;
+                margin-right: 1rem;
+                flex-shrink: 0;
+            }
+
+            .metric-label {
+                font-size: 0.75rem;
+                margin-top: 0;
+                flex: 1;
+            }
+
+            .safety-card {
+                padding: 0.75rem;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .comparison-chart {
+                padding: 0.75rem;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+        
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: numberGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        @keyframes numberGlow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.2); }
+        }
+        
+        .safety-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .safety-card {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .safety-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .comparison-chart {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .cerberus-hero {
+                padding: 2rem 1rem;
+                margin: 1rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 2rem;
+            }
+
+            .metric-card {
+                padding: 1rem;
+            }
+
+            .metric-number {
+                font-size: 2rem;
+            }
+
+            .metric-label {
+                font-size: 0.8rem;
+            }
+
+            .safety-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .safety-card {
+                padding: 1rem;
+            }
+
+            .chart-container {
+                height: 300px;
+                margin: 1.5rem 0;
+            }
+
+            .comparison-chart {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cerberus-hero {
+                padding: 1.5rem 0.75rem;
+                margin: 0.5rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .metric-card {
+                padding: 0.75rem;
+                display: flex;
+                align-items: center;
+                text-align: left;
+            }
+
+            .metric-number {
+                font-size: 1.5rem;
+                margin-right: 1rem;
+                flex-shrink: 0;
+            }
+
+            .metric-label {
+                font-size: 0.75rem;
+                margin-top: 0;
+                flex: 1;
+            }
+
+            .safety-card {
+                padding: 0.75rem;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .comparison-chart {
+                padding: 0.75rem;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+        .cerberus-hero {
             background: linear-gradient(
                 135deg,
                 rgba(239, 68, 68, 0.15),
@@ -92,6 +417,45 @@
         
         .metric-card:hover::before {
             transform: translateX(100%);
+        }
+        
+        .metric-number {
+            font-size: 3.5rem !important;
+            font-weight: 900 !important;
+            background: linear-gradient(135deg, var(--sky-blue-deep), var(--dancheon-red), var(--dancheon-green));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: numberGlow 3s ease-in-out infinite alternate;
+            text-shadow: 
+                0 0 20px rgba(125, 211, 252, 0.5),
+                0 0 40px rgba(125, 211, 252, 0.3);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        @keyframes numberGlow {
+            0% { 
+                background-position: 0% 50%;
+                text-shadow: 
+                    0 0 20px rgba(125, 211, 252, 0.5),
+                    0 0 40px rgba(125, 211, 252, 0.3);
+            }
+            100% { 
+                background-position: 100% 50%;
+                text-shadow: 
+                    0 0 30px rgba(239, 68, 68, 0.6),
+                    0 0 60px rgba(239, 68, 68, 0.4);
+            }
+        }
+        
+        .metric-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .architecture-layer {
@@ -203,20 +567,20 @@
             <!-- Key Metrics -->
             <section id="metrics" class="metrics-grid">
                 <div class="metric-card">
-                    <h3 class="text-2xl font-bold" style="color: var(--sky-blue-deep);">99.97%</h3>
-                    <p class="font-semibold">Safety Accuracy</p>
+                    <div class="metric-number">99.97%</div>
+                    <div class="metric-label">Safety Accuracy</div>
                 </div>
                 <div class="metric-card">
-                    <h3 class="text-2xl font-bold" style="color: var(--sky-blue-deep);">5</h3>
-                    <p class="font-semibold">Autonomy Level</p>
+                    <div class="metric-number">5</div>
+                    <div class="metric-label">Autonomy Level</div>
                 </div>
                 <div class="metric-card">
-                    <h3 class="text-2xl font-bold" style="color: var(--sky-blue-deep);">360°</h3>
-                    <p class="font-semibold">Sensor Coverage</p>
+                    <div class="metric-number">360°</div>
+                    <div class="metric-label">Sensor Coverage</div>
                 </div>
                 <div class="metric-card">
-                    <h3 class="text-2xl font-bold" style="color: var(--sky-blue-deep);">0</h3>
-                    <p class="font-semibold">Human Intervention</p>
+                    <div class="metric-number">0</div>
+                    <div class="metric-label">Human Intervention</div>
                 </div>
             </section>
 

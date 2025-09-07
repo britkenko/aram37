@@ -7,6 +7,225 @@
     <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
     <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* --- Page Specific Styles for SPL.html --- */
+        .solution-toggle {
+            display: flex;
+            background: var(--light-gray);
+            border-radius: 6px;
+            padding: 4px;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            color: var(--neutral-gray);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .solution-content {
+            display: none;
+            animation: slideIn 0.3s ease-in-out;
+        }
+
+        .solution-content.active {
+            display: block;
+        }
+
+        .comparison-chart {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(-10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .solution-toggle {
+                margin-bottom: 1.5rem;
+            }
+
+            .toggle-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .chart-container {
+                height: 300px;
+                margin: 1.5rem 0;
+            }
+
+            .comparison-chart {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .feature-card {
+                padding: 1rem;
+            }
+
+            .feature-card h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .solution-toggle {
+                flex-direction: column;
+                padding: 2px;
+            }
+
+            .toggle-btn {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+                border-radius: 4px;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .comparison-chart {
+                padding: 0.75rem;
+                margin: 1rem 0;
+            }
+
+            .feature-card {
+                padding: 0.75rem;
+            }
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .solution-toggle {
+                margin-bottom: 1.5rem;
+            }
+
+            .toggle-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .chart-container {
+                height: 300px;
+                margin: 1.5rem 0;
+            }
+
+            .comparison-chart {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .feature-card {
+                padding: 1rem;
+            }
+
+            .feature-card h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .solution-toggle {
+                flex-direction: column;
+                padding: 2px;
+            }
+
+            .toggle-btn {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+                border-radius: calc(var(--border-radius) - 2px);
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .comparison-chart {
+                padding: 0.75rem;
+                margin: 1rem 0;
+            }
+
+            .feature-card {
+                padding: 0.75rem;
+            }
+        }
+    </style>
 </head>
 <body class="antialiased">
     <!-- Header -->
