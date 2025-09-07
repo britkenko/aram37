@@ -7,31 +7,33 @@
     <title>ARAM 37</title>
     <style>
         :root {
-            /* Saju Four Pillars Color System */
-            --wood-element: #32e735;      /* East - Spring - Green - Wood */
-            --fire-element: #ff7b96;      /* South - Summer - Red - Fire */
-            --earth-element: #DAA520;     /* Center - Late Summer - Yellow - Earth */
-            --metal-element: #c0c0c0c8;     /* West - Autumn - White - Metal */
-            --water-element: #08080fb6;     /* North - Winter - Black/Navy - Water */
+            /* Indigo Gradient Color System */
+            --bluebonnet: #3224FF;        /* Vibrant electric blue */
+            --bluebonnet-light: #4A23E9;  /* Slightly lighter variant */
+            --palatinate-blue: #2222D3;   /* Deep royal blue */
+            --persian-blue: #1928E;       /* Classic persian blue */
+            --pantone-blue: #120A8;       /* Deep pantone blue */
+            --indigo-dye: #09F92;         /* Dark indigo dye */
             
-            /* Harmonic transitions between elements */
-            --wood-fire: #48e048;         /* Wood feeding Fire */
-            --fire-earth: #FF6347;        /* Fire creating Earth */
-            --earth-metal: #ffe81a;       /* Earth bearing Metal */
-            --metal-water: #1596ff;       /* Metal collecting Water */
-            --water-wood: #006400;        /* Water nourishing Wood */
+            /* Gradient harmonies */
+            --indigo-flow: linear-gradient(135deg, #3224FF 0%, #4A23E9 25%, #2222D3 50%, #1928E 75%, #09F92 100%);
+            --blue-passion: linear-gradient(90deg, #3224FF, #2222D3, #09F92);
+            --pale-fire: linear-gradient(45deg, #FFB6C1, #FFA07A, #FFD700);
+            --golden-crescent: #DAA520;
+            --dark-grey: #696969;
             
-            /* Design variables based on saju harmony */
-            --primary-text: #333333;
-            --hover-glow: var(--water-element);
-            --accent-glow: var(--wood-fire);
-            --background-overlay: rgba(255, 255, 255, 0.15);
-            --ohaeng-overlay: linear-gradient(135deg, 
-                rgba(46, 139, 87, 0.1) 0%,     /* Wood element */
-                rgba(220, 20, 60, 0.1) 25%,    /* Fire element */
-                rgba(218, 165, 32, 0.1) 50%,   /* Earth element */
-                rgba(192, 192, 192, 0.1) 75%,  /* Metal element */
-                rgba(25, 25, 112, 0.1) 100%    /* Water element */
+            /* Design variables based on indigo harmony */
+            --primary-text: #FFFFFF;
+            --hover-glow: var(--bluebonnet);
+            --accent-glow: var(--palatinate-blue);
+            --background-overlay: rgba(50, 36, 255, 0.15);
+            --indigo-overlay: linear-gradient(135deg, 
+                rgba(50, 36, 255, 0.1) 0%,     /* Bluebonnet */
+                rgba(74, 35, 233, 0.1) 20%,    /* Bluebonnet light */
+                rgba(34, 34, 211, 0.1) 40%,    /* Palatinate blue */
+                rgba(25, 40, 142, 0.1) 60%,    /* Persian blue */
+                rgba(18, 16, 168, 0.1) 80%,    /* Pantone blue */
+                rgba(9, 15, 146, 0.1) 100%     /* Indigo dye */
             );
             --primary-font: "poppins", sans-serif;
             --title-font: "new-order", sans-serif;
@@ -43,13 +45,13 @@
             overflow: hidden;
             font-family: var(--primary-font);
             text-align: center;
-            /* Subtler background color */
-            background-color: #0c0c1b;
+            /* Deep indigo background */
+            background-color: #0a0e2e;
             position: relative;
         }
         
-        /* Sam Francis-inspired background animation */
-        .sam-francis-bg {
+        /* Indigo-inspired background animation with 청출어람 ink bleeding effect */
+        .indigo-gradient-bg {
             position: absolute;
             top: 0;
             left: 0;
@@ -57,61 +59,156 @@
             height: 100%;
             overflow: hidden;
             z-index: -1;
-            filter: blur(80px) saturate(200%);
+            background: radial-gradient(circle at 30% 70%, #1a1a3a 0%, #0a0e2e 50%, #050818 100%);
+            filter: blur(60px) saturate(180%);
         }
 
-        .splatter {
+        /* 청출어람 - Blue ink bleeding through indigo paper - HOVER TRIGGERED */
+        .ink-bleed {
             position: absolute;
-            width: 50vw;
-            height: 50vh;
             border-radius: 50%;
-            animation: color-shift 25s infinite alternate, move-splatter 20s infinite ease-in-out alternate;
-            opacity: 0.5;
-            will-change: transform, background-color, filter;
+            background: radial-gradient(circle, rgba(135, 206, 250, 0.6) 0%, rgba(70, 130, 180, 0.4) 30%, rgba(50, 36, 255, 0.2) 60%, transparent 100%);
+            filter: blur(15px);
+            opacity: 0;
+            transform: scale(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
         }
 
-        .splatter-1 {
-            background-color: var(--wood-element);
-            top: 10%;
-            left: -10%;
+        /* Ink drops positioned near menu items */
+        .ink-bleed-1 {
+            width: 120px;
+            height: 120px;
+            top: 25%;
+            left: 20%;
         }
 
-        .splatter-2 {
-            background-color: var(--fire-element);
-            top: -20%;
-            left: 50%;
-            animation-delay: 5s;
-        }
-        
-        .splatter-3 {
-            background-color: var(--earth-element);
-            bottom: -15%;
-            left: -5%;
-            animation-delay: 10s;
-        }
-        
-        .splatter-4 {
-            background-color: var(--metal-element);
+        .ink-bleed-2 {
+            width: 180px;
+            height: 180px;
             top: 40%;
-            right: -10%;
-            animation-delay: 15s;
-        }
-
-        .splatter-5 {
-            background-color: var(--water-element);
-            bottom: -10%;
             right: 15%;
-            animation-delay: 20s;
         }
 
-        @keyframes color-shift {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
+        .ink-bleed-3 {
+            width: 100px;
+            height: 100px;
+            top: 55%;
+            left: 25%;
         }
 
-        @keyframes move-splatter {
-            from { transform: translate(0, 0) scale(1.0); }
-            to { transform: translate(200px, 100px) scale(1.2); }
+        .ink-bleed-4 {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            right: 20%;
+        }
+
+        .ink-bleed-5 {
+            width: 130px;
+            height: 130px;
+            top: 85%;
+            left: 30%;
+        }
+
+        /* Enhanced ink spreading animation for hover */
+        @keyframes ink-spreading-hover {
+            0% { 
+                transform: scale(0.1) rotate(0deg);
+                opacity: 0;
+                filter: blur(25px);
+            }
+            20% {
+                transform: scale(0.6) rotate(45deg);
+                opacity: 0.8;
+                filter: blur(20px);
+            }
+            60% {
+                transform: scale(1.2) rotate(180deg);
+                opacity: 0.9;
+                filter: blur(10px);
+            }
+            100% {
+                transform: scale(2.0) rotate(360deg);
+                opacity: 0.2;
+                filter: blur(30px);
+            }
+        }
+
+        .color-splash {
+            position: absolute;
+            width: 40vw;
+            height: 40vh;
+            border-radius: 50%;
+            animation: indigo-shift 30s infinite alternate, move-splash 25s infinite ease-in-out alternate;
+            opacity: 0.3;
+            will-change: transform, background-color, filter;
+            filter: blur(40px);
+        }
+
+        .splash-1 {
+            background: linear-gradient(45deg, var(--indigo-dye), var(--persian-blue));
+            top: 5%;
+            left: -15%;
+        }
+
+        .splash-2 {
+            background: linear-gradient(135deg, var(--palatinate-blue), var(--bluebonnet));
+            top: -10%;
+            left: 60%;
+            animation-delay: 6s;
+        }
+        
+        .splash-3 {
+            background: linear-gradient(225deg, var(--golden-crescent), rgba(218, 165, 32, 0.6));
+            bottom: -5%;
+            left: -10%;
+            animation-delay: 12s;
+        }
+        
+        .splash-4 {
+            background: linear-gradient(315deg, var(--persian-blue), var(--bluebonnet-light));
+            top: 50%;
+            right: -20%;
+            animation-delay: 18s;
+        }
+
+        .splash-5 {
+            background: linear-gradient(90deg, var(--indigo-dye), var(--palatinate-blue));
+            bottom: 0%;
+            right: 20%;
+            animation-delay: 24s;
+        }
+
+        @keyframes indigo-shift {
+            0% { 
+                filter: hue-rotate(0deg) brightness(0.8) blur(40px);
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                filter: hue-rotate(15deg) brightness(1) blur(30px);
+                transform: scale(1.1) rotate(90deg);
+            }
+            50% { 
+                filter: hue-rotate(30deg) brightness(1.2) blur(20px);
+                transform: scale(1.2) rotate(180deg);
+            }
+            75% {
+                filter: hue-rotate(45deg) brightness(1) blur(35px);
+                transform: scale(1.1) rotate(270deg);
+            }
+            100% { 
+                filter: hue-rotate(60deg) brightness(0.9) blur(45px);
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        @keyframes move-splash {
+            0% { transform: translate(0, 0) scale(0.8) rotate(0deg); }
+            25% { transform: translate(100px, -50px) scale(1) rotate(90deg); }
+            50% { transform: translate(200px, 50px) scale(1.2) rotate(180deg); }
+            75% { transform: translate(150px, 100px) scale(1.1) rotate(270deg); }
+            100% { transform: translate(50px, 75px) scale(0.9) rotate(360deg); }
         }
 
         .background-box {
@@ -120,24 +217,37 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            /* Reduced max-width for a less rigid feel */
-            max-width: 450px;
+            /* Slightly wider for the indigo theme */
+            max-width: 500px;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(10, 14, 46, 0.4);
             z-index: -1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            backdrop-filter: blur(1px);
-            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(3px);
+            box-shadow: 
+                inset 0 0 30px rgba(135, 206, 250, 0.1),
+                inset 0 0 60px rgba(50, 36, 255, 0.05);
+            border: 1px solid rgba(135, 206, 250, 0.2);
+            /* Paper texture effect */
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(135, 206, 250, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(70, 130, 180, 0.05) 0%, transparent 50%);
         }
         
-        @keyframes subtle-glow {
+        @keyframes indigo-glow {
             from {
-                box-shadow: 0 0 5px rgba(255, 255, 255, 0.1), 0 0 10px rgba(255, 255, 255, 0.1);
+                box-shadow: 
+                    0 0 15px rgba(135, 206, 250, 0.2), 
+                    0 0 30px rgba(70, 130, 180, 0.1),
+                    0 0 45px rgba(50, 36, 255, 0.05);
             }
             to {
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.2);
+                box-shadow: 
+                    0 0 25px rgba(135, 206, 250, 0.4), 
+                    0 0 50px rgba(70, 130, 180, 0.2),
+                    0 0 75px rgba(50, 36, 255, 0.1);
             }
         }
         
@@ -145,11 +255,38 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent);
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, 
+                rgba(135, 206, 250, 0.1) 0%, 
+                rgba(70, 130, 180, 0.05) 50%, 
+                transparent 100%);
             border-radius: 50%;
-            animation: subtle-glow 3s infinite alternate;
+            animation: indigo-glow 5s infinite alternate;
+            /* Ink bleeding effect in center */
+            overflow: hidden;
+        }
+
+        .core-element::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, 
+                rgba(135, 206, 250, 0.15) 0%, 
+                rgba(70, 130, 180, 0.08) 60%, 
+                transparent 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: ink-pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes ink-pulse {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
         }
 
         .nav-bar {
@@ -160,27 +297,35 @@
 
         .title {
             font-size: 4em;
-            /* Thinner font for elegance */
-            font-weight: 300;
-            /* Reduced letter spacing for a more centered feel */
-            letter-spacing: 6px;
+            /* Bold and elegant for indigo theme */
+            font-weight: 400;
+            /* Elegant letter spacing */
+            letter-spacing: 8px;
             color: white;
             text-shadow: 
-                0 0 5px rgba(0, 0, 0, 0.6),
-                0 0 10px rgba(255, 255, 255, 0.6);
+                0 0 10px rgba(50, 36, 255, 0.8),
+                0 0 20px rgba(74, 35, 233, 0.6),
+                0 0 30px rgba(34, 34, 211, 0.4);
             font-family: var(--title-font);
             line-height: 1.2;
-            animation: saju-breath 4s ease-in-out infinite alternate;
+            animation: indigo-breath 4s ease-in-out infinite alternate;
         }
         
-        @keyframes saju-breath {
+        @keyframes indigo-breath {
             0% { 
                 transform: scale(1);
                 filter: brightness(1);
+                text-shadow: 
+                    0 0 10px rgba(50, 36, 255, 0.8),
+                    0 0 20px rgba(74, 35, 233, 0.6);
             }
             100% { 
                 transform: scale(1.02);
-                filter: brightness(1.1);
+                filter: brightness(1.2);
+                text-shadow: 
+                    0 0 15px rgba(50, 36, 255, 1),
+                    0 0 30px rgba(74, 35, 233, 0.8),
+                    0 0 45px rgba(34, 34, 211, 0.6);
             }
         }
 
@@ -200,7 +345,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-shadow: 0px 0px #567dff;
+            text-shadow: 0px 0px #3224FF;
             text-align: center;
         }
         
@@ -220,19 +365,19 @@
             color: white;
             text-decoration: none;
             font-family: var(--primary-font);
-            /* Thinner font for elegance */
+            /* Elegant font weight for indigo theme */
             font-weight: 400;
             font-style: normal;
             letter-spacing: 2px;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             display: block;
-            text-shadow: 0 0 15px rgba(75, 0, 130, 0.4);
+            text-shadow: 0 0 15px rgba(50, 36, 255, 0.6);
         }
 
         nav .nav-item a:hover {
-            color: var(--fire-element);
-            text-shadow: 0 0 20px var(--fire-element);
+            color: var(--bluebonnet);
+            text-shadow: 0 0 20px var(--bluebonnet), 0 0 30px var(--palatinate-blue);
             transform: scale(1.02) skewX(-2deg);
         }
 
@@ -309,16 +454,16 @@
             border: none;
             box-shadow: none;
             min-width: auto;
-            text-shadow: 0 0 15px var(--fire-element);
+            text-shadow: 0 0 15px var(--palatinate-blue);
             backdrop-filter: none;
             letter-spacing: 1px;
         }
 
         nav .sub-item a:hover {
-            color: var(--wood-fire);
+            color: var(--golden-crescent);
             background: none;
             border: none;
-            text-shadow: 0 0 20px var(--wood-fire);
+            text-shadow: 0 0 20px var(--golden-crescent), 0 0 30px var(--bluebonnet);
             transform: scale(1.05) skewX(2deg);
             box-shadow: none;
         }
@@ -373,14 +518,52 @@
             }
         }
     </style>
+    
+    <script>
+        // 청출어람 ink bleeding effect on menu hover
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const inkBleeds = document.querySelectorAll('.ink-bleed');
+            
+            navItems.forEach((item, index) => {
+                const inkBleed = inkBleeds[index % inkBleeds.length];
+                
+                item.addEventListener('mouseenter', function() {
+                    if (inkBleed) {
+                        inkBleed.style.opacity = '1';
+                        inkBleed.style.transform = 'scale(1)';
+                        inkBleed.style.animation = 'ink-spreading-hover 3s ease-out forwards';
+                    }
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    if (inkBleed) {
+                        setTimeout(() => {
+                            inkBleed.style.opacity = '0';
+                            inkBleed.style.transform = 'scale(0)';
+                            inkBleed.style.animation = '';
+                        }, 2000); // Keep the effect for 2 seconds after hover ends
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-    <div class="sam-francis-bg">
-        <div class="splatter splatter-1"></div>
-        <div class="splatter splatter-2"></div>
-        <div class="splatter splatter-3"></div>
-        <div class="splatter splatter-4"></div>
-        <div class="splatter splatter-5"></div>
+    <div class="indigo-gradient-bg">
+        <!-- 청출어람 - Pleasant blue ink bleeding through indigo paper -->
+        <div class="ink-bleed ink-bleed-1"></div>
+        <div class="ink-bleed ink-bleed-2"></div>
+        <div class="ink-bleed ink-bleed-3"></div>
+        <div class="ink-bleed ink-bleed-4"></div>
+        <div class="ink-bleed ink-bleed-5"></div>
+        
+        <!-- Traditional color splashes -->
+        <div class="color-splash splash-1"></div>
+        <div class="color-splash splash-2"></div>
+        <div class="color-splash splash-3"></div>
+        <div class="color-splash splash-4"></div>
+        <div class="color-splash splash-5"></div>
     </div>
     
     <div class="background-box">
