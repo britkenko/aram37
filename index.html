@@ -8,9 +8,9 @@
     <style>
         :root {
             /* Indigo Gradient Color System */
-            --bluebonnet: #3224FF;        /* Vibrant electric blue */
-            --bluebonnet-light: #4A23E9;  /* Slightly lighter variant */
-            --palatinate-blue: #2222D3;   /* Deep royal blue */
+            --bluebonnet: #0902cb;        /* Vibrant electric blue */
+            --bluebonnet-light: #4d53c4;  /* Slightly lighter variant */
+            --palatinate-blue: #3a4fab;   /* Deep royal blue */
             --persian-blue: #1928E;       /* Classic persian blue */
             --pantone-blue: #120A8;       /* Deep pantone blue */
             --indigo-dye: #09F92;         /* Dark indigo dye */
@@ -63,75 +63,94 @@
             filter: blur(60px) saturate(180%);
         }
 
-        /* 청출어람 - Blue ink bleeding through indigo paper - HOVER TRIGGERED */
-        .ink-bleed {
+        /* 청출어람 - Ellsworth Kelly inspired geometric color fields */
+        .kelly-form {
             position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(135, 206, 250, 0.6) 0%, rgba(70, 130, 180, 0.4) 30%, rgba(50, 36, 255, 0.2) 60%, transparent 100%);
-            filter: blur(15px);
             opacity: 0;
             transform: scale(0);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
         }
 
-        /* Ink drops positioned near menu items */
-        .ink-bleed-1 {
-            width: 120px;
-            height: 120px;
-            top: 25%;
-            left: 20%;
+        /* Kelly Form 1 - Bold Rectangle */
+        .kelly-form-1 {
+            width: 200px;
+            height: 300px;
+            background: #4169E1; /* Royal Blue */
+            top: 15%;
+            left: 10%;
+            border-radius: 0;
         }
 
-        .ink-bleed-2 {
-            width: 180px;
+        /* Kelly Form 2 - Curved Edge Rectangle */
+        .kelly-form-2 {
+            width: 250px;
             height: 180px;
-            top: 40%;
+            background: #1E90FF; /* Dodger Blue */
+            top: 35%;
+            right: 8%;
+            border-radius: 0 0 120px 0;
+        }
+
+        /* Kelly Form 3 - Triangle-like Form */
+        .kelly-form-3 {
+            width: 160px;
+            height: 200px;
+            background: #00BFFF; /* Deep Sky Blue */
+            top: 50%;
+            left: 20%;
+            clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+        }
+
+        /* Kelly Form 4 - Ellipse */
+        .kelly-form-4 {
+            width: 220px;
+            height: 160px;
+            background: #87CEEB; /* Sky Blue */
+            top: 65%;
             right: 15%;
+            border-radius: 50%;
         }
 
-        .ink-bleed-3 {
-            width: 100px;
-            height: 100px;
-            top: 55%;
+        /* Kelly Form 5 - Curved Rectangle */
+        .kelly-form-5 {
+            width: 180px;
+            height: 240px;
+            background: #6495ED; /* Cornflower Blue */
+            top: 75%;
             left: 25%;
+            border-radius: 90px 0 90px 0;
         }
 
-        .ink-bleed-4 {
-            width: 150px;
-            height: 150px;
-            top: 70%;
-            right: 20%;
-        }
-
-        .ink-bleed-5 {
-            width: 130px;
-            height: 130px;
-            top: 85%;
-            left: 30%;
-        }
-
-        /* Enhanced ink spreading animation for hover */
-        @keyframes ink-spreading-hover {
+        /* Kelly-style geometric emergence animation */
+        @keyframes kelly-emerge {
             0% { 
-                transform: scale(0.1) rotate(0deg);
+                transform: scale(0) translateX(-50px);
                 opacity: 0;
-                filter: blur(25px);
             }
-            20% {
-                transform: scale(0.6) rotate(45deg);
+            30% {
+                transform: scale(0.7) translateX(-20px);
                 opacity: 0.8;
-                filter: blur(20px);
             }
-            60% {
-                transform: scale(1.2) rotate(180deg);
-                opacity: 0.9;
-                filter: blur(10px);
+            70% {
+                transform: scale(1.1) translateX(5px);
+                opacity: 1;
             }
             100% {
-                transform: scale(2.0) rotate(360deg);
-                opacity: 0.2;
-                filter: blur(30px);
+                transform: scale(1) translateX(0);
+                opacity: 0.9;
+            }
+        }
+
+        /* Kelly-style disappearance animation */
+        @keyframes kelly-fade {
+            0% {
+                transform: scale(1) translateX(0);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(0.8) translateX(20px);
+                opacity: 0;
             }
         }
 
@@ -520,29 +539,32 @@
     </style>
     
     <script>
-        // 청출어람 ink bleeding effect on menu hover
+        // 청출어람 Kelly-inspired geometric forms on menu hover
         document.addEventListener('DOMContentLoaded', function() {
             const navItems = document.querySelectorAll('.nav-item');
-            const inkBleeds = document.querySelectorAll('.ink-bleed');
+            const kellyForms = document.querySelectorAll('.kelly-form');
             
             navItems.forEach((item, index) => {
-                const inkBleed = inkBleeds[index % inkBleeds.length];
+                const kellyForm = kellyForms[index % kellyForms.length];
                 
                 item.addEventListener('mouseenter', function() {
-                    if (inkBleed) {
-                        inkBleed.style.opacity = '1';
-                        inkBleed.style.transform = 'scale(1)';
-                        inkBleed.style.animation = 'ink-spreading-hover 3s ease-out forwards';
+                    if (kellyForm) {
+                        kellyForm.style.opacity = '0.9';
+                        kellyForm.style.transform = 'scale(1)';
+                        kellyForm.style.animation = 'kelly-emerge 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards';
                     }
                 });
                 
                 item.addEventListener('mouseleave', function() {
-                    if (inkBleed) {
+                    if (kellyForm) {
                         setTimeout(() => {
-                            inkBleed.style.opacity = '0';
-                            inkBleed.style.transform = 'scale(0)';
-                            inkBleed.style.animation = '';
-                        }, 2000); // Keep the effect for 2 seconds after hover ends
+                            kellyForm.style.animation = 'kelly-fade 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+                            setTimeout(() => {
+                                kellyForm.style.opacity = '0';
+                                kellyForm.style.transform = 'scale(0)';
+                                kellyForm.style.animation = '';
+                            }, 800);
+                        }, 1000); // Keep the form visible for 1 second after hover ends
                     }
                 });
             });
@@ -551,12 +573,12 @@
 </head>
 <body>
     <div class="indigo-gradient-bg">
-        <!-- 청출어람 - Pleasant blue ink bleeding through indigo paper -->
-        <div class="ink-bleed ink-bleed-1"></div>
-        <div class="ink-bleed ink-bleed-2"></div>
-        <div class="ink-bleed ink-bleed-3"></div>
-        <div class="ink-bleed ink-bleed-4"></div>
-        <div class="ink-bleed ink-bleed-5"></div>
+        <!-- 청출어람 - Ellsworth Kelly inspired geometric color fields -->
+        <div class="kelly-form kelly-form-1"></div>
+        <div class="kelly-form kelly-form-2"></div>
+        <div class="kelly-form kelly-form-3"></div>
+        <div class="kelly-form kelly-form-4"></div>
+        <div class="kelly-form kelly-form-5"></div>
         
         <!-- Traditional color splashes -->
         <div class="color-splash splash-1"></div>
