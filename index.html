@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"        /* New blue form that emerges */
+        .emerging-blue {
+            position: fixed;
+            width: 0%;
+            height: 0%;
+            background: #87CEEB; /* Sky blue */
+            border-radius: 100% 50% 0% 50%;
+            left: 0%;
+            bottom: 20%;
+            z-index: 1;
+            animation: new-blue-emergence 12s infinite ease-in-out;
+        }ame="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
     <title>ARAM 37</title>
     <style>
@@ -50,17 +60,17 @@
             position: relative;
         }
         
-        /* Kelly-style curved division with 청출어람 transformation - SUPER VISIBLE TEST */
+        /* Kelly-style curved division with 청출어람 transformation */
         .kelly-curved-form {
-            position: absolute;
-            width: 60%;
-            height: 80%;
-            background: #FF0000; /* BRIGHT RED FOR TESTING */
+            position: fixed;
+            width: 40%;
+            height: 60%;
+            background: #555F72; /* Muddy indigo */
             border-radius: 50% 0% 100% 50%;
-            right: -10%;
-            top: 10%;
-            z-index: 999; /* BRING TO FRONT */
-            animation: muddy-indigo-cycle 3s infinite ease-in-out; /* FASTER ANIMATION */
+            right: 0%;
+            top: 20%;
+            z-index: 1;
+            animation: muddy-indigo-cycle 12s infinite ease-in-out;
         }
 
         /* New blue form that emerges */
@@ -655,59 +665,12 @@
             }
         }
     </style>
-    
-    <script>
-        // 청출어람 Kelly-inspired geometric forms on menu hover
-        document.addEventListener('DOMContentLoaded', function() {
-            const navItems = document.querySelectorAll('.nav-item');
-            const kellyForms = document.querySelectorAll('.kelly-form');
-            
-            navItems.forEach((item, index) => {
-                const kellyForm = kellyForms[index % kellyForms.length];
-                
-                item.addEventListener('mouseenter', function() {
-                    if (kellyForm) {
-                        kellyForm.style.opacity = '0.9';
-                        kellyForm.style.transform = 'scale(1)';
-                        kellyForm.style.animation = 'kelly-emerge 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards';
-                    }
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    if (kellyForm) {
-                        setTimeout(() => {
-                            kellyForm.style.animation = 'kelly-fade 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards';
-                            setTimeout(() => {
-                                kellyForm.style.opacity = '0';
-                                kellyForm.style.transform = 'scale(0)';
-                                kellyForm.style.animation = '';
-                            }, 800);
-                        }, 1000); // Keep the form visible for 1 second after hover ends
-                    }
-                });
-            });
-        });
-    </script>
 </head>
 <body>
     <div class="indigo-gradient-bg">
         <!-- Kelly-style curved space division with 청출어람 cycle -->
         <div class="kelly-curved-form"></div>
         <div class="emerging-blue"></div>
-        
-        <!-- Kelly geometric forms for hover interactions -->
-        <div class="kelly-form kelly-form-1"></div>
-        <div class="kelly-form kelly-form-2"></div>
-        <div class="kelly-form kelly-form-3"></div>
-        <div class="kelly-form kelly-form-4"></div>
-        <div class="kelly-form kelly-form-5"></div>
-        
-        <!-- Traditional color splashes -->
-        <div class="color-splash splash-1"></div>
-        <div class="color-splash splash-2"></div>
-        <div class="color-splash splash-3"></div>
-        <div class="color-splash splash-4"></div>
-        <div class="color-splash splash-5"></div>
     </div>
     
     <div class="background-box">
