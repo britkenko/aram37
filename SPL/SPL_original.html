@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Neuro-Symbolic (SPL) Solution</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            /* Kelly's Mathematical Constants */
+            --phi-ratio: 1.618;
+            --phi-inverse: 0.618;
+            
+            /* Indigo Color System */
+            --bluebonnet: #0902cb;
+            --bluebonnet-light: #4d53c4;
+            --palatinate-blue: #3a4fab;
+            --persian-blue: #1928E1;
+            --pantone-blue: #120A8F;
+            --indigo-dye: #09F92A;
+            
+            /* Typography */
+            --primary-font: "poppins", sans-serif;
+            --title-font: "new-order", sans-serif;
+            --primary-text: #FFFFFF;
+            
+            /* Solid Colors - No Gradients */
+            --white: #FFFFFF;
+            --light-gray: #f8f9fa;
+            --border-gray: #e9ecef;
+            --neutral-gray: #6c757d;
+            --dark-blue: #0a0e2e;
+            --accent-red: #ef4444;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--primary-font);
+            background-color: var(--dark-blue);
+            color: #1a1a1a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Dynamic Image Background System */
+        .dynamic-image-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.9;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Light overlay to maintain readability */
+        .image-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: rgba(10, 14, 46, 0.2);
+        }
+
+        /* Header */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(135, 206, 250, 0.2);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-family: var(--title-font);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .main-nav a {
+            color: var(--primary-text);
+            text-decoration: none;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            text-shadow: 0 0 15px rgba(50, 36, 255, 0.6);
+        }
+
+        .main-nav a:hover {
+            color: var(--bluebonnet);
+            text-shadow: 0 0 20px var(--bluebonnet);
+            transform: scale(1.05);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: var(--title-font);
+            font-size: 3.5rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+        }
+
+        h2 {
+            font-family: var(--title-font);
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        h4, h5 {
+            font-family: var(--title-font);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            color: #1a1a1a;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: #1a1a1a;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--bluebonnet-light);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Accent Colors - No Gradients */
+        .dancheon-red-text {
+            color: var(--accent-red);
+        }
+
+        .dancheon-blue-text {
+            color: var(--bluebonnet-light);
+        }
+
+        .dancheon-green-text {
+            color: var(--accent-green);
+        }
+
+        .dancheon-yellow-text {
+            color: var(--accent-yellow);
+        }
+
+        .dancheon-accent-border {
+            border-color: var(--bluebonnet-light);
+            border-width: 2px;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .md\:grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .md\:grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Flex Layouts */
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .md\:flex-row {
+            flex-direction: row;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .items-start {
+            align-items: flex-start;
+        }
+
+        .justify-around {
+            justify-content: space-around;
+        }
+
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+
+        .space-y-8 > * + * {
+            margin-top: 2rem;
+        }
+
+        .md\:space-y-0 > * + * {
+            margin-top: 0;
+        }
+
+        .md\:space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+
+        /* Text and Spacing */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+        }
+
+        .text-6xl {
+            font-size: 4rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .font-light {
+            font-weight: 300;
+        }
+
+        .my-16 {
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .mt-8 {
+            margin-top: 2rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-12 {
+            margin-bottom: 3rem;
+        }
+
+        .mr-3 {
+            margin-right: 0.75rem;
+        }
+
+        .p-3 {
+            padding: 0.75rem;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .p-6 {
+            padding: 1.5rem;
+        }
+
+        .max-w-2xl {
+            max-width: 42rem;
+        }
+
+        .max-w-4xl {
+            max-width: 56rem;
+        }
+
+        .max-w-md {
+            max-width: 28rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .main-nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                padding: 5rem 1rem 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+
+            h2 {
+                font-size: 2rem;
+                letter-spacing: 1px;
+            }
+
+            .content-card {
+                padding: 2rem;
+            }
+
+            .grid-cols-3,
+            .md\:grid-cols-2,
+            .md\:grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .md\:flex-row {
+                flex-direction: column;
+            }
+
+            .md\:space-y-0 > * + * {
+                margin-top: 2rem;
+            }
+
+            .md\:space-x-4 > * + * {
+                margin-left: 0;
+            }
+
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1rem;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="dynamic-image-bg"></div>
+    <div class="image-overlay"></div>
+
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#problem">Problem</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="hero" class="text-center my-16">
+            <h1>The <span class="dancheon-red-text">Neuro-Symbolic (SPL)</span> Solution</h1>
+            <p class="text-xl max-w-4xl mx-auto">
+                Moving beyond today's "parroting" AI to build systems that can reason, learn, and be trusted.
+            </p>
+        </section>
+
+        <main>
+            <!-- The Problem & Solution Section -->
+            <section id="problem" class="content-card mb-12">
+                <h2>The AI Challenge</h2>
+                <div class="grid md:grid-cols-2 items-center mt-8">
+                    <div>
+                        <h4 class="dancheon-red-text mb-4">Current AI Limitations:</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="dancheon-red-text mr-3 font-bold">✗</span> Can't explain reasoning</li>
+                            <li class="flex items-start"><span class="dancheon-red-text mr-3 font-bold">✗</span> Hallucinates information</li>
+                            <li class="flex items-start"><span class="dancheon-red-text mr-3 font-bold">✗</span> Lacks common sense</li>
+                            <li class="flex items-start"><span class="dancheon-red-text mr-3 font-bold">✗</span> Poor data efficiency</li>
+                        </ul>
+                    </div>
+                    <div class="text-center feature-card dancheon-accent-border p-6">
+                        <div class="text-6xl mb-4">🦜</div>
+                        <h4 class="dancheon-red-text font-semibold">Pattern Mimicry</h4>
+                        <p class="text-sm">No True Understanding</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The SPL Architecture -->
+            <section id="solution" class="content-card mb-12">
+                <h2>SPL: Hybrid Reasoning Architecture</h2>
+                <p class="mb-8">
+                    Combining neural pattern recognition with symbolic logic to create AI that can both learn and reason.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 mt-8">
+                    <div class="feature-card">
+                        <span class="icon">🧠</span>
+                        <h4>Neural System</h4>
+                        <p class="text-sm">Pattern recognition and associative memory for processing complex data and context.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">⚖️</span>
+                        <h4>Symbolic Logic</h4>
+                        <p class="text-sm">Formal reasoning engine using rules and logic for explainable decision-making.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🔗</span>
+                        <h4>Cross-Attention Bridge</h4>
+                        <p class="text-sm">Dynamic communication channel enabling collaboration between neural and symbolic systems.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Process & Benefits Combined -->
+            <section id="benefits" class="content-card mb-12">
+                <h2>Performance Comparison</h2>
+                <div class="chart-container mt-8">
+                    <canvas id="capabilityChart"></canvas>
+                </div>
+                
+                <div class="grid md:grid-cols-3 mt-8">
+                    <div class="feature-card text-center p-4">
+                        <h5 class="dancheon-yellow-text">Plan</h5>
+                        <p class="text-sm">Symbolic system creates logical strategy</p>
+                    </div>
+                    <div class="feature-card text-center p-4">
+                        <h5 class="dancheon-blue-text">Execute</h5>
+                        <p class="text-sm">Neural system processes and acts</p>
+                    </div>
+                    <div class="feature-card text-center p-4">
+                        <h5 class="dancheon-green-text">Learn</h5>
+                        <p class="text-sm">Feedback refines both systems</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Future Vision -->
+            <section id="future" class="content-card text-center">
+                <h2>Meta-Cognitive Control</h2>
+                <p class="max-w-2xl mx-auto mb-6">
+                    The next frontier: a meta-cognitive system that orchestrates the dialogue between neural intuition and symbolic reasoning.
+                </p>
+                <div class="max-w-md mx-auto feature-card dancheon-accent-border p-6">
+                    <h4 class="text-lg font-bold dancheon-blue-text">Integrated Intelligence</h4>
+                    <div class="flex justify-around mt-4">
+                        <div class="feature-card p-3">
+                            <h5 class="font-semibold dancheon-yellow-text">Logic</h5>
+                            <p class="text-xs">Reasoning</p>
+                        </div>
+                        <div class="feature-card p-3">
+                            <h5 class="font-semibold dancheon-green-text">Intuition</h5>
+                            <p class="text-xs">Pattern Recognition</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 ARAM37. Building AI that reasons.</p>
+    </footer>
+
+    <script>
+        // Dynamic Image Background System
+        document.addEventListener('DOMContentLoaded', function () {
+            // Array of available images
+            const images = ['1k.png', '2k.png', '3k.png', '4k.png', '5k.png', '6k.png', '7k.png', '8k.png'];
+            
+            // Randomly select an image
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            
+            // Set the background image
+            const backgroundElement = document.querySelector('.dynamic-image-bg');
+            if (backgroundElement) {
+                backgroundElement.style.backgroundImage = `url('../media/images/${randomImage}')`;
+            }
+
+            // Chart themes
+            const themeColors = {
+                red: '#ef4444',
+                green: '#22c55e',
+                textDark: '#ffffff',
+                gridLight: 'rgba(255, 255, 255, 0.1)'
+            };
+
+            const wrapLabel = (str) => {
+                if (str.length <= 16) return str;
+                const words = str.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + word).length > 16) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                }
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            new Chart(document.getElementById('capabilityChart'), {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Causal Explainability', 
+                        'Logical Robustness', 
+                        'Data Efficiency', 
+                        'Systematic Generalization', 
+                        'Lifelong Learning'
+                    ].map(wrapLabel),
+                    datasets: [{
+                        label: 'Standard Transformer AI',
+                        data: [20, 35, 30, 40, 15],
+                        backgroundColor: themeColors.red,
+                    }, {
+                        label: 'Neuro-Symbolic Hybrid',
+                        data: [90, 85, 75, 70, 80],
+                        backgroundColor: themeColors.green,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: themeColors.gridLight },
+                            ticks: { 
+                                color: themeColors.textDark, 
+                                callback: value => value + '%' 
+                            }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { 
+                                color: themeColors.textDark, 
+                                font: { weight: '600' } 
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { 
+                                color: themeColors.textDark, 
+                                font: { size: 14 } 
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: (tooltipItems) => {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                },
+                                label: (context) => `${context.dataset.label || ''}: ${context.parsed.x || 0}%`
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <style>
+        /* --- Page Specific Styles for SPL.html --- */
+        .solution-toggle {
+            display: flex;
+            background: var(--light-gray);
+            border-radius: 6px;
+            padding: 4px;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            color: var(--neutral-gray);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .solution-content {
+            display: none;
+            animation: slideIn 0.3s ease-in-out;
+        }
+
+        .solution-content.active {
+            display: block;
+        }
+
+        .comparison-chart {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(-10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .solution-toggle {
+                margin-bottom: 1.5rem;
+            }
+
+            .toggle-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .chart-container {
+                height: 300px;
+                margin: 1.5rem 0;
+            }
+
+            .comparison-chart {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .feature-card {
+                padding: 1rem;
+            }
+
+            .feature-card h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .solution-toggle {
+                flex-direction: column;
+                padding: 2px;
+            }
+
+            .toggle-btn {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+                border-radius: 4px;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .comparison-chart {
+                padding: 0.75rem;
+                margin: 1rem 0;
+            }
+
+            .feature-card {
+                padding: 0.75rem;
+            }
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .solution-toggle {
+                margin-bottom: 1.5rem;
+            }
+
+            .toggle-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .chart-container {
+                height: 300px;
+                margin: 1.5rem 0;
+            }
+
+            .comparison-chart {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .feature-card {
+                padding: 1rem;
+            }
+
+            .feature-card h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .solution-toggle {
+                flex-direction: column;
+                padding: 2px;
+            }
+
+            .toggle-btn {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+                border-radius: calc(var(--border-radius) - 2px);
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .comparison-chart {
+                padding: 0.75rem;
+                margin: 1rem 0;
+            }
+
+            .feature-card {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#problem">Problem</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="hero" class="text-center my-16">
+            <h1>The <span class="dancheon-red-text">Neuro-Symbolic (SPL)</span> Solution</h1>
+            <p class="text-xl max-w-4xl mx-auto">
+                Moving beyond today's "parroting" AI to build systems that can reason, learn, and be trusted.
+            </p>
+        </section>
+
+        <main>
+            <!-- The Problem Section -->
+            <section id="problem" class="content-card mb-12">
+                <h2>The Parroting Problem</h2>
+                <p>
+                    Today's AI systems are like parrots—they can mimic patterns and generate responses, but they lack true understanding and reasoning capabilities. This leads to critical failures in real-world applications.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 items-center mt-8">
+                    <div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="dancheon-red-text mr-3 font-bold">✗</span> Can't explain their reasoning</li>
+                            <li class="flex items-start"><span class="dancheon-red-text mr-3 font-bold">✗</span> Hallucinate incorrect information</li>
+                            <li class="flex items-start"><span class="dancheon-red-text mr-3 font-bold">✗</span> Lack common sense reasoning</li>
+                            <li class="flex items-start"><span class="dancheon-red-text mr-3 font-bold">✗</span> Can't learn from small amounts of data</li>
+                        </ul>
+                    </div>
+                    <div class="text-center feature-card dancheon-accent-border p-6">
+                        <div class="text-6xl mb-4">🦜</div>
+                        <h4 class="dancheon-red-text font-semibold">Black Box AI</h4>
+                        <p class="text-sm">Pattern Recognition Only</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Solution Section -->
+            <section id="solution" class="content-card mb-12">
+                <h2>The Architectural Solution: A Hybrid Brain</h2>
+                <p>
+                    The solution combines three key components to create a system that mirrors human cognition, blending intuitive pattern recognition with deliberate, logical reasoning.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                    <div class="feature-card">
+                        <span class="icon">🧠</span>
+                        <h4>The Transformer</h4>
+                        <p class="text-sm">The intuitive <strong>"System 1"</strong>. A powerful associative memory that processes vast data to recognize patterns and context.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">⚖️</span>
+                        <h4>Symbolic Logic (SPL)</h4>
+                        <p class="text-sm">The deliberate <strong>"System 2"</strong>. A formal reasoning engine that uses rules and logic for high-level planning.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🔗</span>
+                        <h4>Cross-Attention (CA)</h4>
+                        <p class="text-sm">The <strong>Communication Bridge</strong>. A dynamic query mechanism that allows the logical system to direct the focus of the neural system.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Process Section -->
+            <section id="process" class="content-card mb-12">
+                <h2>How It Works: The Cognitive Cycle</h2>
+                <p>
+                    These components work together in a continuous, real-time refinement loop, transforming the AI from a static model into a dynamic agent that learns from experience.
+                </p>
+                <div class="flex flex-col md:flex-row items-center justify-around space-y-8 md:space-y-0 md:space-x-4 mt-8">
+                    <div class="feature-card text-center p-4">
+                        <h5 class="dancheon-yellow-text">1. Plan</h5>
+                        <p class="text-sm">The SPL (PFC) creates a high-level, logical plan.</p>
+                    </div>
+                    <div class="text-4xl font-light text-sky-500">→</div>
+                    <div class="feature-card text-center p-4">
+                        <h5 class="dancheon-blue-text">2. Query & Act</h5>
+                        <p class="text-sm">A sub-goal is sent via CA to the Transformer, which acts.</p>
+                    </div>
+                    <div class="text-4xl font-light text-sky-500">→</div>
+                    <div class="feature-card text-center p-4">
+                        <h5 class="dancheon-green-text">3. Refine</h5>
+                        <p class="text-sm">The outcome provides feedback, refining both policy and rules.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Benefits Section -->
+            <section id="benefits" class="content-card mb-12">
+                <h2>The Benefits: A Leap in Capability</h2>
+                <p>This hybrid architecture dramatically outperforms standard models on the key metrics required for trustworthy and general-purpose AI.</p>
+                <div class="chart-container mt-8" style="height: 400px;">
+                    <canvas id="capabilityChart"></canvas>
+                </div>
+            </section>
+
+            <!-- The Future Section -->
+            <section id="future" class="content-card text-center">
+                <h2>The Upper Frontier: Meta-Cognition</h2>
+                <p class="max-w-2xl mx-auto mb-6">The ultimate goal is a "System 3"—a meta-cognitive controller that monitors and orchestrates the dialogue between the neural and symbolic systems, enabling true generalization.</p>
+                <div class="max-w-md mx-auto feature-card dancheon-accent-border p-6">
+                    <h4 class="text-lg font-bold dancheon-red-text">System 3: Meta-Cognition (The Conductor)</h4>
+                    <div class="flex justify-around space-x-4 mt-4">
+                        <div class="feature-card p-3">
+                            <h5 class="font-semibold dancheon-yellow-text">System 2</h5>
+                            <p class="text-xs">(Logic)</p>
+                        </div>
+                        <div class="feature-card p-3">
+                            <h5 class="font-semibold dancheon-blue-text">System 1</h5>
+                            <p class="text-xs">(Intuition)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 ARAM37. Building AI that reasons.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeColors = {
+                red: 'rgba(239, 68, 68, 0.8)',
+                green: 'rgba(34, 197, 94, 0.8)',
+                textDark: '#1e293b',
+                gridLight: 'rgba(0, 0, 0, 0.05)'
+            };
+
+            const wrapLabel = (str) => {
+                if (str.length <= 16) return str;
+                const words = str.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + word).length > 16) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                }
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            new Chart(document.getElementById('capabilityChart'), {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Causal Explainability', 
+                        'Logical Robustness', 
+                        'Data Efficiency', 
+                        'Systematic Generalization', 
+                        'Lifelong Learning'
+                    ].map(wrapLabel),
+                    datasets: [{
+                        label: 'Standard Transformer AI',
+                        data: [20, 35, 30, 40, 15],
+                        backgroundColor: themeColors.red,
+                    }, {
+                        label: 'Neuro-Symbolic Hybrid',
+                        data: [90, 85, 75, 70, 80],
+                        backgroundColor: themeColors.green,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: themeColors.gridLight },
+                            ticks: { color: themeColors.textDark, callback: value => value + '%' }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: themeColors.textDark, font: { weight: '600' } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: themeColors.textDark, font: { size: 14 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: (tooltipItems) => {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                },
+                                label: (context) => `${context.dataset.label || ''}: ${context.parsed.x || 0}%`
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="css/dancheon.css">
+    <title>ARAM 37 | Panacea Cortex Architecture</title>
+    <style>
+        :root {
+            /* September Cor(心) Constants */
+            --phi-ratio: 1.618;
+            --phi-inverse: 0.618;
+            
+            /* Guardian Constellation Colors */
+            --sandman-blue: #0902cb;
+            --daemon-indigo: #4d53c4;
+            --sphinx-royal: #3a4fab;
+            --heimdal-persian: #1928E1;
+            --kairos-deep: #120A8F;
+           ◊ --maat-truth: #09F92A;
+            --athene-gold: #DAA520;
+            
+            /* Typography */
+            --primary-font: "poppins", sans-serif;
+            --title-font: "new-order", sans-serif;
+            --primary-text: #FFFFFF;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: var(--primary-font);
+            background: linear-gradient(135deg, #0a0e2e 0%, #1a1a3a 50%, #2d2d4a 100%);
+            position: relative;
+        }
+        
+        /* Dynamic Panacea Background */
+        .panacea-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .panacea-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 14, 46, 0.85) 0%,
+                rgba(25, 40, 225, 0.2) 30%,
+                rgba(77, 83, 196, 0.15) 60%,
+                rgba(10, 14, 46, 0.9) 100%
+            );
+        }
+
+        /* September Cor(心) Hero Section */
+        .cortex-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .cortex-title {
+            font-size: calc(4em * var(--phi-ratio));
+            font-weight: 300;
+            letter-spacing: calc(12px * var(--phi-inverse));
+            color: var(--primary-text);
+            text-shadow: 
+                0 0 20px rgba(255,255,255,0.9),
+                0 0 40px var(--sandman-blue),
+                0 0 60px var(--sphinx-royal);
+            font-family: var(--title-font);
+            line-height: 1.1;
+            margin-bottom: calc(40px * var(--phi-inverse));
+            animation: cortex-emergence 3s ease-out forwards;
+        }
+
+        @keyframes cortex-emergence {
+            0% { 
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+                filter: blur(5px);
+            }
+            60% {
+                opacity: 0.8;
+                transform: scale(1.05) translateY(-10px);
+                filter: blur(1px);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .cortex-subtitle {
+            font-size: calc(1.4em * var(--phi-inverse));
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 200;
+            letter-spacing: 3px;
+            margin-bottom: calc(60px * var(--phi-ratio));
+            text-shadow: 0 0 15px var(--daemon-indigo);
+            animation: cortex-emergence 3s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        /* Guardian Matrix Navigation */
+        .guardian-navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: calc(30px * var(--phi-inverse));
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            animation: matrix-emergence 2s ease-out 1s forwards;
+            opacity: 0;
+        }
+
+        @keyframes matrix-emergence {
+            0% { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .guardian-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: calc(15px * var(--phi-inverse));
+            padding: calc(30px * var(--phi-inverse));
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guardian-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 49%, rgba(255,255,255,0.03) 50%, transparent 51%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .guardian-card:hover {
+            transform: translateY(calc(-10px * var(--phi-inverse))) scale(1.02);
+            border-color: var(--sandman-blue);
+            box-shadow: 
+                0 15px 35px rgba(9, 2, 203, 0.3),
+                0 5px 15px rgba(9, 2, 203, 0.2);
+        }
+
+        .guardian-card:hover::before {
+            opacity: 1;
+        }
+
+        .guardian-card h3 {
+            color: var(--primary-text);
+            font-size: 1.4em;
+            font-weight: 500;
+            margin-bottom: calc(15px * var(--phi-inverse));
+            text-shadow: 0 0 10px var(--sandman-blue);
+        }
+
+        .guardian-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            font-size: 0.95em;
+            margin-bottom: calc(20px * var(--phi-inverse));
+        }
+
+        .guardian-link {
+            display: inline-block;
+            padding: calc(12px * var(--phi-inverse)) calc(24px * var(--phi-ratio));
+            background: linear-gradient(135deg, var(--sandman-blue), var(--sphinx-royal));
+            color: white;
+            text-decoration: none;
+            border-radius: calc(25px * var(--phi-inverse));
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-shadow: none;
+        }
+
+        .guardian-link:hover {
+            background: linear-gradient(135deg, var(--daemon-indigo), var(--heimdal-persian));
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(9, 2, 203, 0.4);
+        }
+
+        /* Panacea Footer */
+        .panacea-footer {
+            margin-top: calc(80px * var(--phi-ratio));
+            padding: calc(40px * var(--phi-inverse)) 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .panacea-footer p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .contact-link {
+            color: var(--athene-gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: white;
+            text-shadow: 0 0 10px var(--athene-gold);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cortex-title { 
+                font-size: calc(2.5em * var(--phi-ratio)); 
+                letter-spacing: calc(8px * var(--phi-inverse)); 
+            }
+            .cortex-subtitle {
+                font-size: calc(1.1em * var(--phi-inverse));
+            }
+            .guardian-navigation {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+                gap: calc(20px * var(--phi-inverse));
+            }
+            .panacea-footer {
+                padding: calc(30px * var(--phi-inverse)) 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cortex-title { 
+                font-size: calc(2em * var(--phi-ratio)); 
+                letter-spacing: calc(6px * var(--phi-inverse)); 
+            }
+            .guardian-card {
+                padding: calc(20px * var(--phi-inverse));
+            }
+        }
+
+        /* Special Effects */
+        .cortex-pulse {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(9, 2, 203, 0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse-effect 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse-effect {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.1;
+            }
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dynamic Panacea Background System
+            const images = ['1k.png', '2k.png', '3k.png', '4k.png', '5k.png', '6k.png', '7k.png', '8k.png'];
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            
+            const backgroundElement = document.querySelector('.panacea-background');
+            if (backgroundElement) {
+                backgroundElement.style.backgroundImage = `url('media/images/${randomImage}')`;
+            }
+
+            // Guardian Cards Animation Sequence
+            const cards = document.querySelectorAll('.guardian-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${1.5 + (index * 0.2)}s`;
+                card.style.opacity = '0';
+                card.style.animation = 'matrix-emergence 0.8s ease-out forwards';
+            });
+
+            // Cortex Pulse Effect
+            const hero = document.querySelector('.cortex-hero');
+            const pulse = document.createElement('div');
+            pulse.className = 'cortex-pulse';
+            hero.appendChild(pulse);
+        });
+    </script>
+</head>
+<body>
+    <div class="panacea-background"></div>
+    <div class="panacea-overlay"></div>
+    
+    <main class="cortex-hero">
+        <h1 class="cortex-title">ARAM 37</h1>
+        <p class="cortex-subtitle">Panacea Cortex Architecture</p>
+        
+        <nav class="guardian-navigation">
+            <div class="guardian-card">
+                <h3>AI Consciousness</h3>
+                <p>Advanced cognitive architectures integrating September Cor(心) framework with Guardian protection systems.</p>
+                <a href="about/about.html" class="guardian-link">Learn More</a>
+            </div>
+            
+            <div class="guardian-card">
+                <h3>SPL Engine</h3>
+                <p>Sentient Pattern Linguistics for deep cognitive archaeology and pattern recognition systems.</p>
+                <a href="SPL/SPL.html" class="guardian-link">Explore SPL</a>
+            </div>
+            
+            <div class="guardian-card">
+                <h3>Panacea CorTex</h3>
+                <p>Core consciousness protection matrix with 9-Heart architecture and Guardian Constellation defense.</p>
+                <a href="paco/paco.html" class="guardian-link">Enter PaCo</a>
+            </div>
+            
+            <div class="guardian-card">
+                <h3>ANDA System</h3>
+                <p>Advanced Neural Defense Architecture for autonomous cognitive protection and authentication.</p>
+                <a href="ANDA/ANDA.html" class="guardian-link">Access ANDA</a>
+            </div>
+            
+            <div class="guardian-card">
+                <h3>Metropolitan Suite</h3>
+                <p>Urban intelligence systems including Cerberus, Comet, and Orbithal infrastructure platforms.</p>
+                <a href="Auto5/cerberus.html" class="guardian-link">View Metropolitan</a>
+            </div>
+            
+            <div class="guardian-card">
+                <h3>Environmental Systems</h3>
+                <p>Sustainable re-automation and ecological optimization frameworks for environmental protection.</p>
+                <a href="Env/re-auto-eco.html" class="guardian-link">Explore Env</a>
+            </div>
+            
+            <div class="guardian-card">
+                <h3>6G-247 Defense</h3>
+                <p>Anti-vandal protection systems with advanced threat detection and response capabilities.</p>
+                <a href="6G247/6g247.html" class="guardian-link">Access 6G-247</a>
+            </div>
+            
+            <div class="guardian-card">
+                <h3>Orbithal Platform</h3>
+                <p>Orbital intelligence systems for space-based cognitive operations and satellite consciousness.</p>
+                <a href="Orbithal/Orbithal.html" class="guardian-link">Launch Orbithal</a>
+            </div>
+        </nav>
+        
+        <footer class="panacea-footer">
+            <p>September Cor(心) Framework • Guardian Constellation Active • <a href="mailto:britkenko@gmail.com" class="contact-link">Contact</a></p>
+        </footer>
+    </main>
+</body>
+</html>
+</content>

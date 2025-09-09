@@ -3,675 +3,779 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto5 Cerberus - Autonomous Driving Intelligence | ARAM37</title>
+    <title>CERBEROS - Decentralized Pan Network Auto Driving System | ARAM37</title>
     <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
     <link rel="stylesheet" href="../css/dancheon.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .cerberus-hero {
-            background: var(--light-gray);
-            border-radius: 8px;
-            padding: 3rem 1.5rem;
-            border: 1px solid var(--border-gray);
-            margin: 2rem 0;
+        :root {
+            --primary-font: "poppins", sans-serif;
+            --title-font: "new-order", sans-serif;
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #1a1f2e;
+            --bg-tertiary: #2d3748;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f97316;
+            --accent-cerberus: #6366f1;
+            --accent-neural: #8b5cf6;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --border-accent: rgba(99, 102, 241, 0.3);
+            --glow-cerberus: rgba(99, 102, 241, 0.4);
+            --glow-neural: rgba(139, 92, 246, 0.4);
+            --shadow-soft: rgba(0, 0, 0, 0.3);
+            --gradient-primary: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #2d3748 100%);
+            --gradient-cerberus: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --gradient-neural: linear-gradient(135deg, #8b5cf6, #a855f7);
+            --gradient-card: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(99, 102, 241, 0.08) 100%);
         }
 
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .metric-card {
-            background: var(--white);
-            border-radius: 6px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-gray);
-            transition: box-shadow 0.2s ease;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .metric-card:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        body {
+            font-family: var(--primary-font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .metric-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .metric-label {
-            font-size: 0.9rem;
-            color: var(--neutral-gray);
-        }
-
-        .safety-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .safety-card {
-            background: var(--white);
-            border-radius: 6px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-gray);
-            transition: box-shadow 0.2s ease;
-        }
-
-        .safety-card:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .comparison-chart {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: var(--white);
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-gray);
-        }
-
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin: 2rem 0;
-        }
-
-        /* Mobile Enhancements */
-        @media (max-width: 768px) {
-            .cerberus-hero {
-                padding: 2rem 1rem;
-                margin: 1rem 0;
-            }
-
-            .metrics-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .metric-card {
-                padding: 1rem;
-            }
-
-            .metric-number {
-                font-size: 2rem;
-            }
-
-            .metric-label {
-                font-size: 0.8rem;
-            }
-
-            .safety-features {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                margin: 1.5rem 0;
-            }
-
-            .safety-card {
-                padding: 1rem;
-            }
-
-            .chart-container {
-                height: 300px;
-                margin: 1.5rem 0;
-            }
-
-            .comparison-chart {
-                padding: 1rem;
-                margin: 1.5rem 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .metrics-grid {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .metric-card {
-                padding: 0.75rem;
-                display: flex;
-                align-items: center;
-                text-align: left;
-            }
-
-            .metric-number {
-                font-size: 1.5rem;
-                margin-right: 1rem;
-                flex-shrink: 0;
-            }
-
-            .metric-label {
-                font-size: 0.75rem;
-                margin-top: 0;
-                flex: 1;
-            }
-
-            .safety-card {
-                padding: 0.75rem;
-            }
-
-            .chart-container {
-                height: 250px;
-                margin: 1rem 0;
-            }
-
-            .comparison-chart {
-                padding: 0.75rem;
-                margin: 1rem 0;
-            }
-        }
-    </style>
-        
-        .metric-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-        }
-        
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
-        }
-        
-        .metric-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: numberGlow 2s ease-in-out infinite alternate;
-        }
-        
-        .metric-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 0.5rem;
-        }
-        
-        @keyframes numberGlow {
-            0% { filter: brightness(1); }
-            100% { filter: brightness(1.2); }
-        }
-        
-        .safety-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .safety-card {
+        ::-webkit-scrollbar-track {
             background: var(--bg-secondary);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .safety-card:hover {
-            transform: translateY(-3px);
-        }
-        
-        .comparison-chart {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: var(--bg-secondary);
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin: 2rem 0;
         }
 
-        /* --- MOBILE ENHANCEMENTS --- */
-        @media (max-width: 768px) {
-            .cerberus-hero {
-                padding: 2rem 1rem;
-                margin: 1rem;
-            }
-
-            .metrics-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-                margin-bottom: 2rem;
-            }
-
-            .metric-card {
-                padding: 1rem;
-            }
-
-            .metric-number {
-                font-size: 2rem;
-            }
-
-            .metric-label {
-                font-size: 0.8rem;
-            }
-
-            .safety-features {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                margin: 1.5rem 0;
-            }
-
-            .safety-card {
-                padding: 1rem;
-            }
-
-            .chart-container {
-                height: 300px;
-                margin: 1.5rem 0;
-            }
-
-            .comparison-chart {
-                padding: 1rem;
-                margin: 1.5rem 0;
-            }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-cerberus);
+            border-radius: 4px;
         }
 
-        @media (max-width: 480px) {
-            .cerberus-hero {
-                padding: 1.5rem 0.75rem;
-                margin: 0.5rem;
-            }
-
-            .metrics-grid {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .metric-card {
-                padding: 0.75rem;
-                display: flex;
-                align-items: center;
-                text-align: left;
-            }
-
-            .metric-number {
-                font-size: 1.5rem;
-                margin-right: 1rem;
-                flex-shrink: 0;
-            }
-
-            .metric-label {
-                font-size: 0.75rem;
-                margin-top: 0;
-                flex: 1;
-            }
-
-            .safety-card {
-                padding: 0.75rem;
-            }
-
-            .chart-container {
-                height: 250px;
-                margin: 1rem 0;
-            }
-
-            .comparison-chart {
-                padding: 0.75rem;
-                margin: 1rem 0;
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cerberus);
         }
-    </style>
-        .cerberus-hero {
-            background: linear-gradient(
-                135deg,
-                rgba(239, 68, 68, 0.15),
-                rgba(125, 211, 252, 0.15),
-                rgba(34, 197, 94, 0.1)
-            );
-            border-radius: 20px;
-            padding: 4rem 2rem;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            backdrop-filter: blur(15px);
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--gradient-primary);
             position: relative;
             overflow: hidden;
         }
-        
-        .cerberus-hero::before {
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--glow-cerberus) 0%, transparent 70%);
+            animation: neuralGlow 10s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes neuralGlow {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            33% { transform: scale(1.1) rotate(120deg); }
+            66% { transform: scale(0.9) rotate(240deg); }
+        }
+
+        .hero-title {
+            font-family: var(--title-font);
+            font-size: 4.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-cerberus);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px var(--glow-cerberus);
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: var(--title-font);
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3.5rem;
+            color: var(--text-primary);
+            position: relative;
+            letter-spacing: 0.05em;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-cerberus);
+            border-radius: 2px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .module-card {
+            padding: 2.5rem;
+            background: var(--gradient-card);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-accent);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .module-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(
-                circle at 50% 50%,
-                rgba(239, 68, 68, 0.2) 0%,
-                transparent 70%
-            );
-            animation: heroGlow 5s ease-in-out infinite alternate;
-        }
-        
-        @keyframes heroGlow {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.7; }
-        }
-        
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-        
-        .metric-card {
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.1),
-                rgba(255, 255, 255, 0.05)
-            );
-            border: 1px solid rgba(125, 211, 252, 0.2);
-            border-radius: 15px;
-            padding: 2rem 1rem;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(125, 211, 252, 0.1),
-                transparent
-            );
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-        
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 0 30px rgba(125, 211, 252, 0.2);
-            border-color: rgba(125, 211, 252, 0.4);
-        }
-        
-        .metric-card:hover::before {
-            transform: translateX(100%);
-        }
-        
-        .metric-number {
-            font-size: 3.5rem !important;
-            font-weight: 900 !important;
-            background: linear-gradient(135deg, var(--sky-blue-deep), var(--dancheon-red), var(--dancheon-green));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: numberGlow 3s ease-in-out infinite alternate;
-            text-shadow: 
-                0 0 20px rgba(125, 211, 252, 0.5),
-                0 0 40px rgba(125, 211, 252, 0.3);
-            margin-bottom: 0.5rem;
-            line-height: 1;
-        }
-        
-        @keyframes numberGlow {
-            0% { 
-                background-position: 0% 50%;
-                text-shadow: 
-                    0 0 20px rgba(125, 211, 252, 0.5),
-                    0 0 40px rgba(125, 211, 252, 0.3);
-            }
-            100% { 
-                background-position: 100% 50%;
-                text-shadow: 
-                    0 0 30px rgba(239, 68, 68, 0.6),
-                    0 0 60px rgba(239, 68, 68, 0.4);
-            }
-        }
-        
-        .metric-label {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .architecture-layer {
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.08),
-                rgba(255, 255, 255, 0.03)
-            );
-            border: 1px solid rgba(125, 211, 252, 0.15);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .architecture-layer:hover {
-            background: linear-gradient(
-                135deg,
-                rgba(125, 211, 252, 0.1),
-                rgba(125, 211, 252, 0.05)
-            );
-            border-color: rgba(125, 211, 252, 0.3);
-            transform: translateX(5px);
-        }
-        
-        .licensing-section {
-            background: linear-gradient(
-                135deg,
-                rgba(239, 68, 68, 0.1),
-                rgba(239, 68, 68, 0.05)
-            );
-            border: 2px solid rgba(239, 68, 68, 0.3);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .licensing-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(
-                circle,
-                rgba(239, 68, 68, 0.1) 0%,
-                transparent 50%
-            );
-            animation: licensingRotate 15s linear infinite;
+            background: var(--gradient-card);
+            border-radius: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
             z-index: -1;
         }
-        
-        @keyframes licensingRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .module-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px var(--shadow-soft), 0 0 30px var(--glow-cerberus);
+            border-color: var(--accent-cerberus);
+        }
+
+        .module-card:hover::before {
+            opacity: 1;
+        }
+
+        .module-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.3s ease;
+            background: var(--gradient-neural);
+            color: #ffffff;
+            box-shadow: 0 8px 25px var(--glow-neural);
+        }
+
+        .module-icon::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover .module-icon {
+            transform: scale(1.1);
+        }
+
+        .module-card:hover .module-icon::before {
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: iconGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes iconGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .module-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .module-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--accent-cerberus);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            border-left-color: var(--accent-neural);
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: var(--accent-cerberus);
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+        }
+
+        .network-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #2d3748 100%);
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border-accent);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .network-node {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .network-node:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent-cerberus);
+            box-shadow: 0 10px 25px var(--shadow-soft), 0 0 20px var(--glow-cerberus);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: var(--gradient-card);
+            border-radius: 1rem;
+            border: 1px solid var(--border-accent);
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-soft);
+            border-color: var(--accent-cerberus);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-cerberus);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            font-family: var(--title-font);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        .chart-container {
+            background: var(--gradient-card);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border-accent);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        .ethical-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(16, 185, 129, 0.08) 100%);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        .inventor-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(245, 158, 11, 0.12) 100%);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title { 
+                font-size: 3rem; 
+                margin-bottom: 1rem;
+            }
+            .hero-subtitle { 
+                font-size: 1.3rem; 
+                margin-bottom: 1.5rem;
+            }
+            .container { 
+                padding: 0 1rem; 
+            }
+            .modules-grid { 
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 2.5rem;
+            }
+            .module-card {
+                padding: 2rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { 
+                font-size: 2.5rem; 
+            }
+            .hero-subtitle { 
+                font-size: 1.1rem; 
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="antialiased">
-
-    <!-- Particle Background -->
-    <div class="particles-overlay">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
-    <!-- Header -->
-    <header class="sticky-header">
-        <div class="header-content">
-            <div class="logo">
-                <a href="../index.html">ARAM37</a>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="#overview">Overview</a></li>
-                    <li><a href="#architecture">Architecture</a></li>
-                    <li><a href="#specs">Specs</a></li>
-                    <li><a href="#licensing">Licensing</a></li>
-                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
-                </ul>
-            </nav>
+<body>
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">CERBEROS</h1>
+            <p class="hero-subtitle">Decentralized Pan Network Auto Driving System</p>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto; line-height: 1.6; position: relative; z-index: 2;">
+                Revolutionary autonomous driving architecture featuring decentralized AI negotiation, 
+                networked fail-safe coordination, and ethical decision-making for the future of transportation
+            </p>
         </div>
-    </header>
-
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="text-center my-16">
-            <div class="cerberus-hero">
-                <h1 style="color: var(--dancheon-red);">Auto5 Cerberus</h1>
-                <p class="text-xl max-w-4xl mx-auto">
-                    The world's most advanced Level 5 autonomous driving system that achieves 99.97% safety accuracy through multi-modal sensor fusion and cognitive intelligence, eliminating human error entirely.
-                </p>
-            </div>
-        </section>
-
-        <main>
-            <!-- Key Metrics -->
-            <section id="metrics" class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-number">99.97%</div>
-                    <div class="metric-label">Safety Accuracy</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-number">5</div>
-                    <div class="metric-label">Autonomy Level</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-number">360°</div>
-                    <div class="metric-label">Sensor Coverage</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-number">0</div>
-                    <div class="metric-label">Human Intervention</div>
-                </div>
-            </section>
-
-            <!-- Overview Section -->
-            <section id="overview" class="content-card mb-12">
-                <h2>The Safety Revolution</h2>
-                <p>
-                    Current autonomous systems struggle with <strong style="color: var(--sky-blue-deep);">edge cases and unpredictable scenarios</strong>—Auto5 Cerberus transforms these weaknesses into strengths through cognitive intelligence and multi-modal fusion.
-                </p>
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="feature-card">
-                        <h3 style="color: var(--dancheon-red);">The Problem</h3>
-                        <p>Traditional autonomous systems fail in complex, unpredictable driving scenarios, creating safety risks and limiting deployment potential.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3 style="color: var(--dancheon-green);">The Solution</h3>
-                        <p>Auto5 Cerberus achieves unprecedented safety through cognitive intelligence, multi-modal sensor fusion, and predictive reasoning capabilities.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Architecture Section -->
-            <section id="architecture" class="content-card mb-12">
-                <h2>The Cerberus Architecture</h2>
-                <p>Auto5 Cerberus's revolutionary architecture consists of five integrated intelligence layers, each providing unparalleled autonomous driving capabilities.</p>
-                <div class="space-y-4 mt-8">
-                    <div class="architecture-layer">
-                        <h4>Perception Layer: Multi-Modal Sensor Fusion Engine</h4>
-                        <p class="text-sm">The foundation layer that provides comprehensive environmental awareness through advanced sensor fusion, processing data from LiDAR, radar, cameras, and ultrasonic sensors in real-time.</p>
-                    </div>
-                    <div class="architecture-layer">
-                        <h4>Cognition Layer: Predictive Reasoning Engine</h4>
-                        <p class="text-sm">The intelligence layer that provides predictive reasoning capabilities, anticipating the behavior of other road users and making decisions based on comprehensive situational awareness.</p>
-                    </div>
-                    <div class="architecture-layer">
-                        <h4>Control Layer: Precision Actuation System</h4>
-                        <p class="text-sm">The execution layer that translates cognitive decisions into precise vehicle control commands, ensuring smooth, safe, and efficient driving maneuvers.</p>
-                    </div>
-                    <div class="architecture-layer">
-                        <h4>Guardian Layer: Safety & Redundancy Framework</h4>
-                        <p class="text-sm">The safety layer that provides multiple redundancy systems and fail-safe mechanisms, ensuring the vehicle can always maintain safe operation even under extreme conditions.</p>
-                    </div>
-                    <div class="architecture-layer">
-                        <h4>Learning Layer: Continuous Improvement Engine</h4>
-                        <p class="text-sm">The adaptation layer that continuously learns from every driving scenario, improving performance and adapting to new environments and driving conditions over time.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Specifications Section -->
-            <section id="specs" class="content-card mb-12">
-                <h2>Technical Specifications</h2>
-                <div class="grid grid-cols-2 gap-8">
-                    <div>
-                        <h3>Performance Metrics</h3>
-                        <ul class="list-none p-0">
-                            <li class="mb-2"><strong>Safety Accuracy:</strong> 99.97%</li>
-                            <li class="mb-2"><strong>Response Time:</strong> 15ms</li>
-                            <li class="mb-2"><strong>Miles Driven:</strong> 10M+</li>
-                            <li><strong>Edge Case Handling:</strong> 100%</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Core Technologies</h3>
-                        <ul class="list-none p-0">
-                            <li class="mb-2">Multi-Modal Sensor Fusion</li>
-                            <li class="mb-2">Predictive Cognition Engine</li>
-                            <li class="mb-2">Precision Control Systems</li>
-                            <li class="mb-2">Guardian Safety Framework</li>
-                            <li>Continuous Learning</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Licensing Section -->
-            <section id="licensing" class="licensing-section">
-                <h2 class="text-center">Commercial Licensing</h2>
-                <p class="text-center">Transform transportation with Auto5 Cerberus's revolutionary autonomous driving technology. Strategic licensing for automotive manufacturers and mobility companies.</p>
-                <div class="text-center mt-8">
-                    <a href="mailto:britkenko@gmail.com?subject=Auto5%20Cerberus%20Licensing%20Inquiry" class="button">Discuss Licensing</a>
-                </div>
-            </section>
-        </main>
     </div>
 
-    <footer>
-        <p>© 2025 ARAM37. All rights reserved. | Auto5 Cerberus is a patented autonomous driving technology.</p>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Core System Modules</h2>
+            
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-icon">🧠</div>
+                    <h3 class="module-title">PaCoM - Pan-network Consensus Module</h3>
+                    <p class="module-description">
+                        Decentralized AI negotiation system enabling multiple autonomous vehicles to collaboratively 
+                        negotiate driving decisions without central control. Implements consensus algorithms for 
+                        real-time cooperation.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-title">Peer-to-Peer Negotiation</div>
+                            <div>Direct vehicle communication for maneuver coordination</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Consensus Algorithms</div>
+                            <div>Distributed decision-making without centralized control</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Real-time Optimization</div>
+                            <div>Dynamic traffic flow optimization through cooperation</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Conflict Resolution</div>
+                            <div>Automated resolution of driving conflicts and disputes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-icon">🛡️</div>
+                    <h3 class="module-title">NUA - Networked Unified Autonomy</h3>
+                    <p class="module-description">
+                        Advanced fail-safe coordination system that enables multiple vehicles and infrastructure 
+                        to collaboratively respond to emergencies and system failures, ensuring network-wide safety.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-title">Failure Detection</div>
+                            <div>Real-time monitoring of vehicle system health</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Collective Override</div>
+                            <div>Network intervention for malfunctioning vehicles</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Emergency Coordination</div>
+                            <div>Synchronized emergency responses across multiple vehicles</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Redundant Safety</div>
+                            <div>Multi-layered backup systems through network cooperation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-icon">⚖️</div>
+                    <h3 class="module-title">SOMA - Safety-Oriented Moral Arbiter</h3>
+                    <p class="module-description">
+                        Ethical decision-making module that remains dormant during normal operation and activates 
+                        only when unavoidable collision scenarios require moral judgment and ethical choices.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-title">Ethical Framework</div>
+                            <div>Pre-programmed moral guidelines for decision-making</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Harm Minimization</div>
+                            <div>Algorithms to minimize overall harm in unavoidable scenarios</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Transparent Decisions</div>
+                            <div>Logged decision processes for accountability and review</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Dormant Mode</div>
+                            <div>Inactive during normal operation, only triggers in extremes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-icon">👁️</div>
+                    <h3 class="module-title">Multi-Sensor Fusion System</h3>
+                    <p class="module-description">
+                        Advanced perception system combining infrared, LiDAR, and visual sensors for robust 
+                        environmental understanding under all conditions, with dynamic weighting optimization.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-title">Infrared Detection</div>
+                            <div>Heat signature detection for living beings and objects</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">LiDAR Precision</div>
+                            <div>3D mapping and precise distance measurements</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Visual Recognition</div>
+                            <div>Object classification and traffic sign reading</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Dynamic Weighting</div>
+                            <div>Adaptive sensor prioritization based on conditions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">Performance Metrics</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Collision Reduction Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;5ms</div>
+                    <div class="stat-label">Network Response Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">360°</div>
+                    <div class="stat-label">Sensor Coverage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5G</div>
+                    <div class="stat-label">Communication Network</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="performanceChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Network Architecture</h2>
+            
+            <div class="network-diagram">
+                <div class="network-node">
+                    <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem;">V2X Communication</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Vehicle-to-everything real-time data exchange</p>
+                </div>
+                
+                <div class="network-node">
+                    <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">5G Network Integration</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Low-latency high-bandwidth communication</p>
+                </div>
+                
+                <div class="network-node">
+                    <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem;">Infrastructure Nodes</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Smart traffic lights and roadside units</p>
+                </div>
+                
+                <div class="network-node">
+                    <h4 style="color: var(--accent-yellow); margin-bottom: 0.5rem;">Micro-mobility Tracking</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Real-time tagging of cyclists and scooters</p>
+                </div>
+
+                <div class="network-node">
+                    <h4 style="color: var(--accent-orange); margin-bottom: 0.5rem;">Vehicle Mimicry</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Collaborative maneuver replication</p>
+                </div>
+                
+                <div class="network-node">
+                    <h4 style="color: var(--accent-red); margin-bottom: 0.5rem;">Emergency Override</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Collective intervention for critical failures</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Ethical Decision Framework</h2>
+            
+            <div class="ethical-section">
+                <h3 style="color: var(--accent-green); margin-bottom: 1rem;">SOMA Ethical Guidelines</h3>
+                <div class="features-grid">
+                    <div class="feature-item" style="border-left-color: var(--accent-green);">
+                        <div class="feature-title" style="color: var(--accent-green);">Human Life Priority</div>
+                        <div>Minimize harm to human life above all other considerations</div>
+                    </div>
+                    <div class="feature-item" style="border-left-color: var(--accent-green);">
+                        <div class="feature-title" style="color: var(--accent-green);">Traffic Law Compliance</div>
+                        <div>Follow traffic laws unless greater harm would result</div>
+                    </div>
+                    <div class="feature-item" style="border-left-color: var(--accent-green);">
+                        <div class="feature-title" style="color: var(--accent-green);">Vulnerable User Protection</div>
+                        <div>Prioritize safety of pedestrians and cyclists</div>
+                    </div>
+                    <div class="feature-item" style="border-left-color: var(--accent-green);">
+                        <div class="feature-title" style="color: var(--accent-green);">Impartial Decision Making</div>
+                        <div>Avoid systematic bias through randomization when outcomes are equivalent</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 1rem;">
+                    <h4 style="color: var(--accent-green); margin-bottom: 1rem;">Decision Transparency</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">
+                        All SOMA decisions are logged with complete context, rationale, and outcome data. This provides 
+                        accountability and enables continuous refinement of ethical frameworks as societal standards evolve.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">Patent Information</h2>
+            
+            <div class="inventor-section">
+                <h3 style="color: var(--accent-yellow); margin-bottom: 1rem;">Invention Details</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div>
+                        <h4 style="color: var(--accent-yellow); margin-bottom: 0.5rem;">Inventor</h4>
+                        <p style="color: var(--text-secondary);">Sung Hyeop Kim</p>
+                        
+                        <h4 style="color: var(--accent-yellow); margin-bottom: 0.5rem; margin-top: 1rem;">Applicant</h4>
+                        <p style="color: var(--text-secondary);">Matthew Dusan Paik</p>
+                        
+                        <h4 style="color: var(--accent-yellow); margin-bottom: 0.5rem; margin-top: 1rem;">Entity Status</h4>
+                        <p style="color: var(--text-secondary);">Micro-Entity (37 C.F.R. § 1.29)</p>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: var(--accent-yellow); margin-bottom: 0.5rem;">Application Type</h4>
+                        <p style="color: var(--text-secondary);">Non-Provisional Patent Application (Utility)</p>
+                        
+                        <h4 style="color: var(--accent-yellow); margin-bottom: 0.5rem; margin-top: 1rem;">International Filing</h4>
+                        <p style="color: var(--text-secondary);">PCT and Republic of Korea applications intended</p>
+                        
+                        <h4 style="color: var(--accent-yellow); margin-bottom: 0.5rem; margin-top: 1rem;">Field</h4>
+                        <p style="color: var(--text-secondary);">Networked Autonomous Vehicle Control Systems</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(245, 158, 11, 0.1); border-radius: 1rem;">
+                    <h4 style="color: var(--accent-yellow); margin-bottom: 1rem;">Technical Innovation</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">
+                        The CERBEROS system represents a paradigm shift from isolated autonomous vehicles to a 
+                        cooperative networked intelligence, dramatically enhancing safety through decentralized 
+                        decision-making, collective fail-safes, and ethical reasoning capabilities.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: var(--gradient-card); padding: 3rem 0; text-align: center; border-top: 1px solid var(--border-accent); backdrop-filter: blur(10px);">
+        <div class="container">
+            <p style="color: var(--text-secondary); font-size: 1rem; letter-spacing: 0.02em;">
+                CERBEROS System • Decentralized Autonomous Driving • 
+                <a href="../index.html" style="color: var(--accent-cerberus); text-decoration: none; font-weight: 500; transition: color 0.3s ease;">ARAM37</a>
+            </p>
+            <div style="margin-top: 1rem; width: 50px; height: 2px; background: var(--gradient-cerberus); margin-left: auto; margin-right: auto; border-radius: 1px;"></div>
+        </div>
     </footer>
 
     <script>
+        // Performance Comparison Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Safety', 'Efficiency', 'Coordination', 'Fail-Safe', 'Ethics', 'Network Resilience'],
+                datasets: [{
+                    label: 'Traditional Autonomous',
+                    data: [60, 70, 30, 40, 20, 25],
+                    backgroundColor: 'rgba(148, 163, 184, 0.2)',
+                    borderColor: 'rgb(148, 163, 184)',
+                    borderWidth: 2
+                }, {
+                    label: 'CERBEROS System',
+                    data: [95, 90, 98, 95, 90, 95],
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    borderColor: 'rgb(99, 102, 241)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.6)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        pointLabels: {
+                            color: 'rgba(255, 255, 255, 0.8)',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Add smooth scroll behavior for internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -679,6 +783,29 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Add intersection observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.module-card, .stat-card, .network-node').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
         });
     </script>
 </body>

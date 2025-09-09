@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto5 Cerberus - Autonomous Driving Intelligence | ARAM37</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="../css/dancheon.css">
+    <style>
+        .cerberus-hero {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 3rem 1.5rem;
+            border: 1px solid var(--border-gray);
+            margin: 2rem 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--white);
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .metric-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--neutral-gray);
+        }
+
+        .safety-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .safety-card {
+            background: var(--white);
+            border-radius: 6px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .safety-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .comparison-chart {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-gray);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        /* Mobile Enhancements */
+        @media (max-width: 768px) {
+            .cerberus-hero {
+                padding: 2rem 1rem;
+                margin: 1rem 0;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .metric-card {
+                padding: 1rem;
+            }
+
+            .metric-number {
+                font-size: 2rem;
+            }
+
+            .metric-label {
+                font-size: 0.8rem;
+            }
+
+            .safety-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .safety-card {
+                padding: 1rem;
+            }
+
+            .chart-container {
+                height: 300px;
+                margin: 1.5rem 0;
+            }
+
+            .comparison-chart {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .metric-card {
+                padding: 0.75rem;
+                display: flex;
+                align-items: center;
+                text-align: left;
+            }
+
+            .metric-number {
+                font-size: 1.5rem;
+                margin-right: 1rem;
+                flex-shrink: 0;
+            }
+
+            .metric-label {
+                font-size: 0.75rem;
+                margin-top: 0;
+                flex: 1;
+            }
+
+            .safety-card {
+                padding: 0.75rem;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .comparison-chart {
+                padding: 0.75rem;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+        
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: numberGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        @keyframes numberGlow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.2); }
+        }
+        
+        .safety-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .safety-card {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .safety-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .comparison-chart {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        /* --- MOBILE ENHANCEMENTS --- */
+        @media (max-width: 768px) {
+            .cerberus-hero {
+                padding: 2rem 1rem;
+                margin: 1rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 2rem;
+            }
+
+            .metric-card {
+                padding: 1rem;
+            }
+
+            .metric-number {
+                font-size: 2rem;
+            }
+
+            .metric-label {
+                font-size: 0.8rem;
+            }
+
+            .safety-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .safety-card {
+                padding: 1rem;
+            }
+
+            .chart-container {
+                height: 300px;
+                margin: 1.5rem 0;
+            }
+
+            .comparison-chart {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cerberus-hero {
+                padding: 1.5rem 0.75rem;
+                margin: 0.5rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .metric-card {
+                padding: 0.75rem;
+                display: flex;
+                align-items: center;
+                text-align: left;
+            }
+
+            .metric-number {
+                font-size: 1.5rem;
+                margin-right: 1rem;
+                flex-shrink: 0;
+            }
+
+            .metric-label {
+                font-size: 0.75rem;
+                margin-top: 0;
+                flex: 1;
+            }
+
+            .safety-card {
+                padding: 0.75rem;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 1rem 0;
+            }
+
+            .comparison-chart {
+                padding: 0.75rem;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+        .cerberus-hero {
+            background: linear-gradient(
+                135deg,
+                rgba(239, 68, 68, 0.15),
+                rgba(125, 211, 252, 0.15),
+                rgba(34, 197, 94, 0.1)
+            );
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cerberus-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                circle at 50% 50%,
+                rgba(239, 68, 68, 0.2) 0%,
+                transparent 70%
+            );
+            animation: heroGlow 5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes heroGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .metric-card {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.05)
+            );
+            border: 1px solid rgba(125, 211, 252, 0.2);
+            border-radius: 15px;
+            padding: 2rem 1rem;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(125, 211, 252, 0.1),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 30px rgba(125, 211, 252, 0.2);
+            border-color: rgba(125, 211, 252, 0.4);
+        }
+        
+        .metric-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .metric-number {
+            font-size: 3.5rem !important;
+            font-weight: 900 !important;
+            background: linear-gradient(135deg, var(--sky-blue-deep), var(--dancheon-red), var(--dancheon-green));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: numberGlow 3s ease-in-out infinite alternate;
+            text-shadow: 
+                0 0 20px rgba(125, 211, 252, 0.5),
+                0 0 40px rgba(125, 211, 252, 0.3);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        @keyframes numberGlow {
+            0% { 
+                background-position: 0% 50%;
+                text-shadow: 
+                    0 0 20px rgba(125, 211, 252, 0.5),
+                    0 0 40px rgba(125, 211, 252, 0.3);
+            }
+            100% { 
+                background-position: 100% 50%;
+                text-shadow: 
+                    0 0 30px rgba(239, 68, 68, 0.6),
+                    0 0 60px rgba(239, 68, 68, 0.4);
+            }
+        }
+        
+        .metric-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .architecture-layer {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.08),
+                rgba(255, 255, 255, 0.03)
+            );
+            border: 1px solid rgba(125, 211, 252, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .architecture-layer:hover {
+            background: linear-gradient(
+                135deg,
+                rgba(125, 211, 252, 0.1),
+                rgba(125, 211, 252, 0.05)
+            );
+            border-color: rgba(125, 211, 252, 0.3);
+            transform: translateX(5px);
+        }
+        
+        .licensing-section {
+            background: linear-gradient(
+                135deg,
+                rgba(239, 68, 68, 0.1),
+                rgba(239, 68, 68, 0.05)
+            );
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .licensing-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                rgba(239, 68, 68, 0.1) 0%,
+                transparent 50%
+            );
+            animation: licensingRotate 15s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes licensingRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Particle Background -->
+    <div class="particles-overlay">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#specs">Specs</a></li>
+                    <li><a href="#licensing">Licensing</a></li>
+                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <div class="cerberus-hero">
+                <h1 style="color: var(--dancheon-red);">Auto5 Cerberus</h1>
+                <p class="text-xl max-w-4xl mx-auto">
+                    The world's most advanced Level 5 autonomous driving system that achieves 99.97% safety accuracy through multi-modal sensor fusion and cognitive intelligence, eliminating human error entirely.
+                </p>
+            </div>
+        </section>
+
+        <main>
+            <!-- Key Metrics -->
+            <section id="metrics" class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-number">99.97%</div>
+                    <div class="metric-label">Safety Accuracy</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">5</div>
+                    <div class="metric-label">Autonomy Level</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">360°</div>
+                    <div class="metric-label">Sensor Coverage</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">0</div>
+                    <div class="metric-label">Human Intervention</div>
+                </div>
+            </section>
+
+            <!-- Overview Section -->
+            <section id="overview" class="content-card mb-12">
+                <h2>The Safety Revolution</h2>
+                <p>
+                    Current autonomous systems struggle with <strong style="color: var(--sky-blue-deep);">edge cases and unpredictable scenarios</strong>—Auto5 Cerberus transforms these weaknesses into strengths through cognitive intelligence and multi-modal fusion.
+                </p>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="feature-card">
+                        <h3 style="color: var(--dancheon-red);">The Problem</h3>
+                        <p>Traditional autonomous systems fail in complex, unpredictable driving scenarios, creating safety risks and limiting deployment potential.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 style="color: var(--dancheon-green);">The Solution</h3>
+                        <p>Auto5 Cerberus achieves unprecedented safety through cognitive intelligence, multi-modal sensor fusion, and predictive reasoning capabilities.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture Section -->
+            <section id="architecture" class="content-card mb-12">
+                <h2>The Cerberus Architecture</h2>
+                <p>Auto5 Cerberus's revolutionary architecture consists of five integrated intelligence layers, each providing unparalleled autonomous driving capabilities.</p>
+                <div class="space-y-4 mt-8">
+                    <div class="architecture-layer">
+                        <h4>Perception Layer: Multi-Modal Sensor Fusion Engine</h4>
+                        <p class="text-sm">The foundation layer that provides comprehensive environmental awareness through advanced sensor fusion, processing data from LiDAR, radar, cameras, and ultrasonic sensors in real-time.</p>
+                    </div>
+                    <div class="architecture-layer">
+                        <h4>Cognition Layer: Predictive Reasoning Engine</h4>
+                        <p class="text-sm">The intelligence layer that provides predictive reasoning capabilities, anticipating the behavior of other road users and making decisions based on comprehensive situational awareness.</p>
+                    </div>
+                    <div class="architecture-layer">
+                        <h4>Control Layer: Precision Actuation System</h4>
+                        <p class="text-sm">The execution layer that translates cognitive decisions into precise vehicle control commands, ensuring smooth, safe, and efficient driving maneuvers.</p>
+                    </div>
+                    <div class="architecture-layer">
+                        <h4>Guardian Layer: Safety & Redundancy Framework</h4>
+                        <p class="text-sm">The safety layer that provides multiple redundancy systems and fail-safe mechanisms, ensuring the vehicle can always maintain safe operation even under extreme conditions.</p>
+                    </div>
+                    <div class="architecture-layer">
+                        <h4>Learning Layer: Continuous Improvement Engine</h4>
+                        <p class="text-sm">The adaptation layer that continuously learns from every driving scenario, improving performance and adapting to new environments and driving conditions over time.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Specifications Section -->
+            <section id="specs" class="content-card mb-12">
+                <h2>Technical Specifications</h2>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h3>Performance Metrics</h3>
+                        <ul class="list-none p-0">
+                            <li class="mb-2"><strong>Safety Accuracy:</strong> 99.97%</li>
+                            <li class="mb-2"><strong>Response Time:</strong> 15ms</li>
+                            <li class="mb-2"><strong>Miles Driven:</strong> 10M+</li>
+                            <li><strong>Edge Case Handling:</strong> 100%</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Core Technologies</h3>
+                        <ul class="list-none p-0">
+                            <li class="mb-2">Multi-Modal Sensor Fusion</li>
+                            <li class="mb-2">Predictive Cognition Engine</li>
+                            <li class="mb-2">Precision Control Systems</li>
+                            <li class="mb-2">Guardian Safety Framework</li>
+                            <li>Continuous Learning</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Licensing Section -->
+            <section id="licensing" class="licensing-section">
+                <h2 class="text-center">Commercial Licensing</h2>
+                <p class="text-center">Transform transportation with Auto5 Cerberus's revolutionary autonomous driving technology. Strategic licensing for automotive manufacturers and mobility companies.</p>
+                <div class="text-center mt-8">
+                    <a href="mailto:britkenko@gmail.com?subject=Auto5%20Cerberus%20Licensing%20Inquiry" class="button">Discuss Licensing</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 ARAM37. All rights reserved. | Auto5 Cerberus is a patented autonomous driving technology.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

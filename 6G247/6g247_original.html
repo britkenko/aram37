@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6G247: Dual-Mode Urban Network | ARAM37</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            /* Kelly's Mathematical Constants */
+            --phi-ratio: 1.618;
+            --phi-inverse: 0.618;
+            
+            /* Indigo Color System */
+            --bluebonnet: #0902cb;
+            --bluebonnet-light: #4d53c4;
+            --palatinate-blue: #3a4fab;
+            --persian-blue: #1928E1;
+            --pantone-blue: #120A8F;
+            --indigo-dye: #09F92A;
+            
+            /* Typography */
+            --primary-font: "poppins", sans-serif;
+            --title-font: "new-order", sans-serif;
+            --primary-text: #FFFFFF;
+            
+            /* 6G247 Specific Colors */
+            --sky-blue-deep: #0284c7;
+            --dancheon-red: #dc2626;
+            --defense-orange: #ea580c;
+            --civilian-green: #16a34a;
+            --tech-purple: #9333ea;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--primary-font);
+            background-color: #0a0e2e;
+            color: #1a1a1a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Dynamic Image Background System */
+        .dynamic-image-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.9;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Light overlay to maintain readability */
+        .image-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: rgba(10, 14, 46, 0.2);
+        }
+
+        /* Header */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(135, 206, 250, 0.2);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-family: var(--title-font);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .main-nav a {
+            color: var(--primary-text);
+            text-decoration: none;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            text-shadow: 0 0 15px rgba(50, 36, 255, 0.6);
+        }
+
+        .main-nav a:hover {
+            color: var(--bluebonnet);
+            text-shadow: 0 0 20px var(--bluebonnet);
+            transform: scale(1.05);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: var(--title-font);
+            font-size: 3.5rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+            color: var(--primary-text);
+        }
+
+        h2 {
+            font-family: var(--title-font);
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        h3, h4, h5 {
+            font-family: var(--title-font);
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            color: #1a1a1a;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: #1a1a1a;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--sky-blue-deep);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Mode Toggle */
+        .mode-toggle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .mode-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #d1d5db;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-toggle.active {
+            background: var(--dancheon-red);
+        }
+
+        .mode-toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .mode-toggle.active .mode-toggle-slider {
+            transform: translateX(30px);
+        }
+
+        .mode-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .mode-label.active {
+            color: var(--sky-blue-deep);
+        }
+
+        .mode-label.inactive {
+            color: #9ca3af;
+        }
+
+        /* Mode Content */
+        .mode-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+            margin-top: 2rem;
+        }
+
+        .mode-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mode-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .mode-detail-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            padding-top: 0.25rem;
+        }
+
+        .mode-diagram {
+            background: rgba(240, 249, 255, 0.8);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .my-16 {
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .my-8 {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-12 {
+            margin-bottom: 3rem;
+        }
+
+        .mt-8 {
+            margin-top: 2rem;
+        }
+
+        .max-w-4xl {
+            max-width: 56rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        /* Accent Border */
+        .dancheon-accent-border {
+            border: 2px solid var(--sky-blue-deep);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .main-nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                padding: 5rem 1rem 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+
+            h2 {
+                font-size: 2rem;
+                letter-spacing: 1px;
+            }
+
+            .content-card {
+                padding: 2rem;
+            }
+
+            .grid-cols-2,
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .mode-content {
+                grid-template-columns: 1fr;
+            }
+
+            .mode-toggle-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1rem;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="dynamic-image-bg"></div>
+    <div class="image-overlay"></div>
+
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="../index.html">ARAM37</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="#specs">Specs</a></li>
+                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <h1>6G247</h1>
+            <p class="text-xl max-w-4xl mx-auto">
+                Dual-Mode Urban Network - A unified 6G system for smarter cities and instant defense transformation.
+            </p>
+        </section>
+
+        <main>
+            <!-- Overview Section -->
+            <section id="overview" class="content-card mb-12">
+                <h2>A Unified Network for a Smarter, Safer Green City</h2>
+                <p>
+                    This interactive application explores a patented 6G-enabled modular network that transforms urban infrastructure. The system uses a swarm of micro-drones, managed by a central AI, to perform dual roles: providing helpful civilian services by default, and instantly converting into a coordinated defense system when a threat is detected.
+                </p>
+            </section>
+
+            <!-- Operations Section -->
+            <section id="operations" class="content-card mb-12">
+                <h2>Dual-Mode Operations</h2>
+                <p class="text-center">
+                    The network's core innovation is its ability to seamlessly switch between two operational modes. Use the toggle below to see how the system's objectives, drone payloads, and AI priorities adapt in real-time.
+                </p>
+
+                <!-- Mode Toggle -->
+                <div class="mode-toggle-container">
+                    <span id="civilian-label" class="mode-label active">Civilian Support</span>
+                    <div id="mode-toggle" class="mode-toggle">
+                        <div class="mode-toggle-slider"></div>
+                    </div>
+                    <span id="defense-label" class="mode-label inactive">Emergency Defense</span>
+                </div>
+
+                <!-- Mode Content -->
+                <div class="mode-content">
+                    <div>
+                        <h3 id="mode-title">Civilian Support Mode</h3>
+                        <p id="mode-description">
+                            In its default state, the network focuses on improving urban life. Drones are equipped with specialized tools to perform helpful tasks, coordinated by the AI to maximize efficiency and safety.
+                        </p>
+                        <div id="mode-details" class="mode-details">
+                            <!-- JS will populate this section -->
+                        </div>
+                    </div>
+                    <div id="mode-diagram-container" class="mode-diagram">
+                        <!-- JS will populate this diagram -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technology Section -->
+            <section id="technology" class="content-card mb-12">
+                <h2>The Technology Core</h2>
+                <div class="grid grid-cols-3 my-8">
+                    <div class="feature-card">
+                        <span class="icon">📡</span>
+                        <h4>6G: The Neural Network</h4>
+                        <p class="text-sm">
+                            6G communication is the backbone of the system, offering a quantum leap in performance over 5G for real-time, ultra-reliable coordination.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🧠</span>
+                        <h4>AI: The Central Brain</h4>
+                        <p class="text-sm">
+                            A central AI core analyzes data, optimizes drone routes, manages missions, and detects threats to switch the network to defense mode.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="icon">🚁</span>
+                        <h4>Drones: The Active Multi Agents</h4>
+                        <p class="text-sm">
+                            Lightweight, modular drones act as the system's hands and eyes. Their payloads can be automatically swapped at hubs to adapt to missions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="dancheon-accent-border">
+                    <div class="content-card">
+                        <h3 class="text-center">Performance: 5G vs 6G</h3>
+                        <div class="chart-container">
+                            <canvas id="techChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Specifications Section -->
+            <section id="specs" class="content-card">
+                <h2>System Components & Specifications</h2>
+                <div class="grid grid-cols-3 mt-8">
+                    <!-- Micro-Drone -->
+                    <div class="feature-card">
+                        <h4 class="font-bold text-xl mb-4">Micro-Drone</h4>
+                        <ul class="text-left space-y-2">
+                            <li><strong>Mass:</strong> 150 ± 25 g</li>
+                            <li><strong>Max Speed:</strong> 20 m/s</li>
+                            <li><strong>Flight Time:</strong> 15-25 mins</li>
+                            <li><strong>Payloads:</strong> Modular</li>
+                        </ul>
+                    </div>
+                    <!-- Newsstand Hub -->
+                    <div class="feature-card">
+                        <h4 class="font-bold text-xl mb-4">Newsstand Hub</h4>
+                        <ul class="text-left space-y-2">
+                            <li><strong>Drone Capacity:</strong> 50 units</li>
+                            <li><strong>Power:</strong> Solar w/ Battery</li>
+                            <li><strong>Function:</strong> Charge, Store, Reload</li>
+                            <li><strong>Connectivity:</strong> 6G Backhaul</li>
+                        </ul>
+                    </div>
+                    <!-- DBBP Countermeasure -->
+                    <div class="feature-card">
+                        <h4 class="font-bold text-xl mb-4">DBBP Countermeasure</h4>
+                        <ul class="text-left space-y-2">
+                            <li><strong>Effective Radius:</strong> 20-40 m</li>
+                            <li><strong>Stage 1:</strong> Polymer Entanglement</li>
+                            <li><strong>Stage 2:</strong> EM Pulse</li>
+                            <li><strong>Collateral Damage:</strong> Minimal</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2024 ARAM37. All rights reserved. | Powered by 6G Dual-Mode Technology</p>
+    </footer>
+
+    <script>
+        // Dynamic Image Background System
+        document.addEventListener('DOMContentLoaded', function () {
+            // Array of available images
+            const images = ['1k.png', '2k.png', '3k.png', '4k.png', '5k.png', '6k.png', '7k.png', '8k.png'];
+            
+            // Randomly select an image
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            
+            // Set the background image
+            const backgroundElement = document.querySelector('.dynamic-image-bg');
+            if (backgroundElement) {
+                backgroundElement.style.backgroundImage = `url('../media/images/${randomImage}')`;
+            }
+
+            // Mode Toggle System
+            const modeToggle = document.getElementById('mode-toggle');
+            const civilianLabel = document.getElementById('civilian-label');
+            const defenseLabel = document.getElementById('defense-label');
+            const modeTitle = document.getElementById('mode-title');
+            const modeDescription = document.getElementById('mode-description');
+            const modeDetails = document.getElementById('mode-details');
+            const modeDiagramContainer = document.getElementById('mode-diagram-container');
+
+            let isDefenseMode = false;
+
+            const civilianData = {
+                title: 'Civilian Support Mode',
+                description: 'In its default state, the network focuses on improving urban life. Drones are equipped with specialized tools to perform helpful tasks, coordinated by the AI to maximize efficiency and safety.',
+                details: [
+                    { icon: '🧒', title: 'Child Escort System', text: 'Drones project LED paths on sidewalks to guide children safely, providing real-time hazard alerts via V2P communication.' },
+                    { icon: '🌿', title: 'Ecological Restoration', text: 'Drones disperse algae-infused newspaper fragments into puddles, turning them into mini carbon sinks to improve air quality.' },
+                    { icon: '🚲', title: 'Asset Tracking (COMET)', text: 'The entire network acts as a sensor grid to locate and track tagged assets like bicycles and equipment, reducing theft.' }
+                ],
+                diagram: `
+                    <div class="text-center">
+                        <div class="mb-4 text-5xl">🏙️</div>
+                        <h5 class="font-bold text-lg">A City in Harmony</h5>
+                        <p class="text-sm" style="color: #64748b;">Drones perform helpful tasks for a smarter, more efficient urban environment.</p>
+                    </div>
+                `
+            };
+
+            const defenseData = {
+                title: 'Emergency Defense Mode',
+                description: 'Upon detecting a credible threat, the network instantly repurposes all assets for a defensive mission. Civilian tasks are aborted, and drones are re-armed to neutralize the threat.',
+                details: [
+                    { icon: '🚨', title: 'Instant Asset Re-tasking', text: 'All available drones are recalled, re-armed with DBBP capsules, and launched towards intercept vectors.' },
+                    { icon: '🛡️', title: 'Coordinated Defensive Screen', text: 'The AI organizes drones into an optimal formation to create a protective barrier between the threat and civilian areas.' },
+                    { icon: '💥', title: 'DBBP Countermeasure', text: 'Drones deploy a two-stage payload: polymer filaments to entangle propellers and a localized EM pulse to disable electronics.' }
+                ],
+                diagram: `
+                    <div class="text-center">
+                        <div class="mb-4 text-5xl">💥</div>
+                        <h5 class="font-bold text-lg" style="color: var(--dancheon-red);">Threat Neutralization</h5>
+                        <p class="text-sm" style="color: #64748b;">Defender drones form a screen to intercept and neutralize an invasive swarm.</p>
+                    </div>
+                `
+            };
+
+            function updateMode(isDefense) {
+                const data = isDefense ? defenseData : civilianData;
+                
+                // Update toggle appearance
+                if (isDefense) {
+                    modeToggle.classList.add('active');
+                    civilianLabel.classList.remove('active');
+                    civilianLabel.classList.add('inactive');
+                    defenseLabel.classList.remove('inactive');
+                    defenseLabel.classList.add('active');
+                    defenseLabel.style.color = 'var(--dancheon-red)';
+                } else {
+                    modeToggle.classList.remove('active');
+                    defenseLabel.classList.remove('active');
+                    defenseLabel.classList.add('inactive');
+                    civilianLabel.classList.remove('inactive');
+                    civilianLabel.classList.add('active');
+                    civilianLabel.style.color = 'var(--sky-blue-deep)';
+                }
+
+                // Update content
+                modeTitle.textContent = data.title;
+                modeTitle.style.color = isDefense ? 'var(--dancheon-red)' : 'var(--sky-blue-deep)';
+                modeDescription.textContent = data.description;
+
+                // Update details
+                modeDetails.innerHTML = data.details.map(item => `
+                    <div class="mode-detail-item">
+                        <div class="mode-detail-icon">${item.icon}</div>
+                        <div>
+                            <h5 class="font-semibold mb-1">${item.title}</h5>
+                            <p class="text-sm">${item.text}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Update diagram
+                modeDiagramContainer.innerHTML = data.diagram;
+            }
+
+            // Toggle click handler
+            modeToggle.addEventListener('click', () => {
+                isDefenseMode = !isDefenseMode;
+                updateMode(isDefenseMode);
+            });
+
+            // Initialize with civilian mode
+            updateMode(false);
+
+            // Technology Chart
+            const ctx = document.getElementById('techChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Latency (ms)', 'Connection Density (dev/km²)', 'Peak Data Rate (Gbps)'],
+                    datasets: [
+                        {
+                            label: '5G (Prior Art)',
+                            data: [5, 1000000, 20],
+                            backgroundColor: 'rgba(125, 211, 252, 0.7)',
+                            borderColor: 'rgba(56, 189, 248, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: '6G (Invention)',
+                            data: [0.1, 10000000, 1000],
+                            backgroundColor: 'rgba(248, 113, 113, 0.7)',
+                            borderColor: 'rgba(239, 68, 68, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            beginAtZero: true,
+                            title: { display: false },
+                            grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                            ticks: { color: '#334155' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#334155' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: '#1e293b' }
+                        }
+                    }
+                }
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Explorer: 6G Dual-Mode Urban Network</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>6G247 - Dual-Mode Urban Defense Network | ARAM37</title>
+    <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
+    <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: "Urban Harmony" - A calm, professional palette using warm neutrals (bg-stone-50), deep grays for text (text-slate-800), a supportive blue for primary actions (bg-sky-600), and a subtle amber for highlights (amber-400). -->
     <!-- Application Structure Plan: The SPA is designed around a thematic, task-oriented structure rather than mirroring the patent's linear format. The goal is to facilitate user understanding through exploration. The structure includes: 1) A main header for core identity. 2) An interactive "Dual-Mode Operations" dashboard as the central focus, allowing users to toggle between Civilian and Defense modes to see system-wide changes. 3) A "Technology Core" section explaining the foundational pillars (6G, AI, Drones). 4) A "System Components" section for a detailed look at the hardware. 5) A "Performance & Specifications" section with data visualizations. This structure was chosen because the dual-mode capability is the invention's most unique feature, making it the ideal focal point for user interaction and learning. The flow encourages exploration from the general concept to specific details. -->
     <!-- Visualization & Content Choices: 
@@ -17,60 +17,531 @@
         - Library/Method: Chart.js for canvas-based charts, Vanilla JS for all state management and DOM manipulation, Tailwind CSS for layout and styling. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
+        :root {
+            /* ARAM37 Professional B2B Design System */
+            --primary-font: "poppins", sans-serif;
+            --title-font: "new-order", sans-serif;
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --bg-accent: #e2e8f0;
+            --accent-blue: #2563eb;
+            --accent-green: #059669;
+            --accent-red: #dc2626;
+            --accent-yellow: #d97706;
+            --accent-purple: #7c3aed;
+            --accent-6g: #4f46e5; /* Professional indigo for 6G */
+            --accent-neural: #7c3aed;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --border-subtle: rgba(30, 41, 59, 0.1);
+            --border-accent: rgba(79, 70, 229, 0.2);
+            --glow-6g: rgba(79, 70, 229, 0.15);
+            --glow-neural: rgba(124, 58, 237, 0.15);
+            --shadow-soft: rgba(30, 41, 59, 0.08);
+            --shadow-medium: rgba(30, 41, 59, 0.12);
+            --shadow-strong: rgba(30, 41, 59, 0.16);
+            --gradient-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --gradient-6g: linear-gradient(135deg, #4f46e5, #6366f1);
+            --gradient-neural: linear-gradient(135deg, #7c3aed, #8b5cf6);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, rgba(79, 70, 229, 0.03) 100%);
+            --gradient-hero: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
         }
-        .chart-container {
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--primary-font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-6g);
+            border-radius: 4px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-soft);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--title-font);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-6g);
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
             position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-6g);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-6g);
+            text-shadow: 0 0 10px var(--glow-6g);
+        }
+
+        .nav-links a:hover::after {
             width: 100%;
-            max-width: 700px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--glow-6g) 0%, transparent 70%);
+            animation: g6Glow 10s ease-in-out infinite;
+            opacity: 0.2;
+        }
+
+        @keyframes g6Glow {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            33% { transform: scale(1.1) rotate(120deg); }
+            66% { transform: scale(0.9) rotate(240deg); }
+        }
+
+        .hero-title {
+            font-family: var(--title-font);
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-6g);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px var(--glow-6g);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
         }
-        @media (min-width: 768px) {
+
+        /* Content Cards */
+        .content-card {
+            background: var(--gradient-card);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-accent);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.05) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px var(--shadow-soft), 0 0 30px var(--glow-6g);
+            border-color: var(--accent-6g);
+        }
+
+        .content-card:hover::before {
+            opacity: 1;
+        }
+
+        .section-title {
+            font-family: var(--title-font);
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-6g);
+            border-radius: 2px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-6g);
+            border-radius: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px var(--shadow-soft);
+            border-color: var(--accent-6g);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-6g);
+            letter-spacing: 0.02em;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .mode-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .mode-label.active {
+            color: var(--accent-6g);
+            text-shadow: 0 0 10px var(--glow-6g);
+        }
+
+        .mode-label.inactive {
+            color: var(--text-muted);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--accent-6g);
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        .toggle-input:checked + .toggle-slider {
+            background-color: var(--accent-red);
+        }
+
+        .toggle-input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+            background: var(--gradient-card);
+            backdrop-filter: blur(15px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid var(--border-accent);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gradient-card);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-accent);
+            backdrop-filter: blur(10px);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero-section {
+                padding: 4rem 0 3rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 0.05em;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .content-card {
+                padding: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
             .chart-container {
-                height: 400px;
+                height: 300px;
+                padding: 1.5rem;
+            }
+
+            .mode-toggle {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
-        .mode-toggle-label {
-            transition: all 0.3s ease;
-        }
-        .mode-toggle-bg:checked {
-            background-color: #dc2626; /* red-600 */
-        }
-        .flow-step {
-            transition: all 0.3s ease;
-        }
-        .flow-step:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body class="text-slate-800">
 
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-sky-700">6G247</h1>
-            <div class="flex items-center space-x-4">
-                <a href="#overview" class="text-slate-600 hover:text-sky-600">Overview</a>
-                <a href="#operations" class="text-slate-600 hover:text-sky-600">Operations</a>
-                <a href="#technology" class="text-slate-600 hover:text-sky-600">Technology</a>
-                <a href="#specs" class="text-slate-600 hover:text-sky-600">Specifications</a>
+    <header>
+        <nav>
+            <a href="../index.html" class="logo">6G247</a>
+            <div class="nav-links">
+                <a href="#overview">Overview</a>
+                <a href="#operations">Operations</a>
+                <a href="#technology">Technology</a>
+                <a href="#specs">Specifications</a>
             </div>
-      </nav>
+        </nav>
     </header>
 
-    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-        
-        <section id="overview" class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">A Unified Network for a Smarter, Safer Green City</h2>
-            <p class="max-w-3xl mx-auto text-lg text-slate-600">
-                This interactive application explores a patented 6G-enabled modular network that transforms urban infrastructure. The system uses a swarm of micro-drones, managed by a central AI, to perform dual roles: providing helpful civilian services by default, and instantly converting into a coordinated defense system when a threat is detected. Explore the sections below to understand how this technology works.
-            </p>
+    <main>
+        <section id="overview" class="hero-section">
+            <div class="container">
+                <h1 class="hero-title"><span>6G247</span></h1>
+                <p class="hero-subtitle">Patent-Pending Dual-Mode Urban Defense Network</p>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto 2rem; line-height: 1.7; position: relative; z-index: 2;">
+                    Advanced 6G-enabled modular network technology that transforms urban infrastructure through 
+                    intelligent swarm coordination - seamlessly operating between civilian services and coordinated 
+                    defense systems for comprehensive urban security solutions.
+                </p>
+                <div style="display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 2;">
+                    <div style="background: var(--bg-secondary); padding: 0.75rem 1.5rem; border-radius: 2rem; border: 1px solid var(--border-accent); font-weight: 600; color: var(--accent-6g);">
+                        Patent Filed
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 0.75rem 1.5rem; border-radius: 2rem; border: 1px solid var(--border-subtle); font-weight: 500; color: var(--text-secondary);">
+                        Urban Defense
+                    </div>
+                    <div style="background: var(--bg-secondary); padding: 0.75rem 1.5rem; border-radius: 2rem; border: 1px solid var(--border-subtle); font-weight: 500; color: var(--text-secondary);">
+                        6G Network
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="operations" class="mb-16 bg-white p-8 rounded-2xl shadow-lg">

@@ -3,207 +3,724 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COMET: Cooperative V2X Safety System | ARAM37</title>
+    <title>COMET - Anti-Theft Tracking and Recording System | ARAM37</title>
     <link rel="stylesheet" href="https://use.typekit.net/iqz2ced.css">
-    <link rel="stylesheet" href="../css/dancheon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-font: "poppins", sans-serif;
+            --title-font: "new-order", sans-serif;
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #1a1f2e;
+            --bg-tertiary: #2d3748;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f97316;
+            --accent-comet: #ff6b35;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --border-accent: rgba(255, 107, 53, 0.3);
+            --glow-comet: rgba(255, 107, 53, 0.4);
+            --shadow-soft: rgba(0, 0, 0, 0.3);
+            --gradient-primary: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #2d3748 100%);
+            --gradient-comet: linear-gradient(135deg, #ff6b35, #f97316);
+            --gradient-card: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(255, 107, 53, 0.08) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--primary-font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-comet);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-orange);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--glow-comet) 0%, transparent 70%);
+            animation: cometGlow 8s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes cometGlow {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        .hero-title {
+            font-family: var(--title-font);
+            font-size: 4.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-comet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px var(--glow-comet);
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: var(--title-font);
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3.5rem;
+            color: var(--text-primary);
+            position: relative;
+            letter-spacing: 0.05em;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-comet);
+            border-radius: 2px;
+        }
+
+        .comet-modes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .mode-card {
+            padding: 2.5rem;
+            background: var(--gradient-card);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-accent);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-card);
+            border-radius: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px var(--shadow-soft), 0 0 30px var(--glow-comet);
+            border-color: var(--accent-comet);
+        }
+
+        .mode-card:hover::before {
+            opacity: 1;
+        }
+
+        .mode-card.silent {
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .mode-card.silent:hover {
+            box-shadow: 0 20px 60px var(--shadow-soft), 0 0 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .mode-card.active {
+            border-left: 4px solid var(--accent-red);
+        }
+
+        .mode-card.active:hover {
+            box-shadow: 0 20px 60px var(--shadow-soft), 0 0 30px rgba(239, 68, 68, 0.4);
+        }
+
+        .mode-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .mode-icon::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .mode-card:hover .mode-icon {
+            transform: scale(1.1);
+        }
+
+        .mode-card:hover .mode-icon::before {
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: iconGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes iconGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .silent .mode-icon { 
+            background: linear-gradient(135deg, var(--accent-blue), rgba(59, 130, 246, 0.4)); 
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .active .mode-icon { 
+            background: linear-gradient(135deg, var(--accent-red), rgba(239, 68, 68, 0.4)); 
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .mode-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .mode-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--accent-comet);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            border-left-color: var(--accent-orange);
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: var(--accent-comet);
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: var(--gradient-card);
+            border-radius: 1rem;
+            border: 1px solid var(--border-accent);
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-soft);
+            border-color: var(--accent-comet);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-comet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            font-family: var(--title-font);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        .tracking-network {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #2d3748 100%);
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border-accent);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .network-node {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .network-node:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent-comet);
+            box-shadow: 0 10px 25px var(--shadow-soft), 0 0 20px var(--glow-comet);
+        }
+
+        .chart-container {
+            background: var(--gradient-card);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border-accent);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        .privacy-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(16, 185, 129, 0.08) 100%);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        .incentive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .incentive-card {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(245, 158, 11, 0.12) 100%);
+            border-radius: 1rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .incentive-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px var(--shadow-soft), 0 0 25px rgba(245, 158, 11, 0.3);
+            border-color: var(--accent-yellow);
+        }
+
+        /* Responsive Design Enhancements */
+        @media (max-width: 768px) {
+            .hero-title { 
+                font-size: 3rem; 
+                margin-bottom: 1rem;
+            }
+            .hero-subtitle { 
+                font-size: 1.3rem; 
+                margin-bottom: 1.5rem;
+            }
+            .container { 
+                padding: 0 1rem; 
+            }
+            .comet-modes { 
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 2.5rem;
+            }
+            .mode-card {
+                padding: 2rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { 
+                font-size: 2.5rem; 
+            }
+            .hero-subtitle { 
+                font-size: 1.1rem; 
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="antialiased">
-    <!-- Header -->
-    <header class="sticky-header">
-        <div class="header-content">
-            <div class="logo">
-                <a href="../index.html">ARAM37</a>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="#problem">Problem</a></li>
-                    <li><a href="#solution">Solution</a></li>
-                    <li><a href="#technology">Technology</a></li>
-                    <li><a href="mailto:britkenko@gmail.com">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="text-center my-16">
-            <h1>COMET</h1>
-            <p class="text-xl max-w-4xl mx-auto">
-                Cooperative V2X Safety System - Giving vehicles a sixth sense to protect the most vulnerable road users.
+<body>
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">COMET</h1>
+            <p class="hero-subtitle">Anti-Theft Tracking and Recording System</p>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto; line-height: 1.6; position: relative; z-index: 2;">
+                Advanced asset protection with Silent Tracking Mode and Active Recording Mode, 
+                combining AI-driven anomaly detection with privacy-preserving evidence collection
             </p>
-        </section>
-
-        <main>
-            <!-- Problem Section -->
-            <section id="problem" class="content-card mb-12">
-                <h2>The Unseen Danger on Our Roads</h2>
-                <p>
-                    Despite advances in vehicle technology, <strong class="highlight-number">vulnerable road users</strong> remain at high risk. Standard sensors have <strong class="highlight-number">blind spots</strong>, causing <strong class="highlight-number">1.3M deaths annually</strong> and <strong class="highlight-number">$800B in economic losses</strong>.
-                </p>
-                <div class="dancheon-accent-border mt-8">
-                    <div class="content-card">
-                        <h3 class="text-center">Why Conventional Sensors Fail</h3>
-                        <div class="chart-container">
-                            <canvas id="sensorComparisonChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Solution Section -->
-            <section id="solution" class="content-card mb-12">
-                <h2>COMET: Cooperative V2X Safety System</h2>
-                <p>
-                    COMET revolutionizes vehicle safety by enabling vehicles to share sensor data and situational awareness through cooperative communication. This creates a "virtual sensor network" that extends each vehicle's perception beyond its physical limitations.
-                </p>
-                <div class="grid grid-cols-3 gap-4 mt-8">
-                    <div class="feature-card">
-                        <span class="icon">🔗</span>
-                        <h4>Cooperative Sensing</h4>
-                        <p class="text-sm">Vehicles share sensor data in real-time, creating a collective awareness.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="icon">👁️</span>
-                        <h4>360° Awareness</h4>
-                        <p class="text-sm">See around corners and through buildings using cooperative data fusion.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="icon">⚡</span>
-                        <h4>Real-time Processing</h4>
-                        <p class="text-sm">Ultra-low latency communication ensures instant threat detection and response.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Technology Section -->
-            <section id="technology" class="content-card mb-12">
-                <h2>A Multi-Layered Technology Stack</h2>
-                                <p>
-                    COMET fuses multiple communication protocols, creating a robust system that is <strong class="highlight-number">greater than the sum of its parts</strong>. This data fusion provides <strong class="highlight-number">unparalleled contextual awareness</strong> for enterprises.
-                </p>
-                <div class="grid grid-cols-2 gap-8 mt-8">
-                    <div class="feature-card">
-                        <h3 class="text-center">Data Fusion Process</h3>
-                        <ul class="text-left space-y-2">
-                            <li><strong>1. Detect Presence (BLE):</strong> A vehicle gets a general warning: "VRU nearby".</li>
-                            <li><strong>2. Pinpoint Location (UWB):</strong> Provides centimeter-level accuracy.</li>
-                            <li><strong>3. Add Context (GPS):</strong> Places the VRU on a map.</li>
-                            <li><strong>4. Predict & Act (AI):</strong> Fuses data to predict a potential collision and act.</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h3 class="text-center">COMET vs Traditional</h3>
-                        <div class="chart-container" style="height: 250px;">
-                            <canvas id="competitiveChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+        </div>
     </div>
 
-    <footer>
-        <p>© 2025 ARAM37. All rights reserved. | Powered by Cooperative V2X Technology</p>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Operational Modes</h2>
+            
+            <div class="comet-modes">
+                <div class="mode-card silent">
+                    <div class="mode-icon">🔍</div>
+                    <h3 class="mode-title">Silent Tracking Mode</h3>
+                    <p class="mode-description">
+                        Covert, continuous monitoring system that assists in theft recovery without alerting perpetrators. 
+                        Utilizes multi-technology location tracking, AI-based anomaly detection, and real-time law enforcement access.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-title">GPS + BLE/UWB Fusion</div>
+                            <div>Multi-layer tracking with crowdsourced fallback</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">AI Anomaly Detection</div>
+                            <div>Pattern recognition for theft behavior identification</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Stealth Operation</div>
+                            <div>No alerts to perpetrators, optimized power consumption</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Smart City Integration</div>
+                            <div>Interface with license plate recognition and traffic sensors</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mode-card active">
+                    <div class="mode-icon">🎤</div>
+                    <h3 class="mode-title">Active Recording Mode</h3>
+                    <p class="mode-description">
+                        Intelligent audio surveillance system that captures and analyzes environmental audio during theft incidents. 
+                        Features AI-driven threat analysis, encrypted evidence storage, and strict privacy controls.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-title">Automated Audio Capture</div>
+                            <div>Triggered by forced entry or suspicious activity</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">On-Device AI Analysis</div>
+                            <div>Privacy-preserving threat keyword detection</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">Encrypted Evidence</div>
+                            <div>Law enforcement-only access with audit trails</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-title">User Opt-In Control</div>
+                            <div>Granular privacy settings and consent management</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">Performance Statistics</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">30%</div>
+                    <div class="stat-label">Recovery Rate Increase</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;1s</div>
+                    <div class="stat-label">Alert Response Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Continuous Monitoring</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">AES-256</div>
+                    <div class="stat-label">Encryption Standard</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="recoveryChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Tracking Network</h2>
+            
+            <div class="tracking-network">
+                <div class="network-node">
+                    <h4 style="color: var(--accent-blue); margin-bottom: 0.5rem;">GPS Satellite</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Global positioning with high accuracy</p>
+                </div>
+                
+                <div class="network-node">
+                    <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">BLE/UWB Beacons</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Short-range precision and crowdsourced tracking</p>
+                </div>
+                
+                <div class="network-node">
+                    <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem;">Cellular Network</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Real-time data transmission and alerts</p>
+                </div>
+                
+                <div class="network-node">
+                    <h4 style="color: var(--accent-yellow); margin-bottom: 0.5rem;">Smart City Infrastructure</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Traffic cameras and sensor networks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Privacy & Compliance</h2>
+            
+            <div class="privacy-section">
+                <h3 style="color: var(--accent-green); margin-bottom: 1rem;">Privacy by Design</h3>
+                <div class="features-grid">
+                    <div class="feature-item" style="border-left-color: var(--accent-green);">
+                        <div class="feature-title" style="color: var(--accent-green);">User Consent Control</div>
+                        <div>Opt-in basis with granular privacy settings</div>
+                    </div>
+                    <div class="feature-item" style="border-left-color: var(--accent-green);">
+                        <div class="feature-title" style="color: var(--accent-green);">Data Minimization</div>
+                        <div>Only security-relevant data is collected and retained</div>
+                    </div>
+                    <div class="feature-item" style="border-left-color: var(--accent-green);">
+                        <div class="feature-title" style="color: var(--accent-green);">End-to-End Encryption</div>
+                        <div>All sensitive data encrypted in transit and at rest</div>
+                    </div>
+                    <div class="feature-item" style="border-left-color: var(--accent-green);">
+                        <div class="feature-title" style="color: var(--accent-green);">GDPR Compliance</div>
+                        <div>Meets global data protection regulations</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">Incentive Model</h2>
+            
+            <div class="incentive-grid">
+                <div class="incentive-card">
+                    <h3 style="color: var(--accent-yellow); margin-bottom: 1rem;">Insurance Discounts</h3>
+                    <p>5-25% premium reduction for comprehensive coverage, similar to LoJack systems</p>
+                </div>
+                
+                <div class="incentive-card">
+                    <h3 style="color: var(--accent-yellow); margin-bottom: 1rem;">Safe-Behavior Credits</h3>
+                    <p>Loyalty points system rewarding responsible usage and community safety contributions</p>
+                </div>
+                
+                <div class="incentive-card">
+                    <h3 style="color: var(--accent-yellow); margin-bottom: 1rem;">Service Incentives</h3>
+                    <p>Free cellular data, premium features, and reduced deductibles for active participants</p>
+                </div>
+                
+                <div class="incentive-card">
+                    <h3 style="color: var(--accent-yellow); margin-bottom: 1rem;">Recovery Rewards</h3>
+                    <p>Bonus payments when system data directly assists in asset recovery or arrests</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: var(--gradient-card); padding: 3rem 0; text-align: center; border-top: 1px solid var(--border-accent); backdrop-filter: blur(10px);">
+        <div class="container">
+            <p style="color: var(--text-secondary); font-size: 1rem; letter-spacing: 0.02em;">
+                COMET System • Anti-Theft Protection • 
+                <a href="../index.html" style="color: var(--accent-comet); text-decoration: none; font-weight: 500; transition: color 0.3s ease;">ARAM37</a>
+            </p>
+            <div style="margin-top: 1rem; width: 50px; height: 2px; background: var(--gradient-comet); margin-left: auto; margin-right: auto; border-radius: 1px;"></div>
+        </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const themeColors = {
-                skyBlue: 'rgba(14, 165, 233, 0.7)',
-                red: 'rgba(239, 68, 68, 0.7)',
-                green: 'rgba(34, 197, 94, 0.7)',
-                yellow: 'rgba(245, 158, 11, 0.7)',
-                textDark: '#1e293b',
-                gridLight: 'rgba(0, 0, 0, 0.05)'
-            };
-
-            // Chart 1: Sensor Comparison
-            new Chart(document.getElementById('sensorComparisonChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Clear Day', 'Night/Rain', 'Around Corner', 'Behind Obstacle'],
-                    datasets: [{
-                        label: 'Conventional Sensors',
-                        data: [100, 50, 0, 0],
-                        backgroundColor: themeColors.red,
-                    }, {
-                        label: 'COMET System',
-                        data: [100, 100, 100, 100],
-                        backgroundColor: themeColors.skyBlue,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Detection Certainty (%)', color: themeColors.textDark },
-                            grid: { color: themeColors.gridLight },
-                            ticks: { color: themeColors.textDark }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: themeColors.textDark }
-                        }
-                    },
-                    plugins: {
-                        legend: { position: 'top', labels: { color: themeColors.textDark } }
-                    }
-                }
-            });
-
-            // Chart 2: Competitive Analysis (Radar)
-            const competitiveData = {
-                labels: ['Non-Line-of-Sight', 'Interoperability', 'Privacy', 'Incentives', 'Infrastructure'],
+        // Recovery Rate Chart
+        const ctx = document.getElementById('recoveryChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Baseline Recovery', 'Silent Tracking', 'Active Recording', 'Full COMET'],
                 datasets: [{
-                    label: 'COMET System',
-                    data: [5, 5, 5, 5, 5],
-                    backgroundColor: 'rgba(14, 165, 233, 0.2)',
-                    borderColor: 'rgba(14, 165, 233, 1)',
-                    pointBackgroundColor: 'rgba(14, 165, 233, 1)',
-                }, {
-                    label: 'Vehicle-Only Sensors',
-                    data: [1, 3, 3, 1, 1],
-                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
-                    borderColor: 'rgba(239, 68, 68, 1)',
-                    pointBackgroundColor: 'rgba(239, 68, 68, 1)',
+                    label: 'Recovery Success Rate (%)',
+                    data: [45, 65, 70, 85],
+                    backgroundColor: [
+                        'rgba(148, 163, 184, 0.6)',
+                        'rgba(59, 130, 246, 0.6)',
+                        'rgba(239, 68, 68, 0.6)',
+                        'rgba(249, 115, 22, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgb(148, 163, 184)',
+                        'rgb(59, 130, 246)',
+                        'rgb(239, 68, 68)',
+                        'rgb(249, 115, 22)'
+                    ],
+                    borderWidth: 2
                 }]
-            };
-            new Chart(document.getElementById('competitiveChart'), {
-                type: 'radar',
-                data: competitiveData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            angleLines: { color: themeColors.gridLight },
-                            grid: { color: themeColors.gridLight },
-                            pointLabels: { color: themeColors.textDark, font: { size: 10 } },
-                            ticks: { display: false, stepSize: 1 },
-                            suggestedMin: 0,
-                            suggestedMax: 5
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.6)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)'
                         }
                     },
-                    plugins: {
-                        legend: { position: 'top', labels: { color: themeColors.textDark } }
+                    x: {
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.6)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)'
+                        }
                     }
                 }
-            });
-
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
+            }
         });
     </script>
 </body>
